@@ -1,0 +1,30 @@
+.error {
+  margin: 1vw;
+}
+
+.main {
+  margin: 1vw;
+  margin-right: 3vw;
+  display: grid;
+  gap: 1vw;
+  grid-template-columns: 25% 50% 25%;
+  grid-template-rows: auto auto;
+}
+
+.basic {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  app-misc-info-card {
+    margin-bottom: 1vw;
+  }
+}
+
+app-misc-char-card {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+app-stats-card {
+  height: 100%;
+}

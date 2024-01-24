@@ -1,0 +1,22 @@
+<mat-dialog-content>
+  <div class="list" cdkDropList (cdkDropListDropped)="drop($event)">
+      <div *ngFor="let element of elements">
+          <mat-card cdkDrag>
+              <mat-card-content>
+                  <mat-icon>reorder</mat-icon>
+                  <div *ngIf="element.hasOwnProperty('name')">{{element.name}}</div>
+                  <div *ngIf="element.hasOwnProperty('reminder')">{{element.reminder}}</div>
+              </mat-card-content>
+          </mat-card> 
+      </div>
+  </div>
+
+  <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>
+        Close
+      </button>
+      <button mat-button color="accent" (click)="saveOrder()">
+        Save
+      </button>
+    </mat-dialog-actions>
+</mat-dialog-content>

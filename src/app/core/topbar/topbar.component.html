@@ -1,0 +1,31 @@
+<mat-toolbar color="primary" class="toolbar">
+  <div>
+    <button mat-button routerLink=""><h1>BrokenEye</h1></button>
+
+    <button mat-button [matMenuTriggerFor] = "charMenu">Character</button>
+    <mat-menu #charMenu = "matMenu">
+      <button mat-menu-item routerLink="/char/view"><mat-icon>search</mat-icon>View</button>
+      <button mat-menu-item routerLink="/char/create"><mat-icon>add</mat-icon>Create</button>
+    </mat-menu>
+
+    <button mat-button routerLink="/templates">Templates</button>
+  </div>
+  
+  <div class="rightSet">
+    <button mat-icon-button matTooltip="Settings" (click)="openSettings()">
+      <mat-icon>settings</mat-icon>
+    </button>
+
+    <button *ngIf="this.userService.username == null" mat-icon-button matTooltip="Account" [matMenuTriggerFor] = "accountMenu">
+      <mat-icon>person</mat-icon>
+    </button>
+    <button mat-button *ngIf="this.userService.username != null" matTooltip="Account" [matMenuTriggerFor] = "accountMenu">
+      <mat-icon>person</mat-icon>{{this.userService.username}}
+    </button>
+
+    <mat-menu #accountMenu = "matMenu">
+      <button *ngIf="this.userService.username == null" mat-menu-item routerLink="/account"> <mat-icon>login</mat-icon> Login/Register</button>
+      <button *ngIf="this.userService.username != null" mat-menu-item (click)="logout()"> <mat-icon>logout</mat-icon> Log out</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

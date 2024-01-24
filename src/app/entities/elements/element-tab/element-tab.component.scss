@@ -1,0 +1,41 @@
+.main {
+  margin-top: 1vh;
+}
+
+.tableContainer {
+  height: 60vh;
+  overflow-y: scroll;
+}
+
+table {
+  width: 100%;
+
+  mat-form-field {
+    margin-top: 1vh;
+    margin-bottom: -1vh;
+    width: 5vw;
+  }
+
+  tr {
+    td, th {
+      text-align: center;
+      border-right: 0.1vw solid #4DB6AC;
+      border-bottom: 0.2vh solid #4DB6AC;
+    }
+    th:last-child {
+      border-right: 0;
+    }
+    td:last-child {
+      border-right: 0;
+    }
+  }
+  tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+.search {
+  width: 100%;
+  margin-top: 1vh;
+  margin-bottom: -2vh;
+}

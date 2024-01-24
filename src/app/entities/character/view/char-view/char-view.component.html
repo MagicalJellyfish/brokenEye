@@ -1,0 +1,26 @@
+<div class="error" *ngIf="!this.char">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        Character View
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-spinner></mat-spinner>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div *ngIf="this.char">
+  <div class="main">
+    <div class="basic">
+      <app-misc-info-card [pcSubject]="this.pcSubject" [char]="this.char"></app-misc-info-card>
+      <app-stats-card [pcSubject]="this.pcSubject" [char]="this.char"></app-stats-card>
+    </div>
+
+    <app-large-card [pcSubject]="this.pcSubject" [char]="this.char"></app-large-card>
+
+    <app-hp-card [pcSubject]="this.pcSubject" [char]="this.char"></app-hp-card>
+  </div>
+  <app-misc-char-card [pcSubject]="this.pcSubject" [char]="this.char"></app-misc-char-card>
+</div>

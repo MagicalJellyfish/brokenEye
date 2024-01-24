@@ -1,0 +1,39 @@
+mat-form-field *{
+  height: 1vw;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+table {
+  * {
+    padding-top: 0.5vw;
+  }
+  width: 100%;
+  border-collapse: collapse;
+
+  td {
+    padding-left: 1vw;
+    padding-right: 1vw;
+  }
+
+  tr:first-child {
+    border-top: 0.2vh solid #4DB6AC;
+  }  
+  td:first-child, td:nth-child(2) {
+    text-align: left;
+  }
+  td:nth-child(1) {
+    border-right: 0.1vw solid #4DB6AC;
+  }
+  td:last-child, td:nth-child(1) {
+    text-align: right;
+  }
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}

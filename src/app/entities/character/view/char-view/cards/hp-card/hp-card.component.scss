@@ -1,0 +1,121 @@
+mat-card {
+  height: min-content;
+  * {
+    height: auto;
+  }
+}
+
+.effectsTable {
+  tr.mat-mdc-footer-row td {
+    border-top: #4DB6AC 0.2vh solid;
+  }
+  
+  tr {
+    td {
+      padding: 0.2vw;
+    }
+    td:first-child {
+      text-align: left;
+    }
+    td:last-child {
+      text-align: right;
+    }
+  } 
+}
+
+.dyingTable {
+  tr th {
+    text-align: center;
+  }
+}
+
+.dyingRounds th {
+  border-bottom: 0.2vh solid #4DB6AC;
+}
+
+.dyingRounds td {
+  text-align: center;
+}
+
+
+.hp { 
+  grid-area: hp; 
+  table {
+    width: 100%;
+
+    mat-form-field {
+      height: 5vh;
+      width: 8vw;
+    }
+  }
+}
+
+.effects { 
+  grid-area: effects; 
+  table {
+    width: 100%;
+  }
+  margin-right: 1vw;
+}
+.dyingRounds { 
+  table {
+    width: 100%;
+  }
+  grid-area: dyingRounds; 
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-areas:
+    'hp hp hp hp'
+    'effects effects effects dyingRounds';
+}
+
+.gridContainer > div {
+  text-align: center;
+  padding: 1vw;
+}
+
+mat-expansion-panel {
+  margin-top: 2vh;
+
+  table {
+    width: 100%;
+    td:last-child {
+      text-align: right;
+    }
+  }
+}
+
+mat-expansion-panel-header {
+  height: fit-content;
+  padding: 2vh !important;
+}
+
+.bodyparts {
+  text-align: center;
+  margin-top: 2vh;
+  svg {
+    height: 40vh;
+  }
+}
+
+.healthy {
+  fill: #09d109;
+}
+
+.minorInjury {
+  fill: #e0d500;
+}
+
+.mediumInjury {
+  fill: #e38100;
+}
+
+.majorInjury {
+  fill: #b00d0d;
+}
+
+.dismembered {
+  fill: none;
+}

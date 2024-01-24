@@ -1,0 +1,53 @@
+<mat-dialog-content>
+  <div class="top">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput [formControl]="this.name">
+      <mat-error *ngIf="name.invalid">{{getNameError()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <table>
+    <tr>
+      <td>
+        <mat-form-field appearance="outline">
+          <mat-label>Height</mat-label>
+          <input matInput [formControl]="this.height" type="number">
+          <span matTextSuffix>m</span>
+          <mat-error *ngIf="height.invalid">{{getHeightError()}}</mat-error>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field appearance="outline">
+          <mat-label>Age</mat-label>
+          <input matInput [formControl]="this.age" type="number">
+          <mat-error *ngIf="age.invalid">{{getAgeError()}}</mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <mat-form-field appearance="outline">
+          <mat-label>Weight</mat-label>
+          <input matInput [formControl]="this.weight" type="number">
+          <span matTextSuffix>kg</span>
+          <mat-error *ngIf="weight.invalid">{{getWeightError()}}</mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  <mat-dialog-actions>
+    <button mat-button color="warn" (click)="deleteChar()">
+      Delete
+    </button>
+    <div>
+      <button mat-button mat-dialog-close>
+        Cancel
+      </button>
+      <button mat-button mat-dialog-close [disabled]="!formGroup.valid" (click)="save()">
+        Save
+      </button>
+    </div>
+  </mat-dialog-actions>
+</mat-dialog-content>

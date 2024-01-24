@@ -1,0 +1,26 @@
+mat-card {
+  margin-top: 10vh;
+  margin-right: 20vw;
+  margin-left: 20vw;
+}
+
+mat-card-content {
+  overflow: visible;
+}
+
+mat-form-field {
+  margin-top: 1vw;
+  button {
+    margin-right: 0.2vw;
+  }
+}
+
+.tab-content {
+  overflow: hidden;
+}
+
+.error {
+  color: #F13A2F;
+  margin-left: 0.5vw;
+  margin-bottom: 1vh;
+}

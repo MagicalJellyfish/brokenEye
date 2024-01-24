@@ -1,0 +1,26 @@
+<div  *ngIf="statValues">
+  <table mat-table [dataSource]="statValueTable" *ngIf="statValues.length > 0">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.stat.name}}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef> Value </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.value}}
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="statValueTableCols;"></tr>
+    <tr mat-row *matRowDef="let row; columns: statValueTableCols;"></tr>
+  
+  </table>
+</div>
+
+<div *ngIf="parentData.editDialog">
+  <button mat-button (click)="openStatEdit()">Edit or Create Stat-Modifiers</button>
+</div>

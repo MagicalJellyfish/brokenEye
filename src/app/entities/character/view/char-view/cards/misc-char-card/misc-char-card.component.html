@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab label="Description"> 
+        <div class="description">
+          <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput [(ngModel)]="this.description" (ngModelChange)="this.descriptionDebounce.next($event)"
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"></textarea>
+          </mat-form-field>
+          
+          <div class="image">
+            <img src="data:image/png;base64,{{this.image}}">
+            <button mat-button (click)="imageInput.click()">Choose new Image</button>
+          </div>
+          
+        </div>
+  
+        <input #imageInput hidden="true" type="file" onclick="this.value=null" (change)="updateImage($event)" accept="image/*"/>
+      </mat-tab>
+      <mat-tab label="Notes"> 
+        <mat-form-field appearance="outline">
+          <mat-label>Notes</mat-label>
+          <textarea matInput [(ngModel)]="this.notes" (ngModelChange)="this.notesDebounce.next($event)"
+          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"></textarea>
+        </mat-form-field>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

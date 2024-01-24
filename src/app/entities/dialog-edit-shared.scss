@@ -1,0 +1,42 @@
+mat-dialog-content {
+  width: 90vw;
+  overflow-x: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.description {
+  width: 25%;
+  margin: 0.5vw;
+}
+
+mat-grid-list {
+  width: 45%;
+  margin: 0.5vw;
+}
+
+mat-tab {
+  overflow: hidden;
+}
+
+.tabs {
+  width: 30%;
+  margin: 0.5vw;
+}
+
+mat-grid-tile div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  margin: 1vw;
+}
+  
+
+mat-form-field {
+  margin-top: 2vh;
+  width: 100%;
+}

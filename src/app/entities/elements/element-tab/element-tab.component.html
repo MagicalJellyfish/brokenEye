@@ -1,0 +1,93 @@
+<div class="main">
+  <button mat-button (click)="createElement()"><mat-icon>add</mat-icon>Create Element</button>
+  <button mat-button (click)="addTemplate()"><mat-icon>content_copy</mat-icon>Copy Template</button>
+  <button mat-button (click)="orderElements()"><mat-icon>swap_horiz</mat-icon>Reorder</button>
+  
+  <mat-form-field appearance="outline" class="search">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+  
+  <div class="tableContainer">
+    <table mat-table [dataSource]="elementTable">
+
+      <!--Reminders-->
+      <ng-container matColumnDef="reminder">
+        <th mat-header-cell *matHeaderCellDef> Reminder </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.reminder}}
+        </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="reminding">
+        <th mat-header-cell *matHeaderCellDef> Reminding </th>
+        <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+          <mat-checkbox [checked]="element.reminding" (change)="updateCheckbox(element.id, 'reminding', $event)"></mat-checkbox>
+        </td>
+      </ng-container>
+    
+      <!--General-->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.name}}
+        </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.description}}
+        </td>
+      </ng-container>
+    
+      <!--Counters-->
+      <ng-container matColumnDef="count">
+        <th mat-header-cell *matHeaderCellDef> Count </th>
+        <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+          <mat-form-field appearance="outline">
+            <input matInput [(ngModel)]="element.value" (ngModelChange)="this.counterValueDebounces.get(element.id)!.next($event)">
+            <span matTextSuffix>/{{element.max}}</span>
+          </mat-form-field>
+        </td>
+      </ng-container>
+    
+      <!--Traits-->
+      <ng-container matColumnDef="active">
+        <th mat-header-cell *matHeaderCellDef> Active </th>
+        <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+          <mat-checkbox [checked]="element.active" (change)="updateCheckbox(element.id, 'active', $event)"></mat-checkbox>
+        </td>
+      </ng-container>
+    
+      <!--Items-->
+      <ng-container matColumnDef="equipped">
+        <th mat-header-cell *matHeaderCellDef> Equipped </th>
+        <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+          <mat-checkbox [checked]="element.equipped" (change)="updateCheckbox(element.id, 'equipped', $event)"></mat-checkbox>
+        </td>
+      </ng-container>
+    
+      <!--Effects-->
+      <ng-container matColumnDef="duration">
+        <th mat-header-cell *matHeaderCellDef> Duration </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.duration}}
+          <div *ngIf="element.effectCounter">{{element.effectCounter.value}}/{{element.effectCounter.max}}</div>
+        </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button><mat-icon>info</mat-icon></button>
+          <button mat-icon-button (click)="$event.stopPropagation(); deleteElement(element.id)"><mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="elementTableCols; sticky: true"></tr>
+      <tr mat-row *matRowDef="let element; columns: elementTableCols;" (click)="viewElement(element.id)"></tr>
+    
+    </table>  
+  </div>
+</div>

@@ -1,0 +1,43 @@
+mat-dialog-content {
+  width: 40vw;
+
+  
+  .list {
+    max-height: 70vh;
+    overflow-y: scroll;
+  }
+  mat-card {
+    padding: 0.5vh;
+    color: white;
+    cursor: move;
+    border: 0.1vw solid #4DB6AC;
+
+    * {
+      display: inline-flex;
+      vertical-align: middle;
+    }
+  }
+}
+
+.cdk-drag-preview {
+  font-size: medium;
+  color: white;
+  cursor: move;
+  border: 0.1vw solid #4DB6AC;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

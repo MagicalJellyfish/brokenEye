@@ -1,0 +1,128 @@
+<mat-dialog-content>
+  <div class="flex">
+    <div class="description" *ngIf="this.element">
+
+      <b *ngIf="this.element.hasOwnProperty('description')">Description</b> {{element.description}} <br *ngIf="this.element.hasOwnProperty('description')">
+      <b *ngIf="this.element.hasOwnProperty('abstract')">Abstract</b> {{element.abstract}} <br *ngIf="this.element.hasOwnProperty('abstract')">
+      <b *ngIf="this.element.hasOwnProperty('reminder')">Reminding Text</b> {{element.reminder}} 
+
+    </div>
+    
+    <mat-grid-list *ngIf="element" cols="3" rowHeight="20vh">
+      <!--General-->
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('id')">
+        <div><b>ID</b> {{element.id}}</div> 
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('name')">
+        <div><b>Name</b> {{element.name}}</div> 
+      </mat-grid-tile>
+
+      <!--Reminders-->
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('reminding')">
+        <div><b>Reminding</b> <mat-checkbox disabled="true" [(ngModel)]="this.element.reminding"></mat-checkbox></div> 
+      </mat-grid-tile>
+
+      <!--Counters-->
+      <mat-grid-tile  *ngIf="this.element.hasOwnProperty('value')">
+        <div><b>Value</b> {{element.value}}</div> 
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('max')">
+        <div><b>Maximum Value</b> {{element.max}}</div> 
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('roundBased')">
+        <div><b>Round-Based</b> <mat-checkbox disabled="true" [(ngModel)]="this.element.roundBased"></mat-checkbox></div> 
+      </mat-grid-tile>
+
+      <!--Effect-Counters-->
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('endEffect')">
+        <div><b>Ends Effect</b> <mat-checkbox disabled="true" [(ngModel)]="this.element.endEffect"></mat-checkbox></div> 
+      </mat-grid-tile>
+
+      <!--Modifiers-->
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('maxHp')">
+        <div><b>Maximum HP Increase</b> {{element.maxHp}}</div> 
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('movementSpeed')">
+        <div><b>Movement Speed Increase</b> {{element.movementSpeed}}</div> 
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('evasion')">
+        <div><b>Evasion</b> {{element.evasion}}</div> 
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('armor')">
+        <div><b>Armor</b> {{element.armor}}</div> 
+      </mat-grid-tile>
+
+      <!--Traits-->
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('active')">
+        <div><b>Active</b> <mat-checkbox disabled="true" [(ngModel)]="this.element.active"></mat-checkbox></div> 
+      </mat-grid-tile>
+
+      <!--Items-->
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('equipped')">
+        <div><b>Equipped</b> <mat-checkbox disabled="true" [(ngModel)]="this.element.equipped"></mat-checkbox></div> 
+      </mat-grid-tile>
+
+      <!--Effects-->
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('hp')">
+        <div><b>HP healed per round</b> {{element.hp}}</div> 
+      </mat-grid-tile>
+
+      <mat-grid-tile  *ngIf="this.element.hasOwnProperty('maxTempHp')">
+        <div><b>Temporary HP</b> {{element.maxTempHp}}</div> 
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('duration')">
+        <div><b>Duration</b> {{element.duration}}</div> 
+      </mat-grid-tile>
+
+
+      
+      <!--General-->
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('viewPosition')">
+        <div><b>View-Position</b> {{element.viewPosition}}</div> 
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+    <mat-tab-group *ngIf="this.element" [(selectedIndex)]="persistencyService.dialogTab">
+      <mat-tab label="Reminder" *ngIf="this.element.hasOwnProperty('roundReminder')">
+        <app-element-dialog-tab-single [parentData]="this.parentData" [elementRoute]="this.requestService.routes.roundReminder" [parent]="this.element" [elementName]="'roundReminder'" [elementSubject]="this.elementSubject"></app-element-dialog-tab-single>
+      </mat-tab>
+
+      <mat-tab label="Counters" *ngIf="this.element.hasOwnProperty('effectCounter')">
+        <mat-tab-group [(selectedIndex)]="persistencyService.dialogSubTab">
+          <mat-tab label="Effect-Counter">
+            <app-element-dialog-tab-single [parentData]="this.parentData" [elementRoute]="this.requestService.routes.effectCounter" [parent]="this.element" [elementName]="'effectCounter'" [elementSubject]="this.elementSubject"></app-element-dialog-tab-single>
+          </mat-tab>
+          <mat-tab label="Counters">
+            <app-element-dialog-tab-multiple [parentData]="this.parentData" [elementRoute]="this.requestService.routes.counter" [parent]="this.element" [elementName]="'counters'" [elementSubject]="this.elementSubject"></app-element-dialog-tab-multiple>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-tab>
+
+      <mat-tab label="Counters" *ngIf="this.element.hasOwnProperty('counters') && this.data.route != this.requestService.routes.roundReminder 
+        && !this.element.hasOwnProperty('effectCounter')">
+        <app-element-dialog-tab-multiple [parentData]="this.parentData" [elementRoute]="this.requestService.routes.counter" [parent]="this.element" [elementName]="'counters'" [elementSubject]="this.elementSubject"></app-element-dialog-tab-multiple>
+      </mat-tab>
+
+      <mat-tab label="Stats" *ngIf="this.element.hasOwnProperty('statIncreases')">
+        <app-stat-dialog-tab [template]="false" [parentData]="parentData" [parent]="this.element" [elementName]="'statIncreases'" [elementSubject]="this.elementSubject"></app-stat-dialog-tab>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>
+      Close
+    </button>
+    <button mat-button color="accent" (click)="editElement()">
+      Edit
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>
