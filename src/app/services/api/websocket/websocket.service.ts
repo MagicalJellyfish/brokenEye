@@ -13,7 +13,7 @@ export class WebsocketService {
 
   connect(): Observable<any> {
     let subject = new Subject<any>()
-    this.socket = new WebSocket('wss://localhost:7029/api/PlayerCharacters/ws')
+    this.socket = new WebSocket('wss://localhost:7029/api/Characters/ws')
 
     this.socket.onopen = () => {
       console.log('WebSocket connection established.')

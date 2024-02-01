@@ -5,6 +5,7 @@ import { Trait } from "../Traits/Trait";
 import { BodypartCondition } from "./BodypartCondition";
 import { RoundReminder } from "../RoundReminders/RoundReminder";
 import { StatValue } from "../Stats/StatValue";
+import { UserSimplified } from "../UserSimplified";
 
 export interface Character {
   id: number;
@@ -24,21 +25,6 @@ export interface Character {
   stats: StatValue[];
   bodypartConditions: BodypartCondition[];
 
-  /*abilitiesIds: number[];
-  abilities: Ability[];
-
-  rollAbilitiesIds: number[];
-  rollAbilities: RollAbility[];
-
-  targetAbilitiesIds: number[];
-  targetAbilities: TargetAbility[];
-
-  directAttackAbilitiesIds: number[];
-  directAttackAbilities: DirectAttackAbility[];
-
-  saveAttackAbilitiesIds: number[];
-  saveAttackAbilities: SaveAttackAbility[];*/
-
   itemsIds: number[];
   items: Item[];
 
@@ -53,4 +39,14 @@ export interface Character {
 
   roundRemindersIds: number[];
   roundReminders: RoundReminder[];
+
+  age: number;
+  notes: string;
+  experience: string;
+  
+  image: number[]
+
+  isPlayerCharacter: boolean;
+  ownerId?: number;
+  owner?: UserSimplified;
 }

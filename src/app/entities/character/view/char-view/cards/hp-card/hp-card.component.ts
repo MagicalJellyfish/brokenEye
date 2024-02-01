@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
-import { PlayerCharacter } from 'src/app/api-classes/Characters/PlayerCharacter';
+import { Character } from 'src/app/api-classes/Characters/Character';
 import { Counter } from 'src/app/api-classes/Counters/Counter';
 import { Effect } from 'src/app/api-classes/Effects/Effect';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
@@ -16,8 +16,8 @@ export class HpCardComponent implements OnInit {
 
   constructor(private requestService: RequestService, private objectService: ObjectService) { }
 
-  @Input() pcSubject!: Subject<PlayerCharacter>
-  @Input() char!: PlayerCharacter
+  @Input() pcSubject!: Subject<Character>
+  @Input() char!: Character
 
   effectsTableCols: string[] = ['name', 'hp']
   dyingTableCols: string[] = ['checkbox']
@@ -146,14 +146,14 @@ export class HpCardComponent implements OnInit {
   }
 
   async updateHp() {
-    (await this.requestService.patch(this.requestService.routes.playerCharacter, this.char.id, JSON.stringify({
+    (await this.requestService.patch(this.requestService.routes.character, this.char.id, JSON.stringify({
       "hp": this.hp
     }))).subscribe()
     this.hpDebouncing = false
   }
 
   async updateTempHp() {
-    (await this.requestService.patch(this.requestService.routes.playerCharacter, this.char.id, JSON.stringify({
+    (await this.requestService.patch(this.requestService.routes.character, this.char.id, JSON.stringify({
       "tempHp": this.tempHp
     }))).subscribe()
     this.tempHpDebouncing = false

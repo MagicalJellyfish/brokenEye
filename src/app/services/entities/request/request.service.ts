@@ -11,7 +11,7 @@ export class RequestService {
 
   routes = {
     constant: "Constants",
-    playerCharacter: "PlayerCharacters",
+    character: "Characters",
     counter: "Counters",
     counterTemplate: "CounterTemplates",
     effectCounter: "EffectCounters",

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
-import { PlayerCharacter } from 'src/app/api-classes/Characters/PlayerCharacter';
+import { Character } from 'src/app/api-classes/Characters/Character';
 import { StatValue } from 'src/app/api-classes/Stats/StatValue';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 
@@ -14,8 +14,8 @@ export class StatsCardComponent implements OnInit {
 
   constructor(private requestService: RequestService) { }
 
-  @Input() pcSubject!: Subject<PlayerCharacter>
-  @Input() char!: PlayerCharacter
+  @Input() pcSubject!: Subject<Character>
+  @Input() char!: Character
 
   ngOnInit(): void {
     this.update()
@@ -55,7 +55,7 @@ export class StatsCardComponent implements OnInit {
   statTable = new MatTableDataSource<StatValue>(this.stats);
 
   async updateExperience() {
-    (await this.requestService.patch(this.requestService.routes.playerCharacter, this.char.id, JSON.stringify({
+    (await this.requestService.patch(this.requestService.routes.character, this.char.id, JSON.stringify({
       "experience": this.experience
     }))).subscribe()
     this.experienceDebouncing = false

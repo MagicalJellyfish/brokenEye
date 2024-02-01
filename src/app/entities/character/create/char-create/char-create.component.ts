@@ -12,7 +12,7 @@ export class CharCreateComponent implements OnInit {
   constructor(private router: Router, private objectService: ObjectService, private requestService: RequestService) { }
 
   async ngOnInit(): Promise<void> {
-    (await this.requestService.create(this.requestService.routes.playerCharacter, this.objectService.newCharacter())).subscribe((x: any) => {
+    (await this.requestService.create(this.requestService.routes.character, this.objectService.newCharacter())).subscribe((x: any) => {
       this.router.navigate(["char/view/" + x.id])
     })
   }

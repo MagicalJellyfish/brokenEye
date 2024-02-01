@@ -44,6 +44,11 @@
             </button>
           </mat-form-field>
           <br>
+          <mat-form-field appearance="outline">
+            <mat-label>Discord-ID</mat-label>
+            <input matInput [(ngModel)]="this.discordId">
+          </mat-form-field>
+          <br>
           <div class="error">{{registerErrorMsg}}</div>
           <button mat-button (click)="register()">
             Register

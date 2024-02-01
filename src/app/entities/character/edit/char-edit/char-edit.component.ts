@@ -57,7 +57,7 @@ export class CharEditComponent implements OnInit {
   patternMsg = "has to be in format";
 
   async save() {
-    (await this.requestService.patch(this.requestService.routes.playerCharacter, this.data.id, JSON.stringify({
+    (await this.requestService.patch(this.requestService.routes.character, this.data.id, JSON.stringify({
       "name": this.name.value,
       "height": this.height.value,
       "weight": this.weight.value,
@@ -69,7 +69,7 @@ export class CharEditComponent implements OnInit {
     this.matDialog.open(ConfirmationDialogComponent, { data: { message: "Are you sure you want to delete this character?" }}).afterClosed().subscribe(async x =>
       {
         if(x) {
-          (await this.requestService.delete(this.requestService.routes.playerCharacter, this.data.id)).subscribe(_ => {
+          (await this.requestService.delete(this.requestService.routes.character, this.data.id)).subscribe(_ => {
             this.router.navigate(["char/view"])
             this.webSocketService.closeConnection()
             this.dialogRef.close()

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { PlayerCharacter } from 'src/app/api-classes/Characters/PlayerCharacter';
 import { Counter } from 'src/app/api-classes/Counters/Counter';
 import { CounterTemplate } from 'src/app/api-classes/Counters/CounterTemplate';
 import { EffectCounter } from 'src/app/api-classes/Counters/EffectCounter';
@@ -13,6 +12,7 @@ import { RoundReminderTemplate } from 'src/app/api-classes/RoundReminders/RoundR
 import { Trait } from 'src/app/api-classes/Traits/Trait';
 import { TraitTemplate } from 'src/app/api-classes/Traits/TraitTemplate';
 import { RequestService } from '../request/request.service';
+import { Character } from 'src/app/api-classes/Characters/Character';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class ObjectService {
   newAny(route: string) {
     let routes = this.requestService.routes
     switch(route) {
-      case routes.playerCharacter:
+      case routes.character:
         return this.newCharacter()
       case routes.counter: 
         return this.newCounter()
@@ -56,12 +56,11 @@ export class ObjectService {
   }
 
   newCharacter() {
-    let pc: PlayerCharacter = {
+    let c: Character = {
       age: 0,
       notes: '',
       experience: '',
       image: [],
-      viewPosition: 0,
       id: 0,
       name: 'unnamed',
       description: '',
@@ -86,10 +85,11 @@ export class ObjectService {
       countersIds: [],
       counters: [],
       roundRemindersIds: [],
-      roundReminders: []
+      roundReminders: [],
+      isPlayerCharacter: true
     }
 
-    return pc
+    return c
   }
 
   newEffect() {

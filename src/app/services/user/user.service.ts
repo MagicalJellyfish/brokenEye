@@ -45,9 +45,9 @@ export class UserService {
   public refreshToken: string | null = null
   public refreshTokenExpiration: Date | null = null
 
-  async register(username: string, password: string): Promise<boolean> {
+  async register(username: string, password: string, discordId: number): Promise<boolean> {
     try {
-      var response = await firstValueFrom(this.http.post(this.apiUrl + 'register', {username, password}))
+      var response = await firstValueFrom(this.http.post(this.apiUrl + 'register', {username, password, discordId}))
 
       return await this.getTokens(username, password)
     }

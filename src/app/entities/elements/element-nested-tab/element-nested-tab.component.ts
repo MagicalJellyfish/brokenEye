@@ -5,12 +5,12 @@ import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { ElementEditComponent } from '../element-edit/element-edit.component';
 import { ElementViewComponent } from '../element-view/element-view.component';
-import { PlayerCharacter } from 'src/app/api-classes/Characters/PlayerCharacter';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ElementOrderComponent } from '../element-order/element-order.component';
 import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TemplateSelectComponent } from '../../templates/template-select/template-select.component';
+import { Character } from 'src/app/api-classes/Characters/Character';
 
 @Component({
   selector: 'app-element-nested-tab',
@@ -22,8 +22,8 @@ export class ElementNestedTabComponent implements OnInit {
   constructor(private requestService: RequestService, private objectService: ObjectService,
     private matDialog: MatDialog) { }
 
-  @Input() pcSubject!: Subject<PlayerCharacter>
-  @Input() char!: PlayerCharacter
+  @Input() pcSubject!: Subject<Character>
+  @Input() char!: Character
   @Input() elementRoute!: string
 
   async ngOnInit() {
@@ -57,7 +57,7 @@ export class ElementNestedTabComponent implements OnInit {
 
     this.update()
   
-    this.pcSubject.subscribe((x: PlayerCharacter) => { 
+    this.pcSubject.subscribe((x: Character) => { 
       this.char = x
       this.update()
     })

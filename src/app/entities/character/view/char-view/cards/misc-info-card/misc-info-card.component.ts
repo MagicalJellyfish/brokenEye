@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit, SimpleChange } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
-import { PlayerCharacter } from 'src/app/api-classes/Characters/PlayerCharacter';
+import { Character } from 'src/app/api-classes/Characters/Character';
 import { CharEditComponent } from 'src/app/entities/character/edit/char-edit/char-edit.component';
 
 @Component({
@@ -13,8 +13,8 @@ export class MiscInfoCardComponent implements OnInit {
 
   constructor(private matDialog: MatDialog) { }
 
-  @Input() pcSubject!: Subject<any>
-  @Input() char!: PlayerCharacter
+  @Input() pcSubject!: Subject<Character>
+  @Input() char!: Character
 
   ngOnInit(): void {
     this.pcSubject.subscribe(x => { 

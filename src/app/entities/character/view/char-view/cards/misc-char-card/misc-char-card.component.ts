@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject, buffer, debounceTime, distinctUntilChanged, timeout, timer } from 'rxjs';
-import { PlayerCharacter } from 'src/app/api-classes/Characters/PlayerCharacter';
+import { Character } from 'src/app/api-classes/Characters/Character';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 
 @Component({
@@ -12,8 +12,8 @@ export class MiscCharCardComponent implements OnInit {
 
   constructor(private requestService: RequestService) { }
 
-  @Input() pcSubject!: Subject<PlayerCharacter>
-  @Input() char!: PlayerCharacter
+  @Input() pcSubject!: Subject<Character>
+  @Input() char!: Character
 
   ngOnInit(): void {
     this.update()
@@ -80,7 +80,7 @@ export class MiscCharCardComponent implements OnInit {
           byteArray[i] = binaryString.charCodeAt(i);
         }
 
-        (await this.requestService.patch(this.requestService.routes.playerCharacter, this.char.id, JSON.stringify({
+        (await this.requestService.patch(this.requestService.routes.character, this.char.id, JSON.stringify({
           "image": byteArray
         }))).subscribe()
       };
@@ -90,14 +90,14 @@ export class MiscCharCardComponent implements OnInit {
   }
 
   async updateDescription() {
-    (await this.requestService.patch(this.requestService.routes.playerCharacter, this.char.id, JSON.stringify({
+    (await this.requestService.patch(this.requestService.routes.character, this.char.id, JSON.stringify({
       "description": this.description
     }))).subscribe()
     this.descriptionDebouncing = false
   }
 
   async updateNotes() {
-    (await this.requestService.patch(this.requestService.routes.playerCharacter, this.char.id, JSON.stringify({
+    (await this.requestService.patch(this.requestService.routes.character, this.char.id, JSON.stringify({
       "notes": this.notes
     }))).subscribe()
     this.notesDebouncing = false

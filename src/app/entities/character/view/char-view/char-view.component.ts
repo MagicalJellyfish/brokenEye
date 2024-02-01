@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { PlayerCharacter } from 'src/app/api-classes/Characters/PlayerCharacter';
 import { WebsocketService } from 'src/app/services/api/websocket/websocket.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { HpCardComponent } from './cards/hp-card/hp-card.component';
+import { Character } from 'src/app/api-classes/Characters/Character';
 
 @Component({
   selector: 'app-char-view',
@@ -17,7 +17,7 @@ export class CharViewComponent implements OnInit, OnDestroy {
     private requestService: RequestService) { }
 
   async ngOnInit(): Promise<void> {
-    (await this.requestService.get(this.requestService.routes.playerCharacter, +this.route.snapshot.paramMap.get('id')!)).subscribe((x: any) => {
+    (await this.requestService.get(this.requestService.routes.character, +this.route.snapshot.paramMap.get('id')!)).subscribe((x: any) => {
       this.char = x
     })
     
@@ -27,7 +27,7 @@ export class CharViewComponent implements OnInit, OnDestroy {
       this.lastUpdate = new Date();
       setTimeout(async () => {
         if(!((this.lastUpdate.getTime() + 49) > new Date().getTime())) {
-          (await this.requestService.get(this.requestService.routes.playerCharacter, +this.route.snapshot.paramMap.get('id')!)).subscribe((x: any) => {
+          (await this.requestService.get(this.requestService.routes.character, +this.route.snapshot.paramMap.get('id')!)).subscribe((x: any) => {
             console.log("Reloading")
             this.char = x
             this.pcSubject.next(x)
@@ -39,8 +39,8 @@ export class CharViewComponent implements OnInit, OnDestroy {
 
   lastUpdate: Date = new Date();
 
-  char?: PlayerCharacter;
-  pcSubject: Subject<PlayerCharacter> = new Subject()
+  char?: Character;
+  pcSubject: Subject<Character> = new Subject()
 
   ngOnDestroy() {
     this.webSocketService.closeConnection()
