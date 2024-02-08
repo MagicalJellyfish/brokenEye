@@ -64,6 +64,7 @@ import { ElementDialogTabSingleComponent } from './entities/elements/element-dia
 import { ElementDialogTabMultipleComponent } from './entities/elements/element-dialog-tab/element-dialog-tab-multiple/element-dialog-tab-multiple.component';
 import { ElementTabComponent } from './entities/elements/element-tab/element-tab.component';
 import { ElementNestedTabComponent } from './entities/elements/element-nested-tab/element-nested-tab.component';
+import { DiscordUidEditComponent } from './core/discord-uid-edit/discord-uid-edit.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { ElementNestedTabComponent } from './entities/elements/element-nested-ta
     ElementDialogTabMultipleComponent,
     ElementTabComponent,
     ElementNestedTabComponent,
+    DiscordUidEditComponent,
   ],
   imports: [
     CommonModule,

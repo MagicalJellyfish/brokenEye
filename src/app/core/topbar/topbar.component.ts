@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SettingsDialogComponent } from '../settings-dialog/settings-dialog.component';
 import { UserService } from 'src/app/services/user/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DiscordUidEditComponent } from '../discord-uid-edit/discord-uid-edit.component';
 
 @Component({
   selector: 'app-topbar',
@@ -24,5 +25,9 @@ export class TopbarComponent implements OnInit {
   logout() {
     this.userService.logout();
     this.snackBar.open("Logged out!", undefined, {duration: 2000})
+  }
+
+  changeDiscordUserId() {
+    this.matDialog.open(DiscordUidEditComponent)
   }
 }

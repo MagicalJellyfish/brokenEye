@@ -24,8 +24,9 @@
     </button>
 
     <mat-menu #accountMenu = "matMenu">
-      <button *ngIf="this.userService.username == null" mat-menu-item routerLink="/account"> <mat-icon>login</mat-icon> Login/Register</button>
-      <button *ngIf="this.userService.username != null" mat-menu-item (click)="logout()"> <mat-icon>logout</mat-icon> Log out</button>
+      <button *ngIf="this.userService.username == null" mat-menu-item routerLink="/account"> <mat-icon>login</mat-icon>Login/Register</button>
+      <button *ngIf="this.userService.username != null" mat-menu-item (click)="logout()"> <mat-icon>logout</mat-icon>Log out</button>
+      <button *ngIf="this.userService.username != null" mat-menu-item (click)="changeDiscordUserId()"> <mat-icon>manage_accounts</mat-icon>Change Discord User Id</button>
     </mat-menu>
   </div>
 </mat-toolbar>

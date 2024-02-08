@@ -64,7 +64,7 @@ export class RequestService {
     return this.http.patch(this.apiUrl + route + "/" + id, patch, await this.apiSettings.getHttpHeaders(true, true));
   }
 
-  async fullPatch(route: string, id: number, patch: object) {
+  async fullPatch(route: string, id: any, patch: object | null) {
     return this.http.patch(this.apiUrl + route + "/" + id, patch, await this.apiSettings.getHttpHeaders(true, true));
   }
 }
