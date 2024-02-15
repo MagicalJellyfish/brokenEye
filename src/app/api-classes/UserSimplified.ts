@@ -5,5 +5,6 @@ export interface UserSimplified {
   username: string;
   discordId: number;
 
+  activeCharacter: Character | undefined
   characters: Character[];
 }
