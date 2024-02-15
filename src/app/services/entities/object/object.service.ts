@@ -86,7 +86,7 @@ export class ObjectService {
       counters: [],
       roundRemindersIds: [],
       roundReminders: [],
-      isPlayerCharacter: true
+      isNPC: false
     }
 
     return c

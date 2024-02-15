@@ -47,7 +47,7 @@ export interface Character {
   
   image: number[]
 
-  isPlayerCharacter: boolean;
+  isNPC: boolean;
   ownerId?: number;
   owner?: UserSimplified;
 }

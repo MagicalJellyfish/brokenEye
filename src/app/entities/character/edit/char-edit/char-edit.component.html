@@ -5,6 +5,7 @@
       <input matInput [formControl]="this.name">
       <mat-error *ngIf="name.invalid">{{getNameError()}}</mat-error>
     </mat-form-field>
+    <mat-checkbox labelPosition="before" [(ngModel)]="isNPC">Is NPC</mat-checkbox>
   </div>
 
   <table>

@@ -30,7 +30,8 @@ export class CharEditComponent implements OnInit {
       height: number,
       weight: number,
       age: number,
-      defaultShortcut: string
+      defaultShortcut: string,
+      isNPC: boolean
     },) { 
       
       this.name.setValue(data.name)
@@ -38,16 +39,19 @@ export class CharEditComponent implements OnInit {
       this.weight.setValue(data.weight?.toString())
       this.age.setValue(data.age?.toString())
       this.defaultShortcut.setValue(data.defaultShortcut?.toString())
+      this.isNPC = data.isNPC
     }
 
   ngOnInit(): void {
   }
 
+  //TODO: age, weight, height nullable?
   name = new FormControl('', [ Validators.required ])
   height = new FormControl('', [ Validators.required, Validators.pattern("^\\d+(\\.\\d{1,2})?$") ])
   weight = new FormControl('', [ Validators.required, Validators.pattern("^\\d+$") ])
-  age = new FormControl('', [ Validators.required, Validators.pattern("^\\d+$") ])
+  age = new FormControl('', [ Validators.pattern("^\\d+$") ])
   defaultShortcut = new FormControl('')
+  isNPC!: boolean;
 
   formGroup = new FormGroup({
     name: this.name, 
@@ -66,8 +70,13 @@ export class CharEditComponent implements OnInit {
       "height": this.height.value,
       "weight": this.weight.value,
       "age": this.age.value,
-      "defaultShortcut": this.defaultShortcut.value
+      "defaultShortcut": this.defaultShortcut.value,
+      "isNPC": this.isNPC
     }))).subscribe()
+  }
+
+  test() {
+    console.log(this.isNPC)
   }
 
   deleteChar() {
