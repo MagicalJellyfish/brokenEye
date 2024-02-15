@@ -35,6 +35,12 @@
           <mat-error *ngIf="weight.invalid">{{getWeightError()}}</mat-error>
         </mat-form-field>
       </td>
+      <td>
+        <mat-form-field appearance="outline">
+          <mat-label>Default Shortcut</mat-label>
+          <input matInput [formControl]="this.defaultShortcut">
+        </mat-form-field>
+      </td>
     </tr>
   </table>
   <mat-dialog-actions>

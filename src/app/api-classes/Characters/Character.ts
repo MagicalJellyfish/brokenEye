@@ -10,6 +10,7 @@ import { UserSimplified } from "../UserSimplified";
 export interface Character {
   id: number;
   name: string;
+  defaultShortcut?: string;
   description: string;
   height: number;
   weight: number;

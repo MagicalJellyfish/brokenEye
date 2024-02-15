@@ -29,13 +29,15 @@ export class CharEditComponent implements OnInit {
       name: string,
       height: number,
       weight: number,
-      age: number
+      age: number,
+      defaultShortcut: string
     },) { 
       
       this.name.setValue(data.name)
       this.height.setValue(data.height?.toString())
       this.weight.setValue(data.weight?.toString())
       this.age.setValue(data.age?.toString())
+      this.defaultShortcut.setValue(data.defaultShortcut?.toString())
     }
 
   ngOnInit(): void {
@@ -45,12 +47,14 @@ export class CharEditComponent implements OnInit {
   height = new FormControl('', [ Validators.required, Validators.pattern("^\\d+(\\.\\d{1,2})?$") ])
   weight = new FormControl('', [ Validators.required, Validators.pattern("^\\d+$") ])
   age = new FormControl('', [ Validators.required, Validators.pattern("^\\d+$") ])
+  defaultShortcut = new FormControl('')
 
   formGroup = new FormGroup({
     name: this.name, 
     height: this.height, 
     weight: this.weight, 
-    age: this.age
+    age: this.age,
+    defaultShortcut: this.defaultShortcut
   })
 
   requiredMsg = "can not be empty!";
@@ -61,7 +65,8 @@ export class CharEditComponent implements OnInit {
       "name": this.name.value,
       "height": this.height.value,
       "weight": this.weight.value,
-      "age": this.age.value
+      "age": this.age.value,
+      "defaultShortcut": this.defaultShortcut.value
     }))).subscribe()
   }
 

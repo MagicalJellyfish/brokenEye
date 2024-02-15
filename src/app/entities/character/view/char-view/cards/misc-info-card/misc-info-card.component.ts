@@ -28,7 +28,8 @@ export class MiscInfoCardComponent implements OnInit {
       name: this.char.name,
       height: this.char.height,
       weight: this.char.weight,
-      age: this.char.age
+      age: this.char.age,
+      defaultShortcut: this.char.defaultShortcut
     }})
   }
 }
