@@ -35,6 +35,9 @@ export interface Character {
   effectsIds: number[];
   effects: Effect[];
 
+  injuryEffectsIds: number[];
+  injuryEffects: Effect[];
+
   countersIds: number[];
   counters: Counter[];
 

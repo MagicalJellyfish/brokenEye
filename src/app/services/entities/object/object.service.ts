@@ -82,6 +82,8 @@ export class ObjectService {
       traits: [],
       effectsIds: [],
       effects: [],
+      injuryEffectsIds: [],
+      injuryEffects: [],
       countersIds: [],
       counters: [],
       roundRemindersIds: [],

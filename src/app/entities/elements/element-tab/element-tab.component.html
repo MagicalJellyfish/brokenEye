@@ -1,6 +1,6 @@
 <div class="main">
-  <button mat-button (click)="createElement()"><mat-icon>add</mat-icon>Create Element</button>
-  <button mat-button (click)="addTemplate()"><mat-icon>content_copy</mat-icon>Copy Template</button>
+  <button *ngIf="propertyName != 'injuryEffects'" mat-button (click)="createElement()"><mat-icon>add</mat-icon>Create Element</button>
+  <button *ngIf="propertyName != 'injuryEffects'" mat-button (click)="addTemplate()"><mat-icon>content_copy</mat-icon>Copy Template</button>
   <button mat-button (click)="orderElements()"><mat-icon>swap_horiz</mat-icon>Reorder</button>
   
   <mat-form-field appearance="outline" class="search">
@@ -81,7 +81,7 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
           <button mat-icon-button><mat-icon>info</mat-icon></button>
-          <button mat-icon-button (click)="$event.stopPropagation(); deleteElement(element.id)"><mat-icon>delete</mat-icon></button>
+          <button *ngIf="propertyName != 'injuryEffects'" mat-icon-button (click)="$event.stopPropagation(); deleteElement(element.id)"><mat-icon>delete</mat-icon></button>
         </td>
       </ng-container>
     

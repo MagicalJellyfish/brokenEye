@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { BodypartCondition } from 'src/app/api-classes/Characters/BodypartCondition';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { Counter } from 'src/app/api-classes/Counters/Counter';
 import { Effect } from 'src/app/api-classes/Effects/Effect';
@@ -36,9 +37,12 @@ export class HpCardComponent implements OnInit {
   tempHpDebounce = new Subject<string>();
   tempHpDebouncing = false
 
+  injuryDebounce = new Subject();
+  injuryDebouncing = false
+
   deathCounter!: Counter
-  dying: boolean[] = [/*false, false, false*/]
-  disabled: boolean[] = [/*false, true, true*/]
+  dying: boolean[] = []
+  disabled: boolean[] = []
 
   ngOnInit(): void {
     this.update()
@@ -63,6 +67,13 @@ export class HpCardComponent implements OnInit {
       .subscribe(_ => {
         this.updateTempHp()
       });
+
+    this.injuryDebounce.subscribe(_ => this.injuryDebouncing = true)
+    this.injuryDebounce.pipe(
+      debounceTime(500))
+      .subscribe(_ => {
+        this.updateInjuries()
+      })
   }
 
   update() {
@@ -73,6 +84,12 @@ export class HpCardComponent implements OnInit {
     }
     if(!this.tempHpDebouncing) {
       this.tempHp = this.char.tempHp
+    }
+
+    if(!this.injuryDebouncing) {
+      this.char.bodypartConditions.forEach(condition => {
+        this.injuries[this.bodypartIdTable[condition.bodypartId] as keyof typeof this.injuries] = condition.injuryLevel
+      });
     }
 
     this.effectsTable = new MatTableDataSource(this.char.effects.filter(x => x.hp != ''))
@@ -103,11 +120,6 @@ export class HpCardComponent implements OnInit {
       
       this.check()
     }
-
-    //TODO: how are injuryLevels assigned? Effect determines level or lever applies effects?
-    this.char.bodypartConditions.forEach(condition => {
-      this.injuries[this.bodypartIdTable[condition.bodypartId] as keyof typeof this.injuries] = condition.injuryLevel
-    });
   }
 
   bodypartIdTable: Record<number, string> = {
@@ -159,6 +171,18 @@ export class HpCardComponent implements OnInit {
     this.tempHpDebouncing = false
   }
 
+  async updateInjuries() {
+    (await this.requestService.patch(this.requestService.routes.character + "/Bodyparts", this.char.id, JSON.stringify({
+      1: this.injuries.head,
+      2: this.injuries.torso,
+      3: this.injuries.armRight,
+      4: this.injuries.armLeft,
+      5: this.injuries.legRight,
+      6: this.injuries.legLeft
+    }))).subscribe()
+    this.injuryDebouncing = false;
+  }
+
   async check() {
     var previousValue = this.deathCounter.value
 
@@ -183,6 +207,85 @@ export class HpCardComponent implements OnInit {
       (await this.requestService.patch(this.requestService.routes.counter, this.deathCounter.id, JSON.stringify({
         "value": this.deathCounter.value
       }))).subscribe()
+    }
+  }
+
+  //TODO: requests
+  headLC() {
+    this.injuries.head = this.increaseInjury(this.injuries.head)
+    this.injuryDebounce.next(null);
+  }
+  headRC(event: any) {
+    event.preventDefault();
+    this.injuries.head = this.decreaseInjury(this.injuries.head)
+    this.injuryDebounce.next(null);
+  }
+
+  torsoLC() {
+    this.injuries.torso = this.increaseInjury(this.injuries.torso)
+    this.injuryDebounce.next(null);
+  }
+  torsoRC(event: any) {
+    event.preventDefault();
+    this.injuries.torso = this.decreaseInjury(this.injuries.torso)
+    this.injuryDebounce.next(null);
+  }
+
+  lArmLC() {
+    this.injuries.armLeft = this.increaseInjury(this.injuries.armLeft)
+    this.injuryDebounce.next(null);
+  }
+  lArmRC(event: any) {
+    event.preventDefault();
+    this.injuries.armLeft = this.decreaseInjury(this.injuries.armLeft)
+    this.injuryDebounce.next(null);
+  }
+
+  rArmLC() {
+    this.injuries.armRight = this.increaseInjury(this.injuries.armRight)
+    this.injuryDebounce.next(null);
+  }
+  rArmRC(event: any) {
+    event.preventDefault();
+    this.injuries.armRight = this.decreaseInjury(this.injuries.armRight)
+    this.injuryDebounce.next(null);
+  }
+
+  lLegLC() {
+    this.injuries.legLeft = this.increaseInjury(this.injuries.legLeft)
+    this.injuryDebounce.next(null);
+  }
+  lLegRC(event: any) {
+    event.preventDefault();
+    this.injuries.legLeft = this.decreaseInjury(this.injuries.legLeft)
+    this.injuryDebounce.next(null);
+  }
+
+  rLegLC() {
+    this.injuries.legRight = this.increaseInjury(this.injuries.legRight)
+    this.injuryDebounce.next(null);
+  }
+  rLegRC(event: any) {
+    event.preventDefault();
+    this.injuries.legRight = this.decreaseInjury(this.injuries.legRight)
+    this.injuryDebounce.next(null);
+  }
+
+  increaseInjury(injuryLevel: number) {
+    if(injuryLevel >= 4) {
+      return 0
+    }
+    else {
+      return injuryLevel += 1;
+    }
+  }
+
+  decreaseInjury(injuryLevel: number) {
+    if(injuryLevel <= 0) {
+      return 4
+    }
+    else {
+      return injuryLevel -= 1;
     }
   }
 }

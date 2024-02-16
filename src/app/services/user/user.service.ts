@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
@@ -113,7 +113,10 @@ export class UserService {
       
       return true
     }
-    catch(error) {
+    catch(error: any) {
+      if(error.status == 0) {
+        return true
+      }
       return false
     }
   }
