@@ -210,7 +210,6 @@ export class HpCardComponent implements OnInit {
     }
   }
 
-  //TODO: requests
   headLC() {
     this.injuries.head = this.increaseInjury(this.injuries.head)
     this.injuryDebounce.next(null);

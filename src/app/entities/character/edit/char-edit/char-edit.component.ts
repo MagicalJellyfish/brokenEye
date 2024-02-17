@@ -45,10 +45,9 @@ export class CharEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //TODO: age, weight, height nullable?
-  name = new FormControl('', [ Validators.required ])
-  height = new FormControl('', [ Validators.required, Validators.pattern("^\\d+(\\.\\d{1,2})?$") ])
-  weight = new FormControl('', [ Validators.required, Validators.pattern("^\\d+$") ])
+  name = new FormControl('')
+  height = new FormControl('', [ Validators.pattern("^\\d+(\\.\\d{1,2})?$") ])
+  weight = new FormControl('', [ Validators.pattern("^\\d+$") ])
   age = new FormControl('', [ Validators.pattern("^\\d+$") ])
   defaultShortcut = new FormControl('')
   isNPC!: boolean;
