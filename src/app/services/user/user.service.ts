@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
@@ -56,7 +56,11 @@ export class UserService {
     }
   }
 
-  logout() {
+  async logout() {
+    var headers = new HttpHeaders()
+    headers = headers.append('Authorization', 'Bearer ' + this.accessToken)
+    this.http.get(this.apiUrl + 'logout', { headers: headers })
+
     localStorage.removeItem("username")
     this.username = null
     localStorage.removeItem("accessToken")
