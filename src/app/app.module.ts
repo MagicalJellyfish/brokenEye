@@ -45,7 +45,6 @@ import { IndexComponent } from './core/index/index.component';
 import { CharCreateComponent } from './entities/character/create/char-create/char-create.component';
 import { CommonModule } from '@angular/common';
 import { AccountComponent } from './core/account/account/account.component';
-import { UserCharViewComponent } from './entities/character/view/user-char-view/user-char-view.component';
 import { ResponseInterceptor } from './services/response-interceptor/response.interceptor';
 import { ConfirmationDialogComponent } from './core/confirmation-dialog/confirmation-dialog.component';
 import { StatsEditComponent } from './entities/stat/stats-edit/stats-edit.component';
@@ -53,7 +52,6 @@ import { TemplatesViewComponent } from './entities/templates/templates-view/temp
 import { TemplateEditComponent } from './entities/templates/template-edit/template-edit.component';
 import { TemplateViewComponent } from './entities/templates/template-view/template-view.component';
 import { TemplateSelectComponent } from './entities/templates/template-select/template-select.component';
-import { TemplateTabComponent } from './entities/templates/templates-view/template-tab/template-tab.component';
 import { ElementOrderComponent } from './entities/elements/element-order/element-order.component';
 import { ElementEditComponent } from './entities/elements/element-edit/element-edit.component';
 import { ElementViewComponent } from './entities/elements/element-view/element-view.component';
@@ -65,6 +63,14 @@ import { ElementDialogTabMultipleComponent } from './entities/elements/element-d
 import { ElementTabComponent } from './entities/elements/element-tab/element-tab.component';
 import { ElementNestedTabComponent } from './entities/elements/element-nested-tab/element-nested-tab.component';
 import { DiscordUidEditComponent } from './core/discord-uid-edit/discord-uid-edit.component';
+import { CharTemplateViewComponent } from './entities/characterTemplate/char-template-view/char-template-view.component';
+import { CharTemplateListComponent } from './entities/characterTemplate/char-template-list/char-template-list.component';
+import { UserCharListComponent } from './entities/character/list/user-char-list/user-char-list.component';
+import { NpcCharListComponent } from './entities/character/list/npc-char-list/npc-char-list.component';
+import { CharTemplateCreateComponent } from './entities/characterTemplate/char-template-create/char-template-create.component';
+import { TemplateTabComponent } from './entities/templates/template-tab/template-tab.component';
+import { TemplateNestedTabComponent } from './entities/templates/template-nested-tab/template-nested-tab.component';
+import { TemplatesViewTabComponent } from './entities/templates/templates-view/templates-view-tab/templates-view-tab.component';
 
 @NgModule({
   declarations: [
@@ -81,14 +87,12 @@ import { DiscordUidEditComponent } from './core/discord-uid-edit/discord-uid-edi
     IndexComponent,
     CharCreateComponent,
     AccountComponent,
-    UserCharViewComponent,
     ConfirmationDialogComponent,
     StatsEditComponent,
     TemplatesViewComponent,
     TemplateEditComponent,
     TemplateViewComponent,
     TemplateSelectComponent,
-    TemplateTabComponent,
     ElementOrderComponent,
     ElementEditComponent,
     ElementViewComponent,
@@ -100,6 +104,14 @@ import { DiscordUidEditComponent } from './core/discord-uid-edit/discord-uid-edi
     ElementTabComponent,
     ElementNestedTabComponent,
     DiscordUidEditComponent,
+    CharTemplateViewComponent,
+    CharTemplateListComponent,
+    UserCharListComponent,
+    NpcCharListComponent,
+    CharTemplateCreateComponent,
+    TemplateTabComponent,
+    TemplateNestedTabComponent,
+    TemplatesViewTabComponent,
   ],
   imports: [
     CommonModule,

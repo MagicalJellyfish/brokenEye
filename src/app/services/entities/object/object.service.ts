@@ -13,6 +13,7 @@ import { Trait } from 'src/app/api-classes/Traits/Trait';
 import { TraitTemplate } from 'src/app/api-classes/Traits/TraitTemplate';
 import { RequestService } from '../request/request.service';
 import { Character } from 'src/app/api-classes/Characters/Character';
+import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTemplate';
 
 @Injectable({
   providedIn: 'root'
@@ -199,6 +200,31 @@ export class ObjectService {
     return counter
   }
 
+  newCharacterTemplate() {
+    let ct: CharacterTemplate = {
+      id: 0,
+      name: 'unnamed',
+      description: '',
+      money: 0,
+      notes: '',
+      experience: '',
+      itemTemplatesIds: [],
+      itemTemplates: [],
+      traitTemplatesIds: [],
+      traitTemplates: [],
+      effectTemplatesIds: [],
+      effectTemplates: [],
+      counterTemplatesIds: [],
+      counterTemplates: [],
+      roundReminderTemplatesIds: [],
+      roundReminderTemplates: [],
+      image: [],
+      isNPC: true
+    }
+
+    return ct
+  }
+
   newRoundReminderTemplate() {
     let reminderTemplate: RoundReminderTemplate = {
       id: 0,
@@ -208,6 +234,8 @@ export class ObjectService {
       modifierTemplatesIds: [],
       modifierTemplates: [],
       counterTemplatesIds: [],
+      characterTemplatesIds: [],
+      characterTemplates: []
     }
 
     return reminderTemplate
@@ -222,6 +250,8 @@ export class ObjectService {
       roundBased: true,
       modifierTemplatesIds: [],
       modifierTemplates: [],
+      characterTemplatesIds: [],
+      characterTemplates: []
     }
 
     return counterTemplate
@@ -240,7 +270,9 @@ export class ObjectService {
       statIncreasesIds: [],
       statIncreases: [],
       counterTemplatesIds: [],
-      counterTemplates: []
+      counterTemplates: [],
+      characterTemplatesIds: [],
+      characterTemplates: []
     }
 
     return traitTemplate
@@ -259,7 +291,9 @@ export class ObjectService {
       statIncreasesIds: [],
       statIncreases: [],
       counterTemplatesIds: [],
-      counterTemplates: []
+      counterTemplates: [],
+      characterTemplatesIds: [],
+      characterTemplates: []
     }
 
     return itemTemplate
@@ -281,7 +315,9 @@ export class ObjectService {
       statIncreasesIds: [],
       statIncreases: [],
       counterTemplatesIds: [],
-      counterTemplates: []
+      counterTemplates: [],
+      characterTemplatesIds: [],
+      characterTemplates: []
     }
 
     return effectTemplate
@@ -298,7 +334,9 @@ export class ObjectService {
       max: 0,
       roundBased: true,
       modifierTemplatesIds: [],
-      modifierTemplates: []
+      modifierTemplates: [],
+      characterTemplatesIds: [],
+      characterTemplates: []
     }
 
     return effectCounterTemplate

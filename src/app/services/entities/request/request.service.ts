@@ -12,6 +12,7 @@ export class RequestService {
   routes = {
     constant: "Constants",
     character: "Characters",
+    characterTemplate: "CharacterTemplates",
     counter: "Counters",
     counterTemplate: "CounterTemplates",
     effectCounter: "EffectCounters",

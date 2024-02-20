@@ -200,26 +200,8 @@ export class ElementNestedTabComponent implements OnInit {
     this.elementTable.filter = filterValue.trim().toLowerCase();
   }
 
-  async createElement() {
-    let newElement: any =  this.objectService.newAny(this.elementRoute);
-    newElement.characterId = this.char.id;
-
-    (await this.requestService.create(this.elementRoute, newElement)).subscribe((x: any) => {
-      this.matDialog.open(ElementEditComponent, { maxWidth: '90vw', data: { id: x.id, route: this.elementRoute }})
-    })
-  }
-
   orderElements() {
     this.matDialog.open(ElementOrderComponent, { data: { elements: this.elements, route: this.elementRoute }})
-  }
-
-  addTemplate() {
-    this.matDialog.open(TemplateSelectComponent, { data: { route: this.requestService.elementToTemplateRoute(this.elementRoute) }}).afterClosed().subscribe(async template => {
-      (await this.requestService.get(this.requestService.elementToTemplateRoute(this.elementRoute) + "/Instantiate", template.id)).subscribe(async (element: any) => {
-        element.characterId = this.char.id;
-        (await this.requestService.create(this.elementRoute, element)).subscribe()
-      })
-    })
   }
 
   viewElement(id: number) {

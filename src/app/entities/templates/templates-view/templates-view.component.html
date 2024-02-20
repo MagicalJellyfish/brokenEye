@@ -5,26 +5,26 @@
         <!--TODO: add this when done-->
       </mat-tab>
       <mat-tab label="Traits">
-        <app-template-tab [elementRoute]="this.requestService.routes.traitTemplate"></app-template-tab>
+        <app-templates-view-tab [elementRoute]="this.requestService.routes.traitTemplate"></app-templates-view-tab>
       </mat-tab>
       <mat-tab label="Items">
-        <app-template-tab [elementRoute]="this.requestService.routes.itemTemplate"></app-template-tab>
+        <app-templates-view-tab [elementRoute]="this.requestService.routes.itemTemplate"></app-templates-view-tab>
       </mat-tab>
       <mat-tab label="Effects">
-        <app-template-tab [elementRoute]="this.requestService.routes.effectTemplate"></app-template-tab>
+        <app-templates-view-tab [elementRoute]="this.requestService.routes.effectTemplate"></app-templates-view-tab>
       </mat-tab>
       <mat-tab label="Counters">
         <mat-tab-group>
           <mat-tab label="Counters">
-            <app-template-tab [elementRoute]="this.requestService.routes.counterTemplate"></app-template-tab>
+            <app-templates-view-tab [elementRoute]="this.requestService.routes.counterTemplate"></app-templates-view-tab>
           </mat-tab>
           <mat-tab label="Effect-Counters">
-            <app-template-tab [elementRoute]="this.requestService.routes.effectCounterTemplate"></app-template-tab>
+            <app-templates-view-tab [elementRoute]="this.requestService.routes.effectCounterTemplate"></app-templates-view-tab>
           </mat-tab>
         </mat-tab-group>
       </mat-tab>
       <mat-tab label="Reminders">
-        <app-template-tab [elementRoute]="this.requestService.routes.roundReminderTemplate"></app-template-tab>
+        <app-templates-view-tab [elementRoute]="this.requestService.routes.roundReminderTemplate"></app-templates-view-tab>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>

@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      All NPCs
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-grid-list cols="5" *ngIf="npcs">
+      <mat-grid-tile *ngFor="let npc of npcs; index as i">
+        <button mat-raised-button color="primary" (click)="select(npc.id)">
+          <img src="data:image/png;base64,{{this.npcImages[i]}}">
+          <div class="text"><div class="name">{{npc.name}}</div></div>
+        </button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>

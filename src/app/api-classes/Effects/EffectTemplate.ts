@@ -1,3 +1,4 @@
+import { CharacterTemplate } from "../Characters/CharacterTemplate";
 import { EffectCounterTemplate } from "../Counters/EffectCounterTemplate";
 import { ModifierTemplate } from "../ModifierTemplate";
 
@@ -8,4 +9,6 @@ export interface EffectTemplate extends ModifierTemplate {
 
   effectCounterTemplateId?: number;
   effectCounterTemplate?: EffectCounterTemplate;
+  characterTemplatesIds: number[];
+  characterTemplates: CharacterTemplate[];
 }

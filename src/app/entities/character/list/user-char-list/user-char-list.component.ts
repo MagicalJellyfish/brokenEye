@@ -5,11 +5,11 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
-  selector: 'app-user-char-view',
-  templateUrl: './user-char-view.component.html',
-  styleUrls: ['./user-char-view.component.scss']
+  selector: 'app-user-char-list',
+  templateUrl: './user-char-list.component.html',
+  styleUrls: ['./user-char-list.component.scss', '../../../char-list-shared.scss']
 })
-export class UserCharViewComponent implements OnInit {
+export class UserCharListComponent implements OnInit {
 
   constructor(private router: Router, private requestService: RequestService, private userService: UserService) { }
 
@@ -26,7 +26,7 @@ export class UserCharViewComponent implements OnInit {
       });
     });
 
-    (await this.requestService.getAll(this.requestService.routes.character)).subscribe((x: any) => {
+    (await this.requestService.getAll(this.requestService.routes.character + "/Players")).subscribe((x: any) => {
       this.allChars = x
       
       x.forEach((c: Character) => {
@@ -47,5 +47,4 @@ export class UserCharViewComponent implements OnInit {
   select(id: number) {
     this.router.navigate(["char/view/" + id])
   }
-
 }

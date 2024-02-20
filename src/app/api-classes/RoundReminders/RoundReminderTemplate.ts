@@ -1,3 +1,4 @@
+import { CharacterTemplate } from "../Characters/CharacterTemplate";
 import { CounterTemplate } from "../Counters/CounterTemplate";
 import { ModifierTemplate } from "../ModifierTemplate";
 
@@ -10,4 +11,6 @@ export interface RoundReminderTemplate {
   counterTemplates: CounterTemplate[];
   modifierTemplatesIds: number[];
   modifierTemplates: ModifierTemplate[];
+  characterTemplatesIds: number[];
+  characterTemplates: CharacterTemplate[];
 }

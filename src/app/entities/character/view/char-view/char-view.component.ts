@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { WebsocketService } from 'src/app/services/api/websocket/websocket.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
-import { HpCardComponent } from './cards/hp-card/hp-card.component';
 import { Character } from 'src/app/api-classes/Characters/Character';
 
 @Component({

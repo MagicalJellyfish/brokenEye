@@ -1,5 +1,5 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Component, Inject, NgModule, OnInit } from '@angular/core';
+import { Component, Inject, KeyValueDiffers, NgModule, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -45,7 +45,7 @@ export class CharEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  name = new FormControl('')
+  name = new FormControl('', [ Validators.required ])
   height = new FormControl('', [ Validators.pattern("^\\d+(\\.\\d{1,2})?$") ])
   weight = new FormControl('', [ Validators.pattern("^\\d+$") ])
   age = new FormControl('', [ Validators.pattern("^\\d+$") ])
@@ -74,10 +74,6 @@ export class CharEditComponent implements OnInit {
     }))).subscribe()
   }
 
-  test() {
-    console.log(this.isNPC)
-  }
-
   deleteChar() {
     this.matDialog.open(ConfirmationDialogComponent, { data: { message: "Are you sure you want to delete this character?" }}).afterClosed().subscribe(async x =>
       {
@@ -97,23 +93,14 @@ export class CharEditComponent implements OnInit {
   }
 
   getHeightError() {
-    if(this.height.hasError("required")) {
-      return `Height ${this.requiredMsg}`
-    }
     return `Height ${this.patternMsg} \'0.00\'`
   }
 
   getWeightError() {
-    if(this.weight.hasError("required")) {
-      return `Weight ${this.requiredMsg}`
-    }
     return `Weight ${this.patternMsg} \'00\'`
   }
 
   getAgeError() {
-    if(this.age.hasError("required")) {
-      return `Age ${this.requiredMsg}`
-    }
     return `Age ${this.patternMsg} \'00\'`
   }
 }

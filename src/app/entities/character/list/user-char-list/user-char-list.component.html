@@ -9,7 +9,10 @@
       <mat-grid-tile *ngFor="let uc of userChars; index as i">
         <button mat-raised-button color="primary" (click)="select(uc.id)">
           <img src="data:image/png;base64,{{this.userCharImages[i]}}">
-          <div class="text"><div class="name">{{uc.name}}</div></div>
+          <div class="text">
+            <div class="name">{{uc.name}}</div><br>
+            <div *ngIf="uc.isNPC">NPC</div>
+          </div>
         </button>
       </mat-grid-tile>
     </mat-grid-list>
@@ -19,7 +22,7 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      All characters
+      All player's characters
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>

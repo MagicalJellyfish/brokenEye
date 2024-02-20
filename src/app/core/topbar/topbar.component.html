@@ -2,13 +2,21 @@
   <div>
     <button mat-button routerLink=""><h1>BrokenEye</h1></button>
 
-    <button mat-button [matMenuTriggerFor] = "charMenu">Character</button>
+    <button mat-button [matMenuTriggerFor] = "charMenu">Characters</button>
     <mat-menu #charMenu = "matMenu">
       <button mat-menu-item routerLink="/char/view"><mat-icon>search</mat-icon>View</button>
       <button mat-menu-item routerLink="/char/create"><mat-icon>add</mat-icon>Create</button>
     </mat-menu>
+    
+    <button mat-button routerLink="/templates">Element-Templates</button>
 
-    <button mat-button routerLink="/templates">Templates</button>
+    <button mat-button routerLink="/char/npc/view">NPCs</button>
+    
+    <button mat-button [matMenuTriggerFor] = "charTemplateMenu">Character-Templates</button>
+    <mat-menu #charTemplateMenu = "matMenu">
+      <button mat-menu-item routerLink="/charTemplate/view"><mat-icon>search</mat-icon>View</button>
+      <button mat-menu-item routerLink="/charTemplate/create"><mat-icon>add</mat-icon>Create</button>
+    </mat-menu>
   </div>
   
   <div class="rightSet">

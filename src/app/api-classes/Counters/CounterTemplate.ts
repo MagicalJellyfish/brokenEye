@@ -1,5 +1,6 @@
 import { RoundReminderTemplate } from "../RoundReminders/RoundReminderTemplate";
 import { ModifierTemplate } from "../ModifierTemplate";
+import { CharacterTemplate } from "../Characters/CharacterTemplate";
 
 export interface CounterTemplate {
   id: number;
@@ -12,4 +13,6 @@ export interface CounterTemplate {
   roundReminderTemplate?: RoundReminderTemplate;
   modifierTemplatesIds: number[];
   modifierTemplates: ModifierTemplate[];
+  characterTemplatesIds: number[];
+  characterTemplates: CharacterTemplate[];
 } 
