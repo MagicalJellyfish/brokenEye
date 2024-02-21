@@ -94,13 +94,6 @@ export class HpCardComponent implements OnInit {
 
     this.effectsTable = new MatTableDataSource(this.char.effects.filter(x => x.hp != ''))
 
-    var hpImpacts: number[] = []
-    //TODO: Calculate total: hpImpacts = this.char.effects.map(function(x){return x.hp})
-
-    if(hpImpacts.length != 0) {
-      this.effectHpImpact = hpImpacts.reduce((x,y) => x + y)
-    }
-
     this.deathCounter = this.char.counters.filter(x => x.name == "Dying").at(0)!
 
     var tableLength = []

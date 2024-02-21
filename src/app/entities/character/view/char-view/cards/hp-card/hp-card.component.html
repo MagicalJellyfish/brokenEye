@@ -37,25 +37,24 @@
   
       <mat-card class="effects">
         <mat-card-content>
-
           <table mat-table [dataSource]="effectsTable" class="effectsTable">
 
             <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> HP Impacts </th>
               <td mat-cell *matCellDef="let element"> 
                 {{element.name}}
               </td>
-              <td mat-footer-cell *matFooterCellDef> <b>Total:</b> </td>
             </ng-container>
   
             <ng-container matColumnDef="hp">
+              <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element"> 
                 {{element.hp > 0 ? '+' + element.hp : element.hp}}
               </td>
-              <td mat-footer-cell *matFooterCellDef> <b>{{effectHpImpact}}</b> </td>
             </ng-container>
   
+            <tr mat-header-row *matHeaderRowDef="effectsTableCols"></tr>
             <tr mat-row *matRowDef="let row; columns: effectsTableCols;"></tr>
-            <tr mat-footer-row *matFooterRowDef="effectsTableCols; sticky: true"></tr>
           </table>
           
         </mat-card-content>

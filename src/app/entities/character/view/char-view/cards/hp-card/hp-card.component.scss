@@ -6,8 +6,8 @@ mat-card {
 }
 
 .effectsTable {
-  tr.mat-mdc-footer-row td {
-    border-top: #4DB6AC 0.2vh solid;
+  th {
+    border-bottom: #4DB6AC 0.2vh solid;
   }
   
   tr {
