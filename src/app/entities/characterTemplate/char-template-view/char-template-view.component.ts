@@ -1,4 +1,4 @@
-  import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -44,6 +44,7 @@ export class CharTemplateViewComponent implements OnInit {
       this.height.setValue(height)
       this.weight.setValue(weight)
       this.age.setValue(age)
+      this.isNPC = this.charTemplate!.isNPC;
     })
   }
 
