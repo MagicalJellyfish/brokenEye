@@ -12,6 +12,14 @@ mat-card-content {
   justify-content: space-between;
 }
 
+.textAreas {
+  margin-top: 1vh;
+  mat-form-field {
+    margin-bottom: -1vh;
+    width: 100%;
+  }
+}
+
 mat-form-field *{
   height: 1vw;
 }
@@ -29,6 +37,13 @@ img {
   vertical-align: middle;
 }
 
+.bottomRow {
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+}
+
 .listTabs {
   width: 66vw;
   height: 100%;
@@ -39,14 +54,24 @@ img {
   justify-content: space-between;
 }
 
-table {
-  * {
-    padding-top: 0.5vw;
-  }
+mat-error {
+  margin-top: -0.5vh;
+}
+
+.topTable {
+
   width: 100%;
   border-collapse: collapse;
 
+  mat-form-field {
+    margin-bottom: -1vh;
+    mat-error {
+      margin-top: -0.5vh;
+    }
+  }
+
   td {
+    padding-top: 1vh;
     padding-left: 1vw;
     padding-right: 1vw;
   }
