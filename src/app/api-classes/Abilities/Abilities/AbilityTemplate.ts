@@ -8,7 +8,7 @@ export interface AbilityTemplate {
   name: string
   description: string
 
-  targetType?: TargetType
+  targetType: TargetType
 
   canInjure: boolean
   self?: string

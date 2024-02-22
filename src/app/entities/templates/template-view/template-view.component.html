@@ -20,7 +20,7 @@
 
       <!--Abilities-->
       <mat-grid-tile  *ngIf="this.element.hasOwnProperty('targetType')">
-        <div><b>Target Type</b> <!--TODO:--></div> 
+        <div><b>Target Type</b> {{targetType[element.targetType]}}</div> 
       </mat-grid-tile>
 
       <mat-grid-tile  *ngIf="this.element.hasOwnProperty('self')">

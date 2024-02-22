@@ -9,7 +9,7 @@ export interface Ability {
   description: string
 
   shortcut: string
-  targetType?: TargetType
+  targetType: TargetType
 
   canInjure: boolean
   self?: string

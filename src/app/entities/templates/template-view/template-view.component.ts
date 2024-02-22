@@ -5,6 +5,7 @@ import { ParentData, ParentType } from '../../ParentData';
 import { TemplateEditComponent } from '../template-edit/template-edit.component';
 import { PersistencyService } from 'src/app/services/persistency/persistency.service';
 import { Subject } from 'rxjs';
+import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
 
 @Component({
   selector: 'app-template-view',
@@ -37,6 +38,8 @@ export class TemplateViewComponent implements OnInit {
   }
 
   element?: any;
+
+  targetType = TargetType
 
   editElement() {
     this.matDialog.open(TemplateEditComponent, { maxWidth: '90vw', data: { id: this.element?.id, route: this.data.route }}).afterClosed().subscribe(async x => {

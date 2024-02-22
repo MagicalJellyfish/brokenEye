@@ -16,6 +16,7 @@ import { Character } from 'src/app/api-classes/Characters/Character';
 import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTemplate';
 import { Ability } from 'src/app/api-classes/Abilities/Abilities/Ability';
 import { AbilityTemplate } from 'src/app/api-classes/Abilities/Abilities/AbilityTemplate';
+import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
 
 @Injectable({
   providedIn: 'root'
@@ -111,12 +112,13 @@ export class ObjectService {
       id: 0,
       name: 'unnamed',
       description: '',
+      shortcut: 'undefined',
       canInjure: false,
       rollsIds: [],
       rolls: [],
       effectTemplatesIds: [],
       effectTemplates: [],
-      shortcut: 'undefined'
+      targetType: TargetType.None
     }
 
     return ability
@@ -265,7 +267,8 @@ export class ObjectService {
       effectTemplatesIds: [],
       effectTemplates: [],
       characterTemplatesIds: [],
-      characterTemplates: []
+      characterTemplates: [],
+      targetType: TargetType.None
     }
 
     return abilityTemplate

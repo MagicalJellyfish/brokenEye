@@ -5,6 +5,7 @@ import { ParentData, ParentType } from '../../ParentData';
 import { ElementEditComponent } from '../element-edit/element-edit.component';
 import { PersistencyService } from 'src/app/services/persistency/persistency.service';
 import { Subject } from 'rxjs';
+import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
 
 @Component({
   selector: 'app-element-view',
@@ -27,6 +28,8 @@ export class ElementViewComponent implements OnInit {
 
   elementSubject = new Subject<any>()
   parentData: ParentData
+
+  targetType = TargetType
 
   async ngOnInit() {
     (await this.requestService.get(this.data.route, this.data.id)).subscribe((x: any) => {

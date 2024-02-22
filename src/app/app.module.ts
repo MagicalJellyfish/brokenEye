@@ -28,6 +28,7 @@ import { MatSortModule } from '@angular/material/sort'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { DragDropModule } from '@angular/cdk/drag-drop'
+import { MatSelectModule } from '@angular/material/select';
 
 //Components
 import { AppRoutingModule } from './app-routing.module';
@@ -143,7 +144,8 @@ import { TemplatesViewTabComponent } from './entities/templates/templates-view/t
     MatSortModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    DragDropModule
+    DragDropModule,
+    MatSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true }

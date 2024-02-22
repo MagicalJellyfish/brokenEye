@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 import { PersistencyService } from 'src/app/services/persistency/persistency.service';
 import { Subject } from 'rxjs';
+import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
 
 @Component({
   selector: 'app-element-edit',
@@ -33,11 +34,18 @@ export class ElementEditComponent implements OnInit {
     (await this.requestService.get(this.data.route, this.data.id)).subscribe((x: any) => {
       this.element = x
 
+      if(this.data.route.includes("Abilit")) {
+        this.selectedTargetType = TargetType[x.targetType]
+      }
+
       this.elementSubject.next(x)
     })
   }
 
   element?: any;
+
+  targetTypeOptions = Object.keys(TargetType).filter(x => isNaN(Number(x)))
+  selectedTargetType: string = TargetType[TargetType.None]
 
   async save() {
     if(this.element) {
@@ -52,6 +60,10 @@ export class ElementEditComponent implements OnInit {
           delete requestElement[key]
         }
       });
+
+      if(this.data.route.includes('Abilit')) {
+        requestElement.targetType = TargetType[this.selectedTargetType as keyof typeof TargetType]
+      }
 
       (await this.requestService.patch(this.data.route, this.element.id, JSON.stringify(requestElement))).subscribe()
     }

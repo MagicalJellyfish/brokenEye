@@ -36,7 +36,14 @@
       </mat-grid-tile>
 
       <!--Abilities-->
-      <!--TODO: Dropdown TargetType-->
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('targetType')">
+        <mat-form-field appearance="outline">
+          <mat-label>TargetType</mat-label>
+          <mat-select [(ngModel)]="selectedTargetType">
+            <mat-option *ngFor="let targetType of targetTypeOptions" [value]="targetType">{{targetType}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
 
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('shortcut')">
         <mat-form-field appearance="outline">
