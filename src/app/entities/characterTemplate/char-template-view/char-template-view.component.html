@@ -70,7 +70,7 @@
         
         <button mat-button (click)="save()">
           Save
-        </button>
+        </button><br>
   
         <div class="image">
           <img src="data:image/png;base64,{{this.image}}">
@@ -83,28 +83,28 @@
         <mat-tab-group class="listTabs">
   
           <mat-tab label="Abilities">
-    
+            <app-template-tab [charTemplate]="this.charTemplate" [propertyName]="'abilityTemplates'" [elementRoute]="this.requestService.routes.abilityTemplate" [changeSubject]="changeSubject"></app-template-tab>
           </mat-tab>
     
           <mat-tab label="Traits">
-            <app-template-tab [charTemplate]="this.charTemplate" [propertyName]="'traitTemplates'" [elementRoute]="this.requestService.routes.traitTemplate"></app-template-tab>
+            <app-template-tab [charTemplate]="this.charTemplate" [propertyName]="'traitTemplates'" [elementRoute]="this.requestService.routes.traitTemplate" [changeSubject]="changeSubject"></app-template-tab>
           </mat-tab>
     
           <mat-tab label="Inventory"> 
-            <app-template-tab [charTemplate]="this.charTemplate" [propertyName]="'itemTemplates'" [elementRoute]="this.requestService.routes.itemTemplate"></app-template-tab>
+            <app-template-tab [charTemplate]="this.charTemplate" [propertyName]="'itemTemplates'" [elementRoute]="this.requestService.routes.itemTemplate" [changeSubject]="changeSubject"></app-template-tab>
           </mat-tab>
     
           <mat-tab label="Effects">
-            <app-template-tab [charTemplate]="this.charTemplate" [propertyName]="'effectTemplates'" [elementRoute]="this.requestService.routes.effectTemplate"></app-template-tab>
+            <app-template-tab [charTemplate]="this.charTemplate" [propertyName]="'effectTemplates'" [elementRoute]="this.requestService.routes.effectTemplate" [changeSubject]="changeSubject"></app-template-tab>
           </mat-tab>
     
           <mat-tab label="Counters"> 
             <mat-tab-group>
               <mat-tab label="Character-Counters">
-                <app-template-tab [charTemplate]="this.charTemplate" [propertyName]="'counterTemplates'" [elementRoute]="this.requestService.routes.counterTemplate"></app-template-tab>
+                <app-template-tab [charTemplate]="this.charTemplate" [propertyName]="'counterTemplates'" [elementRoute]="this.requestService.routes.counterTemplate" [changeSubject]="changeSubject"></app-template-tab>
               </mat-tab>
               <mat-tab label="Nested Counters">
-                <app-template-nested-tab [charTemplate]="this.charTemplate" [elementRoute]="this.requestService.routes.counterTemplate"></app-template-nested-tab>
+                <app-template-nested-tab [charTemplate]="this.charTemplate" [elementRoute]="this.requestService.routes.counterTemplate" [changeSubject]="changeSubject"></app-template-nested-tab>
               </mat-tab>
             </mat-tab-group>
           </mat-tab>
@@ -112,10 +112,10 @@
           <mat-tab label="Reminders"> 
             <mat-tab-group>
               <mat-tab label="Character-Reminders">
-                <app-template-tab [charTemplate]="this.charTemplate" [propertyName]="'roundReminderTemplates'" [elementRoute]="this.requestService.routes.roundReminderTemplate"></app-template-tab>
+                <app-template-tab [charTemplate]="this.charTemplate" [propertyName]="'roundReminderTemplates'" [elementRoute]="this.requestService.routes.roundReminderTemplate" [changeSubject]="changeSubject"></app-template-tab>
               </mat-tab>
               <mat-tab label="Nested Reminders">
-                <app-template-nested-tab [charTemplate]="this.charTemplate" [elementRoute]="this.requestService.routes.roundReminderTemplate"></app-template-nested-tab>
+                <app-template-nested-tab [charTemplate]="this.charTemplate" [elementRoute]="this.requestService.routes.roundReminderTemplate" [changeSubject]="changeSubject"></app-template-nested-tab>
               </mat-tab>
             </mat-tab-group>
           </mat-tab>

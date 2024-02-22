@@ -5,6 +5,7 @@ import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { TemplateViewComponent } from '../template-view/template-view.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-template-nested-tab',
@@ -18,8 +19,13 @@ export class TemplateNestedTabComponent implements OnInit {
 
   @Input() charTemplate!: CharacterTemplate
   @Input() elementRoute!: string
+  @Input() changeSubject!: Subject<void>
 
   async ngOnInit() {
+    this.changeSubject.subscribe(_ => {
+      this.update()
+    })
+
     if(this.elementRoute == this.requestService.routes.roundReminder) {
       this.elementTableCols.push('reminder', 'reminding')
 

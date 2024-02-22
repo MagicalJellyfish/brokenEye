@@ -7,6 +7,7 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
 import { TemplateEditComponent } from '../template-edit/template-edit.component';
 import { TemplateViewComponent } from '../template-view/template-view.component';
 import { TemplateSelectComponent } from '../template-select/template-select.component';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-template-tab',
@@ -21,6 +22,7 @@ export class TemplateTabComponent implements OnInit {
   @Input() charTemplate!: CharacterTemplate
   @Input() propertyName!: keyof CharacterTemplate
   @Input() elementRoute!: string
+  @Input() changeSubject!: Subject<void>
 
   async ngOnInit() {
     if(this.elementRoute == this.requestService.routes.roundReminder) {
@@ -39,12 +41,13 @@ export class TemplateTabComponent implements OnInit {
     }
     this.elementTableCols.push('actions')
 
-    this.update();
+    this.update()
   }
 
-  async update() {
+  update() {
     this.elements = this.charTemplate[this.propertyName]
     this.elementTable = new MatTableDataSource(this.elements)
+    this.changeSubject.next()
   }
 
   elements: any
@@ -63,7 +66,12 @@ export class TemplateTabComponent implements OnInit {
     newElement.characterTemplatesIds = [ this.charTemplate.id ];
 
     (await this.requestService.create(this.elementRoute, newElement)).subscribe((x: any) => {
-      this.matDialog.open(TemplateEditComponent, { maxWidth: '90vw', data: { id: x.id, route: this.elementRoute }})
+      this.matDialog.open(TemplateEditComponent, { maxWidth: '90vw', data: { id: x.id, route: this.elementRoute }}).afterClosed().subscribe(async _ => {
+        (await this.requestService.get(this.elementRoute, x.id)).subscribe(edited => {
+          this.elements.push(edited)
+          this.update()
+        })
+      })
     })
   }
 
@@ -73,13 +81,24 @@ export class TemplateTabComponent implements OnInit {
         "op": "add",
         "path": "/characterTemplatesIds/-",
         "value": this.charTemplate.id
-      }])).subscribe()
+      }])).subscribe(x => {
+        this.elements.push(x)
+        this.update()
+      })
     })
   }
 
   viewElement(id: number) {
-    //TODO: changing element - tab data isn't changed
-    this.matDialog.open(TemplateViewComponent, { maxWidth: '90vw', data: { id: id, route: this.elementRoute }})
+    this.matDialog.open(TemplateViewComponent, { maxWidth: '90vw', data: { id: id, route: this.elementRoute }}).afterClosed().subscribe(async _ => {
+      (await this.requestService.get(this.elementRoute, id)).subscribe(edited => {
+        this.elements.forEach((element: any) => {
+          if(element.id == id) {
+            element = edited
+          }
+        });
+        this.update()
+      })
+    })
   }
 
   async removeElement(id: number) {
@@ -87,8 +106,10 @@ export class TemplateTabComponent implements OnInit {
       "op": "remove",
       "path": "/characterTemplatesIds/" + this.charTemplate.id,
     }])).subscribe(_ => {
-      //TODO: remove from local list
-      this.update();
+      this.elements.forEach((element: any, index: any) => {
+        if(element.id == id) this.elements.splice(index,1);
+      });
+      this.update()
     })
   }
 }

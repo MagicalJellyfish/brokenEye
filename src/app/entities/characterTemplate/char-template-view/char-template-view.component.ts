@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTemplate';
 import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 import { RequestService } from 'src/app/services/entities/request/request.service';
@@ -45,6 +46,8 @@ export class CharTemplateViewComponent implements OnInit {
       this.age.setValue(age)
     })
   }
+
+  changeSubject: Subject<void> = new Subject()
 
   charTemplate?: CharacterTemplate;
   image: string = ""
