@@ -72,6 +72,8 @@ import { CharTemplateCreateComponent } from './entities/characterTemplate/char-t
 import { TemplateTabComponent } from './entities/templates/template-tab/template-tab.component';
 import { TemplateNestedTabComponent } from './entities/templates/template-nested-tab/template-nested-tab.component';
 import { TemplatesViewTabComponent } from './entities/templates/templates-view/templates-view-tab/templates-view-tab.component';
+import { RollsEditComponent } from './entities/roll/rolls-edit/rolls-edit.component';
+import { RollDialogTabComponent } from './entities/roll/roll-dialog-tab/roll-dialog-tab.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +115,8 @@ import { TemplatesViewTabComponent } from './entities/templates/templates-view/t
     TemplateTabComponent,
     TemplateNestedTabComponent,
     TemplatesViewTabComponent,
+    RollsEditComponent,
+    RollDialogTabComponent,
   ],
   imports: [
     CommonModule,

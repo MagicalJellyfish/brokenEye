@@ -1,0 +1,26 @@
+<div  *ngIf="rolls">
+  <table mat-table [dataSource]="rollTable" *ngIf="rolls.length > 0">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.name}}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="instruction">
+      <th mat-header-cell *matHeaderCellDef> Roll </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.instruction}}
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="rollTableCols;"></tr>
+    <tr mat-row *matRowDef="let row; columns: rollTableCols;"></tr>
+  
+  </table>
+</div>
+
+<div *ngIf="parentData.editDialog">
+  <button mat-button (click)="openRollEdit()">Edit or Create Rolls</button>
+</div>

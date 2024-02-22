@@ -176,6 +176,10 @@
         <mat-tab label="Stats" *ngIf="this.element.hasOwnProperty('statIncreases')">
           <app-stat-dialog-tab [template]="true" [parentData]="parentData" [parent]="this.element" [elementName]="'statIncreases'" [elementSubject]="this.elementSubject"></app-stat-dialog-tab>
         </mat-tab>
+
+        <mat-tab label="Rolls" *ngIf="this.element.hasOwnProperty('rolls')">
+          <app-roll-dialog-tab [template]="true" [parentData]="parentData" [parent]="this.element" [elementName]="'rolls'" [elementSubject]="this.elementSubject"></app-roll-dialog-tab>
+        </mat-tab>
       </mat-tab-group>
     </div>
   </div>

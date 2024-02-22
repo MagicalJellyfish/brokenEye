@@ -24,6 +24,7 @@ export class RequestService {
     roundReminder: "RoundReminders",
     roundReminderTemplate: "RoundReminderTemplates",
     statValue: "StatValues",
+    rolls: "Rolls",
     trait: "Traits",
     traitTemplate: "TraitTemplates",
     ability: "Abilities",
