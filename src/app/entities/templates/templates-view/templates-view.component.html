@@ -2,7 +2,7 @@
   <mat-card-content>
     <mat-tab-group>
       <mat-tab label="Abilities">
-        <!--TODO: add this when done-->
+        <app-templates-view-tab [elementRoute]="this.requestService.routes.abilityTemplate"></app-templates-view-tab>
       </mat-tab>
       <mat-tab label="Traits">
         <app-templates-view-tab [elementRoute]="this.requestService.routes.traitTemplate"></app-templates-view-tab>
