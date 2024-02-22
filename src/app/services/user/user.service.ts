@@ -59,7 +59,7 @@ export class UserService {
   async logout() {
     var headers = new HttpHeaders()
     headers = headers.append('Authorization', 'Bearer ' + this.accessToken)
-    this.http.get(this.apiUrl + 'logout', { headers: headers })
+    this.http.get(this.apiUrl + 'logout', { headers: headers }).subscribe()
 
     localStorage.removeItem("username")
     this.username = null

@@ -6,6 +6,7 @@ import { BodypartCondition } from "./BodypartCondition";
 import { RoundReminder } from "../RoundReminders/RoundReminder";
 import { StatValue } from "../Stats/StatValue";
 import { UserSimplified } from "../UserSimplified";
+import { Ability } from "../Abilities/Abilities/Ability";
 
 export interface Character {
   id: number;
@@ -25,6 +26,9 @@ export interface Character {
 
   stats: StatValue[];
   bodypartConditions: BodypartCondition[];
+
+  abilitiesIds: number[]
+  abilities: Ability[]
 
   itemsIds: number[];
   items: Item[];

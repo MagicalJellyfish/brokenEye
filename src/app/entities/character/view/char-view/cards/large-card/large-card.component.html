@@ -3,7 +3,7 @@
     <mat-tab-group>
 
       <mat-tab label="Abilities">
-
+        <app-element-tab [pcSubject]="this.pcSubject" [char]="this.char" [propertyName]="'abilities'" [elementRoute]="this.requestService.routes.ability"></app-element-tab>
       </mat-tab>
 
       <mat-tab label="Traits">

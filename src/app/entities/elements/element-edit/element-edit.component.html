@@ -35,6 +35,47 @@
         </mat-form-field>
       </mat-grid-tile>
 
+      <!--Abilities-->
+      <!--TODO: Dropdown TargetType-->
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('shortcut')">
+        <mat-form-field appearance="outline">
+          <mat-label>Shortcut</mat-label>
+          <input matInput [(ngModel)]="this.element.shortcut">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('self')">
+        <mat-form-field appearance="outline">
+          <mat-label>Roll</mat-label>
+          <input matInput [(ngModel)]="this.element.self">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('target')">
+        <mat-form-field appearance="outline">
+          <mat-label>Target's Roll/DC</mat-label>
+          <input matInput [(ngModel)]="this.element.target">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('damage')">
+        <mat-form-field appearance="outline">
+          <mat-label>Damage</mat-label>
+          <input matInput [(ngModel)]="this.element.damage">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('range')">
+        <mat-form-field appearance="outline">
+          <mat-label>Range</mat-label>
+          <input matInput [(ngModel)]="this.element.range">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <!--TODO: rolls-->
+      <!--TODO: EffectTemplates-->
+
       <!--Reminders-->
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('reminding')">
         <div><b>Reminding</b> <mat-checkbox [(ngModel)]="this.element.reminding"></mat-checkbox></div> 

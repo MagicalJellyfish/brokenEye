@@ -14,6 +14,8 @@ import { TraitTemplate } from 'src/app/api-classes/Traits/TraitTemplate';
 import { RequestService } from '../request/request.service';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTemplate';
+import { Ability } from 'src/app/api-classes/Abilities/Abilities/Ability';
+import { AbilityTemplate } from 'src/app/api-classes/Abilities/Abilities/AbilityTemplate';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,9 @@ import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTempl
 export class ObjectService {
 
   constructor(private requestService: RequestService) { }
+
+  groupKeys: string[] = ["roundReminder", "counters", "counter", "effectCounter", "effect", "statIncreases", "character", "modifier", "characterInjury", "abilities", "rolls", 
+                        "roundReminderTemplate", "counterTemplates", "effectCounterTemplate", "effectTemplates", "statIncreases", "modifierTemplates", "characterTemplates", "abilityTemplates"]
 
   newAny(route: string) {
     let routes = this.requestService.routes
@@ -51,6 +56,10 @@ export class ObjectService {
         return this.newTrait()
       case routes.traitTemplate: 
         return this.newTraitTemplate()
+      case routes.ability:
+        return this.newAbility()
+      case routes.abilityTemplate:
+        return this.newAbilityTemplate()
     }
 
     return;
@@ -89,10 +98,28 @@ export class ObjectService {
       counters: [],
       roundRemindersIds: [],
       roundReminders: [],
-      isNPC: false
+      isNPC: false,
+      abilitiesIds: [],
+      abilities: []
     }
 
     return c
+  }
+
+  newAbility() {
+    let ability: Ability = {
+      id: 0,
+      name: 'unnamed',
+      description: '',
+      canInjure: false,
+      rollsIds: [],
+      rolls: [],
+      effectTemplatesIds: [],
+      effectTemplates: [],
+      shortcut: 'undefined'
+    }
+
+    return ability
   }
 
   newEffect() {
@@ -219,10 +246,29 @@ export class ObjectService {
       roundReminderTemplatesIds: [],
       roundReminderTemplates: [],
       image: [],
-      isNPC: true
+      isNPC: true,
+      abilityTemplatesIds: [],
+      abilityTemplates: []
     }
 
     return ct
+  }
+
+  newAbilityTemplate() {
+    let abilityTemplate: AbilityTemplate = {
+      id: 0,
+      name: 'unnamed',
+      description: '',
+      canInjure: false,
+      rollsIds: [],
+      rolls: [],
+      effectTemplatesIds: [],
+      effectTemplates: [],
+      characterTemplatesIds: [],
+      characterTemplates: []
+    }
+
+    return abilityTemplate
   }
 
   newRoundReminderTemplate() {
@@ -317,7 +363,11 @@ export class ObjectService {
       counterTemplatesIds: [],
       counterTemplates: [],
       characterTemplatesIds: [],
-      characterTemplates: []
+      characterTemplates: [],
+      abilityTemplatesIds: [],
+      abilityTemplates: [],
+      abilitiesIds: [],
+      abilities: []
     }
 
     return effectTemplate

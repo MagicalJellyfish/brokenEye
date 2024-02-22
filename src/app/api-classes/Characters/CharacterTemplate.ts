@@ -3,6 +3,7 @@ import { TraitTemplate } from "../Traits/TraitTemplate";
 import { EffectTemplate } from "../Effects/EffectTemplate";
 import { CounterTemplate } from "../Counters/CounterTemplate";
 import { RoundReminderTemplate } from "../RoundReminders/RoundReminderTemplate";
+import { AbilityTemplate } from "../Abilities/Abilities/AbilityTemplate";
 
 export interface CharacterTemplate {
   id: number;
@@ -15,6 +16,9 @@ export interface CharacterTemplate {
   notes: string;
   experience: string;
   
+  abilityTemplatesIds: number[]
+  abilityTemplates: AbilityTemplate[]
+
   itemTemplatesIds: number[];
   itemTemplates: ItemTemplate[];
 

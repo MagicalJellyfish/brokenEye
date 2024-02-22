@@ -25,10 +25,15 @@ export class RequestService {
     roundReminderTemplate: "RoundReminderTemplates",
     statValue: "StatValues",
     trait: "Traits",
-    traitTemplate: "TraitTemplates"
+    traitTemplate: "TraitTemplates",
+    ability: "Abilities",
+    abilityTemplate: "AbilityTemplates"
   }
 
   elementToTemplateRoute(elementRoute: string) {
+    if(elementRoute == this.routes.ability) {
+      return this.routes.abilityTemplate
+    }
     return elementRoute.slice(0, -1) + "Templates"
   }
 

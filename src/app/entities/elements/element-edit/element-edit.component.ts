@@ -48,8 +48,7 @@ export class ElementEditComponent implements OnInit {
           delete requestElement[key]
         }
 
-        let removableKeys = ["roundReminder", "counters", "counter", "effectCounter", "effect", "statIncreases", "character", "modifier"]
-        if(removableKeys.some(x => x == key)) {
+        if(this.objectService.groupKeys.some(x => x == key)) {
           delete requestElement[key]
         }
       });

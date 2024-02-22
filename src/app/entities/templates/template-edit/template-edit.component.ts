@@ -48,8 +48,7 @@ export class TemplateEditComponent implements OnInit {
           delete requestElement[key]
         }
 
-        let removableKeys = ["roundReminderTemplate", "counterTemplates", "effectCounterTemplate", "effectTemplates", "statIncreases", "modifierTemplates", "characterTemplates"]
-        if(removableKeys.some(x => x == key)) {
+        if(this.objectService.groupKeys.some(x => x == key)) {
           delete requestElement[key]
         }
       });
