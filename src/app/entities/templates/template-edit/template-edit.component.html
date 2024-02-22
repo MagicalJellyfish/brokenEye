@@ -72,7 +72,6 @@
           <input matInput [(ngModel)]="this.element.range">
         </mat-form-field>
       </mat-grid-tile>
-      <!--TODO: EffectTemplates-->
 
       <!--Reminders-->
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('reminding')">
@@ -173,6 +172,10 @@
 
         <mat-tab label="Stats" *ngIf="this.element.hasOwnProperty('statIncreases')">
           <app-stat-dialog-tab [template]="true" [parentData]="parentData" [parent]="this.element" [elementName]="'statIncreases'" [elementSubject]="this.elementSubject"></app-stat-dialog-tab>
+        </mat-tab>
+
+        <mat-tab label="Effect Templates" *ngIf="parentData.parentRoute.includes('Abilit')">
+          <app-template-dialog-tab-multiple [parentData]="this.parentData" [elementRoute]="this.requestService.routes.effectTemplate" [parent]="this.element" [elementName]="'effectTemplates'" [elementSubject]="this.elementSubject"></app-template-dialog-tab-multiple>
         </mat-tab>
 
         <mat-tab label="Rolls" *ngIf="this.element.hasOwnProperty('rolls')">

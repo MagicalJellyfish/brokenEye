@@ -54,7 +54,18 @@ export class TemplateDialogTabMultipleComponent {
   async createElement() {
     let newElement: any = this.objectService.newAny(this.elementRoute)
 
-    newElement.modifierTemplatesIds.push(this.parentData.parentId);
+    if(this.parentData.parentRoute.includes('Abilit')) {
+      if(this.parentData.parentRoute == this.requestService.routes.ability) {
+        newElement.abilitiesIds.push(this.parentData.parentId)
+      }
+      else {
+        newElement.abilityTemplatesIds.push(this.parentData.parentId)
+      }
+    }
+    else {
+      newElement.modifierTemplatesIds.push(this.parentData.parentId);
+    }
+
     (await this.requestService.create(this.elementRoute, newElement)).subscribe((x: any) => {
       this.elements.push(x)
       this.elementTable = new MatTableDataSource(this.elements)
