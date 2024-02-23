@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 const SETTINGS_LOCATION = "assets/appsettings.json";
 
@@ -11,8 +12,10 @@ export class ApiUrlService {
     this.http.get(SETTINGS_LOCATION)
   }
 
-  loadUrl() {
-    return this.http.get('/assets/appsettings.json').subscribe((x: any) => this.apiUrl = x.brokenHeart.url);
+  async loadUrl() {
+    let value: any = (await firstValueFrom(this.http.get('/assets/appsettings.json')))
+    this.apiUrl = value.brokenHeart.url
+    return;
   }
 
   apiUrl!: string;
