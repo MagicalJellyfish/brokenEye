@@ -17,6 +17,7 @@ export class AccountComponent {
   username: string = ""
   password: string = ""
   discordId: string = ""
+  registrationToken: string = ""
   loginErrorMsg: string = ""
   registerErrorMsg: string = ""
 
@@ -34,7 +35,7 @@ export class AccountComponent {
   }
 
   async register() {
-    if(await this.userService.register(this.username, this.password, +this.discordId)) {
+    if(await this.userService.register(this.username, this.password, +this.discordId, this.registrationToken)) {
       window.history.back();
       this.snackBar.open("Registered and logged in!", undefined, {duration: 2000})
     }
