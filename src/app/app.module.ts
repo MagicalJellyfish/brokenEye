@@ -1,5 +1,5 @@
 //Base imports
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -74,6 +74,7 @@ import { TemplateNestedTabComponent } from './entities/templates/template-nested
 import { TemplatesViewTabComponent } from './entities/templates/templates-view/templates-view-tab/templates-view-tab.component';
 import { RollsEditComponent } from './entities/roll/rolls-edit/rolls-edit.component';
 import { RollDialogTabComponent } from './entities/roll/roll-dialog-tab/roll-dialog-tab.component';
+import { ApiUrlService } from './services/api/apiUrl/api-url.service';
 
 @NgModule({
   declarations: [
@@ -152,6 +153,7 @@ import { RollDialogTabComponent } from './entities/roll/roll-dialog-tab/roll-dia
     MatSelectModule
   ],
   providers: [
+    { provide: APP_INITIALIZER, multi: true, deps: [ApiUrlService], useFactory: (apiUrlService: ApiUrlService) => () => apiUrlService.loadUrl() },
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],

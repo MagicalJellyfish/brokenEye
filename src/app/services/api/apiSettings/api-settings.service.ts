@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../../user/user.service';
 import { HttpHeaders } from '@angular/common/http';
+import { ApiUrlService } from '../apiUrl/api-url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiSettingsService {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private apiUrlService: ApiUrlService) {
+    this.apiUrl = apiUrlService.apiUrl + "/api/"
+  }
 
-  apiUrl = 'https://localhost:7029/api/'
+  apiUrl: string
 
   async getHttpHeaders(patch: boolean = false, auth: boolean = false) {
     var headers = new HttpHeaders()

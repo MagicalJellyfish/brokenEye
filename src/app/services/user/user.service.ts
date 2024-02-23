@@ -1,14 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { ApiUrlService } from '../api/apiUrl/api-url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) 
+  constructor(private http: HttpClient, private apiUrlService: ApiUrlService) 
   { 
+    this.apiUrl = apiUrlService.apiUrl + "/api/Auth/"
+
     this.username = localStorage.getItem("username")
     this.accessToken = localStorage.getItem("accessToken")
     this.refreshToken = localStorage.getItem("refreshToken")
@@ -37,7 +40,7 @@ export class UserService {
     }
   }
 
-  private apiUrl = 'https://localhost:7029/api/Auth/';
+  private apiUrl;
 
   public username: string | null = null
   public accessToken: string | null = null

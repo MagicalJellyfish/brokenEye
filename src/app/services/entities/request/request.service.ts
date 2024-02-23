@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiSettingsService } from '../../api/apiSettings/api-settings.service';
+import { ApiUrlService } from '../../api/apiUrl/api-url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
 
-  constructor(private http: HttpClient, private apiSettings: ApiSettingsService) { }
+  constructor(private http: HttpClient, private apiSettings: ApiSettingsService, private apiUrlService: ApiUrlService) { 
+    this.apiUrl = apiUrlService.apiUrl + "/api/"
+  }
 
   routes = {
     constant: "Constants",
@@ -38,7 +41,7 @@ export class RequestService {
     return elementRoute.slice(0, -1) + "Templates"
   }
 
-  apiUrl: string = 'https://localhost:7029/api/'
+  apiUrl: string
 
   async getAll(route: string) {
     return this.http.get(this.apiUrl + route, await this.apiSettings.getHttpHeaders(false, true));

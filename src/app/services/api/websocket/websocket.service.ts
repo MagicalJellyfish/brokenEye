@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { send } from 'process';
 import { Observable, Subject, observable } from 'rxjs';
+import { ApiUrlService } from '../apiUrl/api-url.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,16 @@ export class WebsocketService {
   public socket!: WebSocket
   public messageReceived: Subject<string> = new Subject<string>();
 
-  constructor() { }
+  constructor(private apiUrlService: ApiUrlService) {
+    this.apiUrl = apiUrlService.apiUrl + "/api/Characters/ws"
+  }
+
+  apiUrl: string
 
   connect(): Observable<any> {
     let subject = new Subject<any>()
-    this.socket = new WebSocket('wss://localhost:7029/api/Characters/ws')
+    let websocketUrl: string = this.apiUrl.split('//')[1]
+    this.socket = new WebSocket('wss://' + websocketUrl)
 
     this.socket.onopen = () => {
       console.log('WebSocket connection established.')
