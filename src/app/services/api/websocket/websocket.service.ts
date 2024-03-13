@@ -11,7 +11,7 @@ export class WebsocketService {
   public messageReceived: Subject<string> = new Subject<string>();
 
   constructor(private apiUrlService: ApiUrlService) {
-    this.apiUrl = apiUrlService.apiUrl + "/api/Characters/ws"
+    this.apiUrl = apiUrlService.apiUrl + "/ws/Character"
   }
 
   apiUrl: string
