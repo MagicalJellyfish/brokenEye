@@ -23,8 +23,14 @@ export class ResponseInterceptor implements HttpInterceptor {
             case 400:
               errorMsg = "400 Bad Request - "
               break;
+            case 401:
+              errorMsg = "401 Unauthorized - "
+              break;
             case 403:
               errorMsg = "403 Forbidden - "
+              break;
+            case 500:
+              errorMsg = "500 Internal Server Error - "
               break;
           }
 
