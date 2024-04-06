@@ -8,7 +8,9 @@
     <mat-grid-list cols="5" *ngIf="userChars">
       <mat-grid-tile *ngFor="let uc of userChars; index as i">
         <button mat-raised-button color="primary" (click)="select(uc.id)">
-          <img src="data:image/png;base64,{{this.userCharImages[i]}}">
+          <img *ngIf="uc.image.length != 0" src="data:image/png;base64,{{this.userCharImages[i]}}">
+          <mat-icon class="imgIcon" *ngIf="uc.image.length == 0">aspect_ratio</mat-icon>
+
           <div class="text">
             <div class="name">{{uc.name}}</div><br>
             <div *ngIf="uc.isNPC">NPC</div>
@@ -29,7 +31,9 @@
     <mat-grid-list cols="5" *ngIf="allChars">
       <mat-grid-tile *ngFor="let ac of allChars; index as i">
         <button mat-raised-button color="primary" (click)="select(ac.id)">
-          <img src="data:image/png;base64,{{this.allCharImages[i]}}">
+          <img *ngIf="ac.image.length != 0" src="data:image/png;base64,{{this.allCharImages[i]}}">
+          <mat-icon class="imgIcon" *ngIf="ac.image.length == 0">aspect_ratio</mat-icon>
+
           <div class="text"><div class="name">{{ac.name}}</div></div>
         </button>
       </mat-grid-tile>
