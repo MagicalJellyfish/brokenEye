@@ -100,7 +100,14 @@ export class UserService {
     }
   }
 
+  refreshing = false
+
   async refreshTokens(): Promise<boolean> {
+    if(this.refreshing) {
+      return true;
+    }
+
+    this.refreshing = true
     try {
       var response = await firstValueFrom(this.http.post
         <{username: string, accessToken: string, accessTokenExpiration: number, refreshToken: string, refreshTokenExpiration: number}>
@@ -118,9 +125,11 @@ export class UserService {
       localStorage.setItem('refreshToken', response.refreshToken)
       localStorage.setItem('refreshTokenExpiration', response.refreshTokenExpiration.toString())
       
+      this.refreshing = false
       return true
     }
     catch(error: any) {
+      this.refreshing = false
       if(error.status == 0) {
         return true
       }
