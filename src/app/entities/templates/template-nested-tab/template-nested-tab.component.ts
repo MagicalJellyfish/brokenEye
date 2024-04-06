@@ -34,18 +34,14 @@ export class TemplateNestedTabComponent implements OnInit {
       };
     }
     else {
-      this.elementTableCols.push('name', 'description')
+      this.elementTableCols.push('name')
 
-      switch(this.elementRoute) {
-        case this.requestService.routes.trait:
-          this.elementTableCols.push('active')
-          break;
-        case this.requestService.routes.item:
-          this.elementTableCols.push('equipped')
-          break;
-        case this.requestService.routes.counter:
-          this.elementTableCols.push('count')
-          break;
+      let routeList = [this.requestService.routes.traitTemplate, this.requestService.routes.itemTemplate, this.requestService.routes.effectTemplate]
+      if(routeList.includes(this.elementRoute)) {
+        this.elementTableCols.push('abstract')
+      }
+      else {
+        this.elementTableCols.push('description')
       }
 
       this.elementTable.filterPredicate = function(data, filter: string): boolean {

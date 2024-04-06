@@ -32,7 +32,15 @@ export class TemplatesViewTabComponent implements OnInit {
       };
     }
     else {
-      this.elementTableCols.push('name', 'description')
+      this.elementTableCols.push('name')
+
+      let routeList = [this.requestService.routes.traitTemplate, this.requestService.routes.itemTemplate, this.requestService.routes.effectTemplate]
+      if(routeList.includes(this.elementRoute)) {
+        this.elementTableCols.push('abstract')
+      }
+      else {
+        this.elementTableCols.push('description')
+      }
 
       if(this.elementRoute == this.requestService.routes.counterTemplate) {
         this.elementTableCols.push('count')

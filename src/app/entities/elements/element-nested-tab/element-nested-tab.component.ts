@@ -35,7 +35,15 @@ export class ElementNestedTabComponent implements OnInit {
       };
     }
     else {
-      this.elementTableCols.push('name', 'description')
+      this.elementTableCols.push('name')
+
+      let routeList = [this.requestService.routes.trait, this.requestService.routes.item, this.requestService.routes.effect]
+      if(routeList.includes(this.elementRoute)) {
+        this.elementTableCols.push('abstract')
+      }
+      else {
+        this.elementTableCols.push('description')
+      }
 
       switch(this.elementRoute) {
         case this.requestService.routes.trait:
