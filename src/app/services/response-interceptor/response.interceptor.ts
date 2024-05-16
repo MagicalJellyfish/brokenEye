@@ -9,22 +9,28 @@ import {
 import {
   EMPTY,
   Observable,
+  OperatorFunction,
   catchError,
   firstValueFrom,
+  retry,
   throwError,
 } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(
+    private snackBar: MatSnackBar,
+    private userService: UserService
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
-    next: HttpHandler,
+    next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
+      catchError(async (error: HttpErrorResponse) => {
         let errorMsg = '';
         if (error.message != '') {
           switch (error.status) {
@@ -58,6 +64,7 @@ export class ResponseInterceptor implements HttpInterceptor {
               break;
             case 401:
               errorMsg = '401 Unauthorized - Log in for access';
+              await this.userService.refreshTokens();
               break;
             case 403:
               errorMsg =
@@ -74,7 +81,8 @@ export class ResponseInterceptor implements HttpInterceptor {
 
         this.snackBar.open(errorMsg, 'Close', { duration: 60000 });
         return throwError(() => error);
-      }),
-    );
+      }) as OperatorFunction<HttpEvent<any>, HttpEvent<any>>,
+      retry(2)
+    ) as Observable<HttpEvent<any>>;
   }
 }

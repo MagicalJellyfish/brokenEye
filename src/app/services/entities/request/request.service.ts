@@ -10,7 +10,7 @@ export class RequestService {
   constructor(
     private http: HttpClient,
     private apiSettings: ApiSettingsService,
-    private apiUrlService: ApiUrlService,
+    private apiUrlService: ApiUrlService
   ) {
     this.apiUrl = apiUrlService.apiUrl + '/api/';
   }
@@ -49,14 +49,14 @@ export class RequestService {
   async getAll(route: string) {
     return this.http.get(
       this.apiUrl + route,
-      await this.apiSettings.getHttpHeaders(false, true),
+      await this.apiSettings.getHttpHeaders(false, true)
     );
   }
 
   async get(route: string, id: any) {
     return this.http.get(
       this.apiUrl + route + '/' + id,
-      await this.apiSettings.getHttpHeaders(false, true),
+      await this.apiSettings.getHttpHeaders(false, true)
     );
   }
 
@@ -64,14 +64,14 @@ export class RequestService {
     return this.http.post(
       this.apiUrl + route,
       object,
-      await this.apiSettings.getHttpHeaders(false, true),
+      await this.apiSettings.getHttpHeaders(false, true)
     );
   }
 
   async delete(route: string, id: number) {
     return this.http.delete(
       this.apiUrl + route + '/' + id,
-      await this.apiSettings.getHttpHeaders(false, true),
+      await this.apiSettings.getHttpHeaders(false, true)
     );
   }
 
@@ -90,7 +90,7 @@ export class RequestService {
     return this.http.patch(
       this.apiUrl + route + '/' + id,
       patch,
-      await this.apiSettings.getHttpHeaders(true, true),
+      await this.apiSettings.getHttpHeaders(true, true)
     );
   }
 
@@ -98,7 +98,7 @@ export class RequestService {
     return this.http.patch(
       this.apiUrl + route + '/' + id,
       patch,
-      await this.apiSettings.getHttpHeaders(true, true),
+      await this.apiSettings.getHttpHeaders(true, true)
     );
   }
 }
