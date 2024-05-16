@@ -1,5 +1,5 @@
-import { Bodypart } from "./Bodypart";
-import { Character } from "./Character";
+import { Bodypart } from './Bodypart';
+import { Character } from './Character';
 
 export interface BodypartCondition {
   id: number;
@@ -8,7 +8,7 @@ export interface BodypartCondition {
   bodypart: Bodypart;
 
   character: Character;
-  
+
   injuryLevel: InjuryLevel;
 }
 
@@ -17,5 +17,5 @@ export enum InjuryLevel {
   Minor,
   Medium,
   Major,
-  Dismember
+  Dismember,
 }

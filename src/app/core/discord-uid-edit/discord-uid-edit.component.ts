@@ -5,19 +5,26 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
 @Component({
   selector: 'app-discord-uid-edit',
   templateUrl: './discord-uid-edit.component.html',
-  styleUrls: ['./discord-uid-edit.component.scss']
+  styleUrls: ['./discord-uid-edit.component.scss'],
 })
 export class DiscordUidEditComponent implements OnInit {
-  constructor(private requestService: RequestService, private dialogRef: MatDialogRef<DiscordUidEditComponent>) { }
+  constructor(
+    private requestService: RequestService,
+    private dialogRef: MatDialogRef<DiscordUidEditComponent>,
+  ) {}
 
   async ngOnInit() {
-    (await this.requestService.getAll("Auth/discord")).subscribe((x: any) => this.discordId = x.discordId)
+    (await this.requestService.getAll('Auth/discord')).subscribe(
+      (x: any) => (this.discordId = x.discordId),
+    );
   }
 
   discordId: string | undefined;
 
   async save() {
-    (await this.requestService.fullPatch("Auth/discord", this.discordId!, null)).subscribe()
-    this.dialogRef.close()
+    (
+      await this.requestService.fullPatch('Auth/discord', this.discordId!, null)
+    ).subscribe();
+    this.dialogRef.close();
   }
 }

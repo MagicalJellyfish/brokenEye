@@ -8,7 +8,7 @@ describe('RollDialogTabComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RollDialogTabComponent]
+      declarations: [RollDialogTabComponent],
     });
     fixture = TestBed.createComponent(RollDialogTabComponent);
     component = fixture.componentInstance;

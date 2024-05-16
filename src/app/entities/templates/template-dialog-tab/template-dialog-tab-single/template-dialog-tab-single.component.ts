@@ -11,96 +11,124 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-template-dialog-tab-single',
   templateUrl: './template-dialog-tab-single.component.html',
-  styleUrls: ['./template-dialog-tab-single.component.scss']
+  styleUrls: ['./template-dialog-tab-single.component.scss'],
 })
 export class TemplateDialogTabSingleComponent implements OnInit {
+  constructor(
+    private requestService: RequestService,
+    private objectService: ObjectService,
+    private matDialog: MatDialog,
+  ) {}
 
-  constructor(private requestService: RequestService, private objectService: ObjectService, private matDialog: MatDialog) { }
-  
-  @Input() parentData!: ParentData
-  @Input() elementRoute!: string
+  @Input() parentData!: ParentData;
+  @Input() elementRoute!: string;
 
-  @Input() parent: any
-  @Input() elementName!: string
-  @Input() elementSubject!: Subject<any>
+  @Input() parent: any;
+  @Input() elementName!: string;
+  @Input() elementSubject!: Subject<any>;
 
   async ngOnInit() {
-    this.elementSubject.subscribe(x => {
-      this.element = x[this.elementName]
-      this.elementTable = new MatTableDataSource([this.element])
-    })
+    this.elementSubject.subscribe((x) => {
+      this.element = x[this.elementName];
+      this.elementTable = new MatTableDataSource([this.element]);
+    });
 
-    if(this.elementRoute == this.requestService.routes.roundReminderTemplate) {
-      this.elementTableCols = ["reminder"]
-    }
-    else {
-      this.elementTableCols = ["name"]
+    if (this.elementRoute == this.requestService.routes.roundReminderTemplate) {
+      this.elementTableCols = ['reminder'];
+    } else {
+      this.elementTableCols = ['name'];
     }
 
-    this.element = this.parent[this.elementName]
-    this.elementTable = new MatTableDataSource([this.element])
+    this.element = this.parent[this.elementName];
+    this.elementTable = new MatTableDataSource([this.element]);
   }
 
-  element: any
-  elementTable: MatTableDataSource<any> = new MatTableDataSource()
-  elementTableCols: string[] = []
+  element: any;
+  elementTable: MatTableDataSource<any> = new MatTableDataSource();
+  elementTableCols: string[] = [];
 
   viewElement(id: number) {
-    this.matDialog.open(TemplateViewComponent, { maxWidth: '90vw', data: { id: id, route: this.elementRoute }}).afterClosed().subscribe(async _ => {
-      (await this.requestService.get(this.parentData.parentRoute, this.parentData.parentId)).subscribe((x: any) => {
-        this.element = x[this.elementName]
-        this.elementTable = new MatTableDataSource([this.element])
+    this.matDialog
+      .open(TemplateViewComponent, {
+        maxWidth: '90vw',
+        data: { id: id, route: this.elementRoute },
       })
-    })
+      .afterClosed()
+      .subscribe(async (_) => {
+        (
+          await this.requestService.get(
+            this.parentData.parentRoute,
+            this.parentData.parentId,
+          )
+        ).subscribe((x: any) => {
+          this.element = x[this.elementName];
+          this.elementTable = new MatTableDataSource([this.element]);
+        });
+      });
   }
 
   async createElement() {
-    let newElement: any = this.objectService.newAny(this.elementRoute)
+    let newElement: any = this.objectService.newAny(this.elementRoute);
 
-    if(this.elementRoute == this.requestService.routes.effectCounterTemplate) {
-      newElement.effectTemplatesIds.push(this.parentData.parentId)
-    }
-    else {
-      switch(this.parentData.parentType) {
+    if (this.elementRoute == this.requestService.routes.effectCounterTemplate) {
+      newElement.effectTemplatesIds.push(this.parentData.parentId);
+    } else {
+      switch (this.parentData.parentType) {
         case ParentType.Modifier:
-          newElement.modifierTemplatesIds.push(this.parentData.parentId)
+          newElement.modifierTemplatesIds.push(this.parentData.parentId);
           break;
         case ParentType.Counter:
-          newElement.counterTemplatesIds.push(this.parentData.parentId)
+          newElement.counterTemplatesIds.push(this.parentData.parentId);
           break;
       }
     }
-    
-    
-    (await this.requestService.create(this.elementRoute, newElement)).subscribe((x: any) => {
-      this.element = x
-      this.elementTable = new MatTableDataSource([this.element!])
-    })
+
+    (await this.requestService.create(this.elementRoute, newElement)).subscribe(
+      (x: any) => {
+        this.element = x;
+        this.elementTable = new MatTableDataSource([this.element!]);
+      },
+    );
   }
 
   async addElement() {
-    this.matDialog.open(TemplateSelectComponent, { data: { route: this.elementRoute }}).afterClosed().subscribe(async x => {
-      if(x != undefined) {
-        let propertyName = this.elementRoute.slice(0, -1) + "Id";
+    this.matDialog
+      .open(TemplateSelectComponent, { data: { route: this.elementRoute } })
+      .afterClosed()
+      .subscribe(async (x) => {
+        if (x != undefined) {
+          let propertyName = this.elementRoute.slice(0, -1) + 'Id';
 
-        (await this.requestService.patch(this.parentData.parentRoute, this.parentData.parentId, JSON.stringify({
-          [propertyName]: x.id
-        }))).subscribe(_ => {
-          this.element = x
-          this.elementTable = new MatTableDataSource([this.element!])
-        })
-      }
-    })
+          (
+            await this.requestService.patch(
+              this.parentData.parentRoute,
+              this.parentData.parentId,
+              JSON.stringify({
+                [propertyName]: x.id,
+              }),
+            )
+          ).subscribe((_) => {
+            this.element = x;
+            this.elementTable = new MatTableDataSource([this.element!]);
+          });
+        }
+      });
   }
 
   async removeElement() {
-    let propertyName = this.elementRoute.slice(0, -1) + "Id";
+    let propertyName = this.elementRoute.slice(0, -1) + 'Id';
 
-    (await this.requestService.patch(this.parentData.parentRoute, this.parentData.parentId, JSON.stringify({
-      [propertyName]: null
-    }))).subscribe(_ => {
-      this.element = undefined
-      this.elementTable = new MatTableDataSource([this.element!])
-    })
+    (
+      await this.requestService.patch(
+        this.parentData.parentRoute,
+        this.parentData.parentId,
+        JSON.stringify({
+          [propertyName]: null,
+        }),
+      )
+    ).subscribe((_) => {
+      this.element = undefined;
+      this.elementTable = new MatTableDataSource([this.element!]);
+    });
   }
 }

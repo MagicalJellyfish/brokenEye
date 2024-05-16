@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PersistencyService {
+  constructor() {}
 
-  constructor() { }
-
-  dialogTab: DialogTab = DialogTab.RoundReminder
-  dialogSubTab: DialogSubTab = DialogSubTab.EffectCounter
+  dialogTab: DialogTab = DialogTab.RoundReminder;
+  dialogSubTab: DialogSubTab = DialogSubTab.EffectCounter;
 }
 
 enum DialogTab {
   RoundReminder,
   Counter,
-  Stat
+  Stat,
 }
 
 enum DialogSubTab {
   Counter,
-  EffectCounter
+  EffectCounter,
 }

@@ -8,56 +8,62 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
 @Component({
   selector: 'app-stats-card',
   templateUrl: './stats-card.component.html',
-  styleUrls: ['./stats-card.component.scss']
+  styleUrls: ['./stats-card.component.scss'],
 })
 export class StatsCardComponent implements OnInit {
+  constructor(private requestService: RequestService) {}
 
-  constructor(private requestService: RequestService) { }
-
-  @Input() pcSubject!: Subject<Character>
-  @Input() char!: Character
+  @Input() pcSubject!: Subject<Character>;
+  @Input() char!: Character;
 
   ngOnInit(): void {
-    this.update()
+    this.update();
 
-    this.pcSubject.subscribe(x => {
-      this.char = x 
-      this.update()
-    })
+    this.pcSubject.subscribe((x) => {
+      this.char = x;
+      this.update();
+    });
 
-    this.experienceDebounce.subscribe(_ => this.experienceDebouncing = true)
-    this.experienceDebounce.pipe(
-      debounceTime(2000),
-      distinctUntilChanged())
-      .subscribe(_ => {
-        this.updateExperience()
+    this.experienceDebounce.subscribe(
+      (_) => (this.experienceDebouncing = true),
+    );
+    this.experienceDebounce
+      .pipe(debounceTime(2000), distinctUntilChanged())
+      .subscribe((_) => {
+        this.updateExperience();
       });
   }
 
   update() {
-    this.char.stats.sort(function(a, b){
+    this.char.stats.sort(function (a, b) {
       return a.statId! - b.statId!;
-    })
-    this.statTable = new MatTableDataSource(this.char.stats)
+    });
+    this.statTable = new MatTableDataSource(this.char.stats);
 
-    if(!this.experienceDebouncing) {
-      this.experience = this.char.experience
+    if (!this.experienceDebouncing) {
+      this.experience = this.char.experience;
     }
   }
 
-  experience = ""
+  experience = '';
   experienceDebounce = new Subject<string>();
-  experienceDebouncing = false
+  experienceDebouncing = false;
 
   mainTableCols: string[] = ['name', 'value'];
 
-  stats: StatValue[] = []
+  stats: StatValue[] = [];
   statTable = new MatTableDataSource<StatValue>(this.stats);
 
   async updateExperience() {
-    (await this.requestService.patch(this.requestService.routes.character, this.char.id, JSON.stringify({
-      "experience": this.experience
-    }))).subscribe()
-    this.experienceDebouncing = false
+    (
+      await this.requestService.patch(
+        this.requestService.routes.character,
+        this.char.id,
+        JSON.stringify({
+          experience: this.experience,
+        }),
+      )
+    ).subscribe();
+    this.experienceDebouncing = false;
   }
 }

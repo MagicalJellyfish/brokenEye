@@ -8,7 +8,7 @@ describe('TemplateDialogTabSingleComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TemplateDialogTabSingleComponent]
+      declarations: [TemplateDialogTabSingleComponent],
     });
     fixture = TestBed.createComponent(TemplateDialogTabSingleComponent);
     component = fixture.componentInstance;

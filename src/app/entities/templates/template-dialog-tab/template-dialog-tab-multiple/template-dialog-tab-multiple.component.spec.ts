@@ -8,7 +8,7 @@ describe('TemplateDialogTabMultipleComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TemplateDialogTabMultipleComponent]
+      declarations: [TemplateDialogTabMultipleComponent],
     });
     fixture = TestBed.createComponent(TemplateDialogTabMultipleComponent);
     component = fixture.componentInstance;

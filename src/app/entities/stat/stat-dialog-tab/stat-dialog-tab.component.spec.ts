@@ -8,7 +8,7 @@ describe('StatDialogTabComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [StatDialogTabComponent]
+      declarations: [StatDialogTabComponent],
     });
     fixture = TestBed.createComponent(StatDialogTabComponent);
     component = fixture.componentInstance;

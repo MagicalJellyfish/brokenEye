@@ -1,37 +1,59 @@
 <mat-dialog-content>
   <div class="flex">
     <div class="description" *ngIf="this.element">
-
-      <mat-form-field appearance="outline" *ngIf="this.element.hasOwnProperty('description')">
+      <mat-form-field
+        appearance="outline"
+        *ngIf="this.element.hasOwnProperty('description')"
+      >
         <mat-label>Description</mat-label>
-        <textarea matInput [(ngModel)]="this.element.description"
-          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"></textarea>
+        <textarea
+          matInput
+          [(ngModel)]="this.element.description"
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="2"
+        ></textarea>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" *ngIf="this.element.hasOwnProperty('abstract')">
+      <mat-form-field
+        appearance="outline"
+        *ngIf="this.element.hasOwnProperty('abstract')"
+      >
         <mat-label>Abstract</mat-label>
-        <textarea matInput [(ngModel)]="this.element.abstract"
-          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"></textarea>
+        <textarea
+          matInput
+          [(ngModel)]="this.element.abstract"
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="2"
+        ></textarea>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" *ngIf="this.element.hasOwnProperty('reminder')">
+      <mat-form-field
+        appearance="outline"
+        *ngIf="this.element.hasOwnProperty('reminder')"
+      >
         <mat-label>Reminding Text</mat-label>
-        <textarea matInput [(ngModel)]="this.element.reminder"
-          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"></textarea>
+        <textarea
+          matInput
+          [(ngModel)]="this.element.reminder"
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="2"
+        ></textarea>
       </mat-form-field>
-
     </div>
-    
+
     <mat-grid-list *ngIf="element" cols="3" rowHeight="20vh">
       <!--General-->
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('id')">
-        <div><b>ID</b> {{element.id}}</div> 
+        <div><b>ID</b> {{ element.id }}</div>
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('name')">
         <mat-form-field appearance="outline">
           <mat-label>Name</mat-label>
-          <input matInput [(ngModel)]="this.element.name">
+          <input matInput [(ngModel)]="this.element.name" />
         </mat-form-field>
       </mat-grid-tile>
 
@@ -40,7 +62,11 @@
         <mat-form-field appearance="outline">
           <mat-label>TargetType</mat-label>
           <mat-select [(ngModel)]="selectedTargetType">
-            <mat-option *ngFor="let targetType of targetTypeOptions" [value]="targetType">{{targetType}}</mat-option>
+            <mat-option
+              *ngFor="let targetType of targetTypeOptions"
+              [value]="targetType"
+              >{{ targetType }}</mat-option
+            >
           </mat-select>
         </mat-form-field>
       </mat-grid-tile>
@@ -48,79 +74,88 @@
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('self')">
         <mat-form-field appearance="outline">
           <mat-label>Roll</mat-label>
-          <input matInput [(ngModel)]="this.element.self">
+          <input matInput [(ngModel)]="this.element.self" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('target')">
         <mat-form-field appearance="outline">
           <mat-label>Target's Roll/DC</mat-label>
-          <input matInput [(ngModel)]="this.element.target">
+          <input matInput [(ngModel)]="this.element.target" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('damage')">
         <mat-form-field appearance="outline">
           <mat-label>Damage</mat-label>
-          <input matInput [(ngModel)]="this.element.damage">
+          <input matInput [(ngModel)]="this.element.damage" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('range')">
         <mat-form-field appearance="outline">
           <mat-label>Range</mat-label>
-          <input matInput [(ngModel)]="this.element.range">
+          <input matInput [(ngModel)]="this.element.range" />
         </mat-form-field>
       </mat-grid-tile>
 
       <!--Reminders-->
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('reminding')">
-        <div><b>Reminding</b> <mat-checkbox [(ngModel)]="this.element.reminding"></mat-checkbox></div> 
+        <div>
+          <b>Reminding</b>
+          <mat-checkbox [(ngModel)]="this.element.reminding"></mat-checkbox>
+        </div>
       </mat-grid-tile>
 
       <!--Counters-->
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('max')">
         <mat-form-field appearance="outline">
           <mat-label>Maximum Value</mat-label>
-          <input matInput [(ngModel)]="this.element.max">
+          <input matInput [(ngModel)]="this.element.max" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('roundBased')">
-        <div><b>Round-Based</b> <mat-checkbox [(ngModel)]="this.element.roundBased"></mat-checkbox></div> 
+        <div>
+          <b>Round-Based</b>
+          <mat-checkbox [(ngModel)]="this.element.roundBased"></mat-checkbox>
+        </div>
       </mat-grid-tile>
 
       <!--Effect-Counters-->
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('endEffect')">
-        <div><b>Ends Effect</b> <mat-checkbox [(ngModel)]="this.element.endEffect"></mat-checkbox></div> 
+        <div>
+          <b>Ends Effect</b>
+          <mat-checkbox [(ngModel)]="this.element.endEffect"></mat-checkbox>
+        </div>
       </mat-grid-tile>
 
       <!--Modifiers-->
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('maxHp')">
         <mat-form-field appearance="outline">
           <mat-label>Maximum HP Increase</mat-label>
-          <input matInput [(ngModel)]="this.element.maxHp">
+          <input matInput [(ngModel)]="this.element.maxHp" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('movementSpeed')">
         <mat-form-field appearance="outline">
           <mat-label>Movement Speed Increase</mat-label>
-          <input matInput [(ngModel)]="this.element.movementSpeed">
+          <input matInput [(ngModel)]="this.element.movementSpeed" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('evasion')">
         <mat-form-field appearance="outline">
           <mat-label>Evasion</mat-label>
-          <input matInput [(ngModel)]="this.element.evasion">
+          <input matInput [(ngModel)]="this.element.evasion" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('armor')">
         <mat-form-field appearance="outline">
           <mat-label>Armor</mat-label>
-          <input matInput [(ngModel)]="this.element.armor">
+          <input matInput [(ngModel)]="this.element.armor" />
         </mat-form-field>
       </mat-grid-tile>
 
@@ -128,12 +163,12 @@
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('amount')">
         <mat-form-field appearance="outline">
           <mat-label>Amount</mat-label>
-          <input matInput [(ngModel)]="this.element.amount">
+          <input matInput [(ngModel)]="this.element.amount" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Unit</mat-label>
-          <input matInput [(ngModel)]="this.element.unit">
+          <input matInput [(ngModel)]="this.element.unit" />
         </mat-form-field>
       </mat-grid-tile>
 
@@ -141,72 +176,131 @@
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('hp')">
         <mat-form-field appearance="outline">
           <mat-label>HP healed per round</mat-label>
-          <input matInput [(ngModel)]="this.element.hp">
+          <input matInput [(ngModel)]="this.element.hp" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('maxTempHp')">
         <mat-form-field appearance="outline">
           <mat-label>Temporary HP</mat-label>
-          <input matInput [(ngModel)]="this.element.maxTempHp">
+          <input matInput [(ngModel)]="this.element.maxTempHp" />
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('duration')">
         <mat-form-field appearance="outline">
           <mat-label>Duration</mat-label>
-          <input matInput [(ngModel)]="this.element.duration">
+          <input matInput [(ngModel)]="this.element.duration" />
         </mat-form-field>
       </mat-grid-tile>
-
     </mat-grid-list>
 
     <div *ngIf="this.element" class="tabs">
-      <mat-tab-group dynamicHeight [(selectedIndex)]="persistencyService.dialogTab">
-        <mat-tab label="Reminder" *ngIf="this.element.hasOwnProperty('roundReminderTemplate')">
-          <app-template-dialog-tab-single [parentData]="this.parentData" [elementRoute]="this.requestService.routes.roundReminderTemplate" [parent]="this.element" [elementName]="'roundReminderTemplate'" [elementSubject]="this.elementSubject"></app-template-dialog-tab-single>
+      <mat-tab-group
+        dynamicHeight
+        [(selectedIndex)]="persistencyService.dialogTab"
+      >
+        <mat-tab
+          label="Reminder"
+          *ngIf="this.element.hasOwnProperty('roundReminderTemplate')"
+        >
+          <app-template-dialog-tab-single
+            [parentData]="this.parentData"
+            [elementRoute]="this.requestService.routes.roundReminderTemplate"
+            [parent]="this.element"
+            [elementName]="'roundReminderTemplate'"
+            [elementSubject]="this.elementSubject"
+          ></app-template-dialog-tab-single>
         </mat-tab>
 
-        <mat-tab label="Counters" *ngIf="this.element.hasOwnProperty('effectCounterTemplate')">
+        <mat-tab
+          label="Counters"
+          *ngIf="this.element.hasOwnProperty('effectCounterTemplate')"
+        >
           <mat-tab-group [(selectedIndex)]="persistencyService.dialogSubTab">
             <mat-tab label="Effect-Counter">
-              <app-template-dialog-tab-single [parentData]="this.parentData" [elementRoute]="this.requestService.routes.effectCounterTemplate" [parent]="this.element" [elementName]="'effectCounterTemplate'" [elementSubject]="this.elementSubject"></app-template-dialog-tab-single>
+              <app-template-dialog-tab-single
+                [parentData]="this.parentData"
+                [elementRoute]="
+                  this.requestService.routes.effectCounterTemplate
+                "
+                [parent]="this.element"
+                [elementName]="'effectCounterTemplate'"
+                [elementSubject]="this.elementSubject"
+              ></app-template-dialog-tab-single>
             </mat-tab>
             <mat-tab label="Counters">
-              <app-template-dialog-tab-multiple [parentData]="this.parentData" [elementRoute]="this.requestService.routes.counterTemplate" [parent]="this.element" [elementName]="'counterTemplates'" [elementSubject]="this.elementSubject"></app-template-dialog-tab-multiple>
+              <app-template-dialog-tab-multiple
+                [parentData]="this.parentData"
+                [elementRoute]="this.requestService.routes.counterTemplate"
+                [parent]="this.element"
+                [elementName]="'counterTemplates'"
+                [elementSubject]="this.elementSubject"
+              ></app-template-dialog-tab-multiple>
             </mat-tab>
           </mat-tab-group>
         </mat-tab>
-  
-        <mat-tab label="Counters" *ngIf="this.element.hasOwnProperty('counterTemplates') && this.data.route != this.requestService.routes.roundReminderTemplate 
-          && !this.element.hasOwnProperty('effectCounterTemplate')">
-          <app-template-dialog-tab-multiple [parentData]="this.parentData" [elementRoute]="this.requestService.routes.counterTemplate" [parent]="this.element" [elementName]="'counterTemplates'" [elementSubject]="this.elementSubject"></app-template-dialog-tab-multiple>
+
+        <mat-tab
+          label="Counters"
+          *ngIf="
+            this.element.hasOwnProperty('counterTemplates') &&
+            this.data.route !=
+              this.requestService.routes.roundReminderTemplate &&
+            !this.element.hasOwnProperty('effectCounterTemplate')
+          "
+        >
+          <app-template-dialog-tab-multiple
+            [parentData]="this.parentData"
+            [elementRoute]="this.requestService.routes.counterTemplate"
+            [parent]="this.element"
+            [elementName]="'counterTemplates'"
+            [elementSubject]="this.elementSubject"
+          ></app-template-dialog-tab-multiple>
         </mat-tab>
 
-        <mat-tab label="Stats" *ngIf="this.element.hasOwnProperty('statIncreases')">
-          <app-stat-dialog-tab [template]="true" [parentData]="parentData" [parent]="this.element" [elementName]="'statIncreases'" [elementSubject]="this.elementSubject"></app-stat-dialog-tab>
+        <mat-tab
+          label="Stats"
+          *ngIf="this.element.hasOwnProperty('statIncreases')"
+        >
+          <app-stat-dialog-tab
+            [template]="true"
+            [parentData]="parentData"
+            [parent]="this.element"
+            [elementName]="'statIncreases'"
+            [elementSubject]="this.elementSubject"
+          ></app-stat-dialog-tab>
         </mat-tab>
 
-        <mat-tab label="Effect Templates" *ngIf="parentData.parentRoute.includes('Abilit')">
-          <app-template-dialog-tab-multiple [parentData]="this.parentData" [elementRoute]="this.requestService.routes.effectTemplate" [parent]="this.element" [elementName]="'effectTemplates'" [elementSubject]="this.elementSubject"></app-template-dialog-tab-multiple>
+        <mat-tab
+          label="Effect Templates"
+          *ngIf="parentData.parentRoute.includes('Abilit')"
+        >
+          <app-template-dialog-tab-multiple
+            [parentData]="this.parentData"
+            [elementRoute]="this.requestService.routes.effectTemplate"
+            [parent]="this.element"
+            [elementName]="'effectTemplates'"
+            [elementSubject]="this.elementSubject"
+          ></app-template-dialog-tab-multiple>
         </mat-tab>
 
         <mat-tab label="Rolls" *ngIf="this.element.hasOwnProperty('rolls')">
-          <app-roll-dialog-tab [template]="true" [parentData]="parentData" [parent]="this.element" [elementName]="'rolls'" [elementSubject]="this.elementSubject"></app-roll-dialog-tab>
+          <app-roll-dialog-tab
+            [template]="true"
+            [parentData]="parentData"
+            [parent]="this.element"
+            [elementName]="'rolls'"
+            [elementSubject]="this.elementSubject"
+          ></app-roll-dialog-tab>
         </mat-tab>
       </mat-tab-group>
     </div>
   </div>
 
   <mat-dialog-actions align="end">
-    <button mat-button color="warn" (click)="delete()">
-      Delete
-    </button>
-    <button mat-button mat-dialog-close>
-      Cancel
-    </button>
-    <button mat-button color="accent" (click)="save()">
-      Save
-    </button>
+    <button mat-button color="warn" (click)="delete()">Delete</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button color="accent" (click)="save()">Save</button>
   </mat-dialog-actions>
 </mat-dialog-content>

@@ -6,51 +6,55 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
 @Component({
   selector: 'app-large-card',
   templateUrl: './large-card.component.html',
-  styleUrls: ['./large-card.component.scss']
+  styleUrls: ['./large-card.component.scss'],
 })
 export class LargeCardComponent implements OnInit {
+  constructor(protected requestService: RequestService) {}
 
-  constructor(protected requestService: RequestService) { }
-
-  @Input() pcSubject!: Subject<Character>
-  @Input() char!: Character
+  @Input() pcSubject!: Subject<Character>;
+  @Input() char!: Character;
 
   ngOnInit(): void {
-    this.update()
+    this.update();
 
-    this.pcSubject.subscribe(x => {
-      this.char = x
-      this.update()
-    })
-
-    this.moneyDebounce.subscribe(_ => this.moneyDebouncing = true)
-    this.moneyDebounce.pipe(
-    debounceTime(2000),
-    distinctUntilChanged())
-    .subscribe(_ => {
-      this.updateMoney()
+    this.pcSubject.subscribe((x) => {
+      this.char = x;
+      this.update();
     });
+
+    this.moneyDebounce.subscribe((_) => (this.moneyDebouncing = true));
+    this.moneyDebounce
+      .pipe(debounceTime(2000), distinctUntilChanged())
+      .subscribe((_) => {
+        this.updateMoney();
+      });
   }
 
   update() {
-    if(!this.moneyDebouncing) {
-      this.money = this.char.money
+    if (!this.moneyDebouncing) {
+      this.money = this.char.money;
     }
   }
 
   moneyDebounce = new Subject<string>();
-  moneyDebouncing = false
-  money = 0
+  moneyDebouncing = false;
+  money = 0;
 
   async updateMoney() {
-    (await this.requestService.patch(this.requestService.routes.character, this.char.id, JSON.stringify({
-      "money": this.money
-    }))).subscribe()
-    this.moneyDebouncing = false
+    (
+      await this.requestService.patch(
+        this.requestService.routes.character,
+        this.char.id,
+        JSON.stringify({
+          money: this.money,
+        }),
+      )
+    ).subscribe();
+    this.moneyDebouncing = false;
   }
 }
 
 export interface NestedElement {
-  source: string
-  element: any
+  source: string;
+  element: any;
 }

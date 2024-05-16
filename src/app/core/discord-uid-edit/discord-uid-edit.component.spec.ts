@@ -8,7 +8,7 @@ describe('DiscordUidEditComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DiscordUidEditComponent]
+      declarations: [DiscordUidEditComponent],
     });
     fixture = TestBed.createComponent(DiscordUidEditComponent);
     component = fixture.componentInstance;

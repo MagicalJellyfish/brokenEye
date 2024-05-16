@@ -1,7 +1,6 @@
 mat-dialog-content {
   width: 40vw;
 
-  
   .list {
     max-height: 70vh;
     overflow-y: scroll;
@@ -10,7 +9,7 @@ mat-dialog-content {
     padding: 0.5vh;
     color: white;
     cursor: move;
-    border: 0.1vw solid #4DB6AC;
+    border: 0.1vw solid #4db6ac;
 
     * {
       display: inline-flex;
@@ -23,7 +22,7 @@ mat-dialog-content {
   font-size: medium;
   color: white;
   cursor: move;
-  border: 0.1vw solid #4DB6AC;
+  border: 0.1vw solid #4db6ac;
 }
 
 .cdk-drag-placeholder {

@@ -19,48 +19,66 @@ import { AbilityTemplate } from 'src/app/api-classes/Abilities/Abilities/Ability
 import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ObjectService {
+  constructor(private requestService: RequestService) {}
 
-  constructor(private requestService: RequestService) { }
-
-  groupKeys: string[] = ["roundReminder", "counters", "counter", "effectCounter", "effect", "statIncreases", "character", "modifier", "characterInjury", "abilities", "rolls", 
-                        "roundReminderTemplate", "counterTemplates", "effectCounterTemplate", "effectTemplates", "statIncreases", "modifierTemplates", "characterTemplates", "abilityTemplates"]
+  groupKeys: string[] = [
+    'roundReminder',
+    'counters',
+    'counter',
+    'effectCounter',
+    'effect',
+    'statIncreases',
+    'character',
+    'modifier',
+    'characterInjury',
+    'abilities',
+    'rolls',
+    'roundReminderTemplate',
+    'counterTemplates',
+    'effectCounterTemplate',
+    'effectTemplates',
+    'statIncreases',
+    'modifierTemplates',
+    'characterTemplates',
+    'abilityTemplates',
+  ];
 
   newAny(route: string) {
-    let routes = this.requestService.routes
-    switch(route) {
+    let routes = this.requestService.routes;
+    switch (route) {
       case routes.character:
-        return this.newCharacter()
-      case routes.counter: 
-        return this.newCounter()
-      case routes.counterTemplate: 
-        return this.newCounterTemplate()
-      case routes.effectCounter: 
-        return this.newEffectCounter()
-      case routes.effectCounterTemplate: 
-        return this.newEffectCounterTemplate()
-      case routes.effect: 
-        return this.newEffect()
-      case routes.effectTemplate: 
-        return this.newEffectTemplate()
-      case routes.item: 
-        return this.newItem()
-      case routes.itemTemplate: 
-        return this.newItemTemplate()
-      case routes.roundReminder: 
-        return this.newRoundReminder()
-      case routes.roundReminderTemplate: 
-        return this.newRoundReminderTemplate()
-      case routes.trait: 
-        return this.newTrait()
-      case routes.traitTemplate: 
-        return this.newTraitTemplate()
+        return this.newCharacter();
+      case routes.counter:
+        return this.newCounter();
+      case routes.counterTemplate:
+        return this.newCounterTemplate();
+      case routes.effectCounter:
+        return this.newEffectCounter();
+      case routes.effectCounterTemplate:
+        return this.newEffectCounterTemplate();
+      case routes.effect:
+        return this.newEffect();
+      case routes.effectTemplate:
+        return this.newEffectTemplate();
+      case routes.item:
+        return this.newItem();
+      case routes.itemTemplate:
+        return this.newItemTemplate();
+      case routes.roundReminder:
+        return this.newRoundReminder();
+      case routes.roundReminderTemplate:
+        return this.newRoundReminderTemplate();
+      case routes.trait:
+        return this.newTrait();
+      case routes.traitTemplate:
+        return this.newTraitTemplate();
       case routes.ability:
-        return this.newAbility()
+        return this.newAbility();
       case routes.abilityTemplate:
-        return this.newAbilityTemplate()
+        return this.newAbilityTemplate();
     }
 
     return;
@@ -101,10 +119,10 @@ export class ObjectService {
       roundReminders: [],
       isNPC: false,
       abilitiesIds: [],
-      abilities: []
-    }
+      abilities: [],
+    };
 
-    return c
+    return c;
   }
 
   newAbility() {
@@ -118,10 +136,10 @@ export class ObjectService {
       rolls: [],
       effectTemplatesIds: [],
       effectTemplates: [],
-      targetType: TargetType.None
-    }
+      targetType: TargetType.None,
+    };
 
-    return ability
+    return ability;
   }
 
   newEffect() {
@@ -141,10 +159,10 @@ export class ObjectService {
       statIncreases: [],
       countersIds: [],
       counters: [],
-      viewPosition: 0
-    }
+      viewPosition: 0,
+    };
 
-    return effect
+    return effect;
   }
 
   newItem() {
@@ -164,10 +182,10 @@ export class ObjectService {
       statIncreases: [],
       countersIds: [],
       counters: [],
-      viewPosition: 0
-    }
+      viewPosition: 0,
+    };
 
-    return item
+    return item;
   }
 
   newRoundReminder() {
@@ -175,10 +193,10 @@ export class ObjectService {
       id: 0,
       reminding: true,
       reminder: 'undefined',
-      viewPosition: 0
-    }
+      viewPosition: 0,
+    };
 
-    return reminder
+    return reminder;
   }
 
   newTrait() {
@@ -196,10 +214,10 @@ export class ObjectService {
       statIncreases: [],
       countersIds: [],
       counters: [],
-      viewPosition: 0
-    }
+      viewPosition: 0,
+    };
 
-    return trait
+    return trait;
   }
 
   newEffectCounter() {
@@ -211,10 +229,10 @@ export class ObjectService {
       value: 0,
       max: 0,
       roundBased: true,
-      viewPosition: 0
-    }
+      viewPosition: 0,
+    };
 
-    return effectCounter
+    return effectCounter;
   }
 
   newCounter() {
@@ -225,10 +243,10 @@ export class ObjectService {
       value: 0,
       max: 0,
       roundBased: true,
-      viewPosition: 0
-    }
+      viewPosition: 0,
+    };
 
-    return counter
+    return counter;
   }
 
   newCharacterTemplate() {
@@ -252,10 +270,10 @@ export class ObjectService {
       image: [],
       isNPC: true,
       abilityTemplatesIds: [],
-      abilityTemplates: []
-    }
+      abilityTemplates: [],
+    };
 
-    return ct
+    return ct;
   }
 
   newAbilityTemplate() {
@@ -270,10 +288,10 @@ export class ObjectService {
       effectTemplates: [],
       characterTemplatesIds: [],
       characterTemplates: [],
-      targetType: TargetType.None
-    }
+      targetType: TargetType.None,
+    };
 
-    return abilityTemplate
+    return abilityTemplate;
   }
 
   newRoundReminderTemplate() {
@@ -286,10 +304,10 @@ export class ObjectService {
       modifierTemplates: [],
       counterTemplatesIds: [],
       characterTemplatesIds: [],
-      characterTemplates: []
-    }
+      characterTemplates: [],
+    };
 
-    return reminderTemplate
+    return reminderTemplate;
   }
 
   newCounterTemplate() {
@@ -302,10 +320,10 @@ export class ObjectService {
       modifierTemplatesIds: [],
       modifierTemplates: [],
       characterTemplatesIds: [],
-      characterTemplates: []
-    }
+      characterTemplates: [],
+    };
 
-    return counterTemplate
+    return counterTemplate;
   }
 
   newTraitTemplate() {
@@ -323,10 +341,10 @@ export class ObjectService {
       counterTemplatesIds: [],
       counterTemplates: [],
       characterTemplatesIds: [],
-      characterTemplates: []
-    }
+      characterTemplates: [],
+    };
 
-    return traitTemplate
+    return traitTemplate;
   }
 
   newItemTemplate() {
@@ -346,10 +364,10 @@ export class ObjectService {
       counterTemplatesIds: [],
       counterTemplates: [],
       characterTemplatesIds: [],
-      characterTemplates: []
-    }
+      characterTemplates: [],
+    };
 
-    return itemTemplate
+    return itemTemplate;
   }
 
   newEffectTemplate() {
@@ -374,10 +392,10 @@ export class ObjectService {
       abilityTemplatesIds: [],
       abilityTemplates: [],
       abilitiesIds: [],
-      abilities: []
-    }
+      abilities: [],
+    };
 
-    return effectTemplate
+    return effectTemplate;
   }
 
   newEffectCounterTemplate() {
@@ -393,9 +411,9 @@ export class ObjectService {
       modifierTemplatesIds: [],
       modifierTemplates: [],
       characterTemplatesIds: [],
-      characterTemplates: []
-    }
+      characterTemplates: [],
+    };
 
-    return effectCounterTemplate
+    return effectCounterTemplate;
   }
 }

@@ -1,5 +1,5 @@
-import { CharacterTemplate } from "../Characters/CharacterTemplate";
-import { ModifierTemplate } from "../ModifierTemplate";
+import { CharacterTemplate } from '../Characters/CharacterTemplate';
+import { ModifierTemplate } from '../ModifierTemplate';
 
 export interface TraitTemplate extends ModifierTemplate {
   characterTemplatesIds: number[];

@@ -8,15 +8,16 @@ import { DiscordUidEditComponent } from '../discord-uid-edit/discord-uid-edit.co
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss']
+  styleUrls: ['./topbar.component.scss'],
 })
 export class TopbarComponent implements OnInit {
+  constructor(
+    protected userService: UserService,
+    private matDialog: MatDialog,
+    private snackBar: MatSnackBar,
+  ) {}
 
-  constructor(protected userService: UserService, private matDialog: MatDialog, 
-    private snackBar: MatSnackBar) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openSettings() {
     this.matDialog.open(SettingsDialogComponent);
@@ -24,10 +25,10 @@ export class TopbarComponent implements OnInit {
 
   logout() {
     this.userService.logout();
-    this.snackBar.open("Logged out!", undefined, {duration: 2000})
+    this.snackBar.open('Logged out!', undefined, { duration: 2000 });
   }
 
   changeDiscordUserId() {
-    this.matDialog.open(DiscordUidEditComponent)
+    this.matDialog.open(DiscordUidEditComponent);
   }
 }

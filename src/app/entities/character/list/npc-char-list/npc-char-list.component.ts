@@ -7,31 +7,40 @@ import { UserService } from 'src/app/services/user/user.service';
 @Component({
   selector: 'app-npc-char-list',
   templateUrl: './npc-char-list.component.html',
-  styleUrls: ['./npc-char-list.component.scss', '../../../char-list-shared.scss']
+  styleUrls: [
+    './npc-char-list.component.scss',
+    '../../../char-list-shared.scss',
+  ],
 })
 export class NpcCharListComponent implements OnInit {
-
-  constructor(private router: Router, private requestService: RequestService, private userService: UserService) { }
+  constructor(
+    private router: Router,
+    private requestService: RequestService,
+    private userService: UserService,
+  ) {}
 
   async ngOnInit(): Promise<void> {
+    (
+      await this.requestService.getAll(
+        this.requestService.routes.character + '/NPC',
+      )
+    ).subscribe((x: any) => {
+      this.npcs = x;
 
-    (await this.requestService.getAll(this.requestService.routes.character + "/NPC")).subscribe((x: any) => {
-      this.npcs = x
-      
       x.forEach((c: Character) => {
-        var charCodeString: string = ""
-        for(var i = 0; i < c.image.length; i++) {
-          charCodeString += String.fromCharCode(c.image[i])
+        var charCodeString: string = '';
+        for (var i = 0; i < c.image.length; i++) {
+          charCodeString += String.fromCharCode(c.image[i]);
         }
-        this.npcImages.push(btoa(charCodeString))
+        this.npcImages.push(btoa(charCodeString));
       });
     });
   }
-  
+
   npcs?: Character[];
-  npcImages: string[] = []
+  npcImages: string[] = [];
 
   select(id: number) {
-    this.router.navigate(["char/view/" + id])
+    this.router.navigate(['char/view/' + id]);
   }
 }

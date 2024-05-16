@@ -8,9 +8,8 @@ describe('CharViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CharViewComponent ]
-    })
-    .compileComponents();
+      declarations: [CharViewComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CharViewComponent);
     component = fixture.componentInstance;

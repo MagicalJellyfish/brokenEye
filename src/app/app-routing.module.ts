@@ -12,9 +12,9 @@ import { NpcCharListComponent } from './entities/character/list/npc-char-list/np
 import { CharTemplateCreateComponent } from './entities/characterTemplate/char-template-create/char-template-create.component';
 
 const routes: Routes = [
-  { path: '', component: IndexComponent, pathMatch: 'full'},
-  { path: 'index', component: IndexComponent},
-  { path: 'account', component: AccountComponent},
+  { path: '', component: IndexComponent, pathMatch: 'full' },
+  { path: 'index', component: IndexComponent },
+  { path: 'account', component: AccountComponent },
   { path: 'char/view', component: UserCharListComponent },
   { path: 'char/npc/view', component: NpcCharListComponent },
   { path: 'char/view/:id', component: CharViewComponent },
@@ -27,6 +27,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

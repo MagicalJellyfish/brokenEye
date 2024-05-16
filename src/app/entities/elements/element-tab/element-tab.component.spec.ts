@@ -8,7 +8,7 @@ describe('ElementTabComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ElementTabComponent]
+      declarations: [ElementTabComponent],
     });
     fixture = TestBed.createComponent(ElementTabComponent);
     component = fixture.componentInstance;

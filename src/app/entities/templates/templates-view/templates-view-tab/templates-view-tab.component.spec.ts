@@ -8,7 +8,7 @@ describe('TemplatesViewTabComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TemplatesViewTabComponent]
+      declarations: [TemplatesViewTabComponent],
     });
     fixture = TestBed.createComponent(TemplatesViewTabComponent);
     component = fixture.componentInstance;

@@ -1,10 +1,10 @@
-import { Character } from "./Characters/Character";
+import { Character } from './Characters/Character';
 
 export interface UserSimplified {
   id: number;
   username: string;
   discordId: number;
 
-  activeCharacter: Character | undefined
+  activeCharacter: Character | undefined;
   characters: Character[];
 }

@@ -1,4 +1,4 @@
-mat-form-field *{
+mat-form-field * {
   height: 1vw;
 }
 
@@ -20,15 +20,17 @@ table {
   }
 
   tr:first-child {
-    border-top: 0.2vh solid #4DB6AC;
-  }  
-  td:first-child, td:nth-child(2) {
+    border-top: 0.2vh solid #4db6ac;
+  }
+  td:first-child,
+  td:nth-child(2) {
     text-align: left;
   }
   td:nth-child(1) {
-    border-right: 0.1vw solid #4DB6AC;
+    border-right: 0.1vw solid #4db6ac;
   }
-  td:last-child, td:nth-child(1) {
+  td:last-child,
+  td:nth-child(1) {
     text-align: right;
   }
 }

@@ -6,14 +6,23 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
 @Component({
   selector: 'app-char-create',
   templateUrl: './char-create.component.html',
-  styleUrls: ['./char-create.component.scss']
+  styleUrls: ['./char-create.component.scss'],
 })
 export class CharCreateComponent implements OnInit {
-  constructor(private router: Router, private objectService: ObjectService, private requestService: RequestService) { }
+  constructor(
+    private router: Router,
+    private objectService: ObjectService,
+    private requestService: RequestService,
+  ) {}
 
   async ngOnInit(): Promise<void> {
-    (await this.requestService.create(this.requestService.routes.character, this.objectService.newCharacter())).subscribe((x: any) => {
-      this.router.navigate(["char/view/" + x.id])
-    })
+    (
+      await this.requestService.create(
+        this.requestService.routes.character,
+        this.objectService.newCharacter(),
+      )
+    ).subscribe((x: any) => {
+      this.router.navigate(['char/view/' + x.id]);
+    });
   }
 }

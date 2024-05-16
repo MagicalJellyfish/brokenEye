@@ -4,66 +4,77 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { EMPTY, Observable, catchError, firstValueFrom, throwError } from 'rxjs';
+import {
+  EMPTY,
+  Observable,
+  catchError,
+  firstValueFrom,
+  throwError,
+} from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
-
   constructor(private snackBar: MatSnackBar) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler,
+  ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMsg = ""
-        if(error.message != "") {
-          switch(error.status) {
+        let errorMsg = '';
+        if (error.message != '') {
+          switch (error.status) {
             case 400:
-              errorMsg = "400 Bad Request - "
+              errorMsg = '400 Bad Request - ';
               break;
             case 401:
-              errorMsg = "401 Unauthorized - "
+              errorMsg = '401 Unauthorized - ';
               break;
             case 403:
-              errorMsg = "403 Forbidden - "
+              errorMsg = '403 Forbidden - ';
               break;
             case 500:
-              errorMsg = "500 Internal Server Error - "
+              errorMsg = '500 Internal Server Error - ';
               break;
           }
 
-          if(errorMsg != "") {
-            errorMsg += error.error
+          if (errorMsg != '') {
+            errorMsg += error.error;
           }
         }
 
-        if(errorMsg == "") {
-          switch(error.status) {
+        if (errorMsg == '') {
+          switch (error.status) {
             case 0:
-              errorMsg = "Server not reachable or not responding"
+              errorMsg = 'Server not reachable or not responding';
               break;
             case 400:
-              errorMsg = "400 Bad Request - Sent data does not match the required layout or has other errors"
+              errorMsg =
+                '400 Bad Request - Sent data does not match the required layout or has other errors';
               break;
-            case 401: 
-              errorMsg = "401 Unauthorized - Log in for access"
+            case 401:
+              errorMsg = '401 Unauthorized - Log in for access';
               break;
             case 403:
-              errorMsg = "403 Forbidden - Your account cannot access this resource or your credentials have expired"
+              errorMsg =
+                '403 Forbidden - Your account cannot access this resource or your credentials have expired';
               break;
             case 404:
-              errorMsg = "404 Not Found - No object of requested type found"
+              errorMsg = '404 Not Found - No object of requested type found';
               break;
             case 500:
-              errorMsg = "500 Internal Server Error - Server failed processing request"
+              errorMsg =
+                '500 Internal Server Error - Server failed processing request';
           }
         }
 
-        this.snackBar.open(errorMsg, "Close", { duration: 60000 })
+        this.snackBar.open(errorMsg, 'Close', { duration: 60000 });
         return throwError(() => error);
-      })
+      }),
     );
   }
 }

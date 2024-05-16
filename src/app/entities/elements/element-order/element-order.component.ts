@@ -6,31 +6,38 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
 @Component({
   selector: 'app-element-order',
   templateUrl: './element-order.component.html',
-  styleUrls: ['./element-order.component.scss']
+  styleUrls: ['./element-order.component.scss'],
 })
 export class ElementOrderComponent implements OnInit {
-
-  constructor(private requestService: RequestService, 
-    @Inject(MAT_DIALOG_DATA) public data: { elements: any[], route: string },
-    public dialogRef: MatDialogRef<ElementOrderComponent>) { }
+  constructor(
+    private requestService: RequestService,
+    @Inject(MAT_DIALOG_DATA) public data: { elements: any[]; route: string },
+    public dialogRef: MatDialogRef<ElementOrderComponent>,
+  ) {}
 
   async ngOnInit() {
-    this.elements = structuredClone(this.data.elements)
+    this.elements = structuredClone(this.data.elements);
   }
 
-  elements: any[] = []
+  elements: any[] = [];
 
   drop(event: CdkDragDrop<any[]>) {
     moveItemInArray(this.elements, event.previousIndex, event.currentIndex);
   }
 
   async saveOrder() {
-    for(let i=0; i < this.elements.length; i++) {
-      (await this.requestService.patch(this.data.route, this.elements.at(i)!.id, JSON.stringify({
-        "viewPosition": i
-      }))).subscribe()
+    for (let i = 0; i < this.elements.length; i++) {
+      (
+        await this.requestService.patch(
+          this.data.route,
+          this.elements.at(i)!.id,
+          JSON.stringify({
+            viewPosition: i,
+          }),
+        )
+      ).subscribe();
     }
-    
-    this.dialogRef.close()
+
+    this.dialogRef.close();
   }
 }

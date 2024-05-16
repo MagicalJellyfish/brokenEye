@@ -12,61 +12,71 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-template-tab',
   templateUrl: './template-tab.component.html',
-  styleUrls: ['./template-tab.component.scss']
+  styleUrls: ['./template-tab.component.scss'],
 })
 export class TemplateTabComponent implements OnInit {
+  constructor(
+    private requestService: RequestService,
+    private objectService: ObjectService,
+    private matDialog: MatDialog,
+  ) {}
 
-  constructor(private requestService: RequestService, private objectService: ObjectService,
-    private matDialog: MatDialog) { }
-
-  @Input() charTemplate!: CharacterTemplate
-  @Input() propertyName!: keyof CharacterTemplate
-  @Input() elementRoute!: string
-  @Input() changeSubject!: Subject<void>
+  @Input() charTemplate!: CharacterTemplate;
+  @Input() propertyName!: keyof CharacterTemplate;
+  @Input() elementRoute!: string;
+  @Input() changeSubject!: Subject<void>;
 
   async ngOnInit() {
-    if(this.elementRoute == this.requestService.routes.roundReminder) {
-      this.elementTableCols.push('reminder', 'reminding')
+    if (this.elementRoute == this.requestService.routes.roundReminder) {
+      this.elementTableCols.push('reminder', 'reminding');
 
-      this.elementTable.filterPredicate = function(data, filter: string): boolean {
+      this.elementTable.filterPredicate = function (
+        data,
+        filter: string,
+      ): boolean {
         return data.reminder.toLowerCase().includes(filter);
       };
-    }
-    else {
-      this.elementTableCols.push('name')
+    } else {
+      this.elementTableCols.push('name');
 
-      let routeList = [this.requestService.routes.traitTemplate, this.requestService.routes.itemTemplate, this.requestService.routes.effectTemplate]
-      if(routeList.includes(this.elementRoute)) {
-        this.elementTableCols.push('abstract')
-      }
-      else {
-        this.elementTableCols.push('description')
-      }
-
-      if(this.elementRoute == this.requestService.routes.itemTemplate) {
-        this.elementTableCols.push('amount')
+      let routeList = [
+        this.requestService.routes.traitTemplate,
+        this.requestService.routes.itemTemplate,
+        this.requestService.routes.effectTemplate,
+      ];
+      if (routeList.includes(this.elementRoute)) {
+        this.elementTableCols.push('abstract');
+      } else {
+        this.elementTableCols.push('description');
       }
 
-      this.elementTable.filterPredicate = function(data, filter: string): boolean {
+      if (this.elementRoute == this.requestService.routes.itemTemplate) {
+        this.elementTableCols.push('amount');
+      }
+
+      this.elementTable.filterPredicate = function (
+        data,
+        filter: string,
+      ): boolean {
         return data.name.toLowerCase().includes(filter);
       };
     }
-    this.elementTableCols.push('actions')
+    this.elementTableCols.push('actions');
 
-    this.update()
+    this.update();
   }
 
   update() {
-    this.elements = this.charTemplate[this.propertyName]
-    this.elementTable = new MatTableDataSource(this.elements)
-    this.changeSubject.next()
+    this.elements = this.charTemplate[this.propertyName];
+    this.elementTable = new MatTableDataSource(this.elements);
+    this.changeSubject.next();
   }
 
-  elements: any
-  elementTable = new MatTableDataSource<any>()
-  elementTableCols: string[] = []
+  elements: any;
+  elementTable = new MatTableDataSource<any>();
+  elementTableCols: string[] = [];
 
-  boxProperty: string = ""
+  boxProperty: string = '';
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -74,54 +84,83 @@ export class TemplateTabComponent implements OnInit {
   }
 
   async createElement() {
-    let newElement: any =  this.objectService.newAny(this.elementRoute);
-    newElement.characterTemplatesIds = [ this.charTemplate.id ];
+    let newElement: any = this.objectService.newAny(this.elementRoute);
+    newElement.characterTemplatesIds = [this.charTemplate.id];
 
-    (await this.requestService.create(this.elementRoute, newElement)).subscribe((x: any) => {
-      this.matDialog.open(TemplateEditComponent, { maxWidth: '90vw', data: { id: x.id, route: this.elementRoute }}).afterClosed().subscribe(async _ => {
-        (await this.requestService.get(this.elementRoute, x.id)).subscribe(edited => {
-          this.elements.push(edited)
-          this.update()
-        })
-      })
-    })
+    (await this.requestService.create(this.elementRoute, newElement)).subscribe(
+      (x: any) => {
+        this.matDialog
+          .open(TemplateEditComponent, {
+            maxWidth: '90vw',
+            data: { id: x.id, route: this.elementRoute },
+          })
+          .afterClosed()
+          .subscribe(async (_) => {
+            (await this.requestService.get(this.elementRoute, x.id)).subscribe(
+              (edited) => {
+                this.elements.push(edited);
+                this.update();
+              },
+            );
+          });
+      },
+    );
   }
 
   addTemplate() {
-    this.matDialog.open(TemplateSelectComponent, { data: { route: this.elementRoute }}).afterClosed().subscribe(async template => {
-      (await this.requestService.fullPatch(this.elementRoute, template.id, [{
-        "op": "add",
-        "path": "/characterTemplatesIds/-",
-        "value": this.charTemplate.id
-      }])).subscribe(x => {
-        this.elements.push(x)
-        this.update()
-      })
-    })
+    this.matDialog
+      .open(TemplateSelectComponent, { data: { route: this.elementRoute } })
+      .afterClosed()
+      .subscribe(async (template) => {
+        (
+          await this.requestService.fullPatch(this.elementRoute, template.id, [
+            {
+              op: 'add',
+              path: '/characterTemplatesIds/-',
+              value: this.charTemplate.id,
+            },
+          ])
+        ).subscribe((x) => {
+          this.elements.push(x);
+          this.update();
+        });
+      });
   }
 
   viewElement(id: number) {
-    this.matDialog.open(TemplateViewComponent, { maxWidth: '90vw', data: { id: id, route: this.elementRoute }}).afterClosed().subscribe(async _ => {
-      (await this.requestService.get(this.elementRoute, id)).subscribe(edited => {
-        this.elements.forEach((element: any) => {
-          if(element.id == id) {
-            element = edited
-          }
-        });
-        this.update()
+    this.matDialog
+      .open(TemplateViewComponent, {
+        maxWidth: '90vw',
+        data: { id: id, route: this.elementRoute },
       })
-    })
+      .afterClosed()
+      .subscribe(async (_) => {
+        (await this.requestService.get(this.elementRoute, id)).subscribe(
+          (edited) => {
+            this.elements.forEach((element: any) => {
+              if (element.id == id) {
+                element = edited;
+              }
+            });
+            this.update();
+          },
+        );
+      });
   }
 
   async removeElement(id: number) {
-    (await this.requestService.fullPatch(this.elementRoute, id, [{
-      "op": "remove",
-      "path": "/characterTemplatesIds/" + this.charTemplate.id,
-    }])).subscribe(_ => {
+    (
+      await this.requestService.fullPatch(this.elementRoute, id, [
+        {
+          op: 'remove',
+          path: '/characterTemplatesIds/' + this.charTemplate.id,
+        },
+      ])
+    ).subscribe((_) => {
       this.elements.forEach((element: any, index: any) => {
-        if(element.id == id) this.elements.splice(index,1);
+        if (element.id == id) this.elements.splice(index, 1);
       });
-      this.update()
-    })
+      this.update();
+    });
   }
 }

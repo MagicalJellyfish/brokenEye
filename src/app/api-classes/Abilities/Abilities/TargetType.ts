@@ -1,5 +1,5 @@
 export enum TargetType {
   None,
   Self,
-  Target
+  Target,
 }

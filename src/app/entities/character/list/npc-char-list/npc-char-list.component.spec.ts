@@ -8,7 +8,7 @@ describe('NpcCharListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NpcCharListComponent]
+      declarations: [NpcCharListComponent],
     });
     fixture = TestBed.createComponent(NpcCharListComponent);
     component = fixture.componentInstance;

@@ -2,19 +2,18 @@ import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SettingsService {
-  constructor(@Inject(DOCUMENT) private document: Document) { 
+  constructor(@Inject(DOCUMENT) private document: Document) {
     //Theme
-    if(localStorage.getItem('theme') == 'light') {
+    if (localStorage.getItem('theme') == 'light') {
       this.setLightTheme();
-    }
-    else {
+    } else {
       this.setDarkTheme();
     }
   }
-    
+
   //Theme
   theme!: string;
 
@@ -29,5 +28,4 @@ export class SettingsService {
     this.theme = 'light';
     localStorage.setItem('theme', 'light');
   }
-  
 }

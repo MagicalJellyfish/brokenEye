@@ -9,58 +9,70 @@ import { TemplateViewComponent } from '../../template-view/template-view.compone
 @Component({
   selector: 'app-templates-view-tab',
   templateUrl: './templates-view-tab.component.html',
-  styleUrls: ['./templates-view-tab.component.scss']
+  styleUrls: ['./templates-view-tab.component.scss'],
 })
 export class TemplatesViewTabComponent implements OnInit {
+  constructor(
+    private requestService: RequestService,
+    private objectService: ObjectService,
+    private matDialog: MatDialog,
+  ) {}
 
-  constructor(private requestService: RequestService, private objectService: ObjectService,
-    private matDialog: MatDialog) { }
-
-  @Input() elementRoute!: string
+  @Input() elementRoute!: string;
 
   async ngOnInit() {
-    (await this.requestService.getAll(this.elementRoute)).subscribe((x: any) => {
-      this.elements = x
-      this.elementTable = new MatTableDataSource(this.elements)
-    })
+    (await this.requestService.getAll(this.elementRoute)).subscribe(
+      (x: any) => {
+        this.elements = x;
+        this.elementTable = new MatTableDataSource(this.elements);
+      },
+    );
 
-    if(this.elementRoute == this.requestService.routes.roundReminderTemplate) {
-      this.elementTableCols.push('reminder', 'reminding')
+    if (this.elementRoute == this.requestService.routes.roundReminderTemplate) {
+      this.elementTableCols.push('reminder', 'reminding');
 
-      this.elementTable.filterPredicate = function(data, filter: string): boolean {
+      this.elementTable.filterPredicate = function (
+        data,
+        filter: string,
+      ): boolean {
         return data.reminder.toLowerCase().includes(filter);
       };
-    }
-    else {
-      this.elementTableCols.push('name')
+    } else {
+      this.elementTableCols.push('name');
 
-      let routeList = [this.requestService.routes.traitTemplate, this.requestService.routes.itemTemplate, this.requestService.routes.effectTemplate]
-      if(routeList.includes(this.elementRoute)) {
-        this.elementTableCols.push('abstract')
-      }
-      else {
-        this.elementTableCols.push('description')
-      }
-
-      if(this.elementRoute == this.requestService.routes.itemTemplate) {
-        this.elementTableCols.push('amount')
+      let routeList = [
+        this.requestService.routes.traitTemplate,
+        this.requestService.routes.itemTemplate,
+        this.requestService.routes.effectTemplate,
+      ];
+      if (routeList.includes(this.elementRoute)) {
+        this.elementTableCols.push('abstract');
+      } else {
+        this.elementTableCols.push('description');
       }
 
-      if(this.elementRoute == this.requestService.routes.counterTemplate) {
-        this.elementTableCols.push('count')
+      if (this.elementRoute == this.requestService.routes.itemTemplate) {
+        this.elementTableCols.push('amount');
       }
 
-      this.elementTable.filterPredicate = function(data, filter: string): boolean {
+      if (this.elementRoute == this.requestService.routes.counterTemplate) {
+        this.elementTableCols.push('count');
+      }
+
+      this.elementTable.filterPredicate = function (
+        data,
+        filter: string,
+      ): boolean {
         return data.name.toLowerCase().includes(filter);
       };
     }
 
-    this.elementTableCols.push('actions')
+    this.elementTableCols.push('actions');
   }
 
-  elements: any[] = []
-  elementTable = new MatTableDataSource<any>()
-  elementTableCols: string[] = ['id']
+  elements: any[] = [];
+  elementTable = new MatTableDataSource<any>();
+  elementTableCols: string[] = ['id'];
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -68,21 +80,34 @@ export class TemplatesViewTabComponent implements OnInit {
   }
 
   async createElement() {
-    let newElement: any =  this.objectService.newAny(this.elementRoute);
+    let newElement: any = this.objectService.newAny(this.elementRoute);
 
-    (await this.requestService.create(this.elementRoute, newElement)).subscribe((x: any) => {
-      this.matDialog.open(TemplateEditComponent, { maxWidth: '90vw', data: { id: x.id, route: this.elementRoute }})
-      this.elements.push(x)
-      this.elementTable = new MatTableDataSource(this.elements)
-    })
+    (await this.requestService.create(this.elementRoute, newElement)).subscribe(
+      (x: any) => {
+        this.matDialog.open(TemplateEditComponent, {
+          maxWidth: '90vw',
+          data: { id: x.id, route: this.elementRoute },
+        });
+        this.elements.push(x);
+        this.elementTable = new MatTableDataSource(this.elements);
+      },
+    );
   }
 
   viewElement(id: number) {
-    this.matDialog.open(TemplateViewComponent, { maxWidth: '90vw', data: { id: id, route: this.elementRoute }}).afterClosed().subscribe(async _ => {
-      (await this.requestService.getAll(this.elementRoute)).subscribe((x: any) => {
-        this.elements = x
-        this.elementTable = new MatTableDataSource(this.elements)
+    this.matDialog
+      .open(TemplateViewComponent, {
+        maxWidth: '90vw',
+        data: { id: id, route: this.elementRoute },
       })
-    })
+      .afterClosed()
+      .subscribe(async (_) => {
+        (await this.requestService.getAll(this.elementRoute)).subscribe(
+          (x: any) => {
+            this.elements = x;
+            this.elementTable = new MatTableDataSource(this.elements);
+          },
+        );
+      });
   }
 }

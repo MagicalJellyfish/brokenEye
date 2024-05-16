@@ -4,8 +4,8 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
 @Component({
   selector: 'app-templates-view',
   templateUrl: './templates-view.component.html',
-  styleUrls: ['./templates-view.component.scss']
+  styleUrls: ['./templates-view.component.scss'],
 })
 export class TemplatesViewComponent {
-  constructor(protected requestService: RequestService) { }
+  constructor(protected requestService: RequestService) {}
 }

@@ -1,27 +1,30 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      <div>Character {{this.char.id}}</div>
+      <div>Character {{ this.char.id }}</div>
       <button mat-button (click)="openEdit()">Edit</button>
     </mat-card-title>
   </mat-card-header>
 
   <mat-card-content class="content">
-    <div class="main"><b>{{this.char.name}}</b><b></b></div>
-    
+    <div class="main">
+      <b>{{ this.char.name }}</b
+      ><b></b>
+    </div>
+
     <table>
       <tr>
         <td>Height</td>
-        <td>{{this.char.height}}m</td>
+        <td>{{ this.char.height }}m</td>
         <td>Age</td>
-        <td>{{this.char.age}}</td>
+        <td>{{ this.char.age }}</td>
       </tr>
 
       <tr>
         <td>Weight</td>
-        <td>{{this.char.weight}}kg</td>
+        <td>{{ this.char.weight }}kg</td>
         <td>Speed</td>
-        <td>{{this.char.movementSpeed}}m</td>
+        <td>{{ this.char.movementSpeed }}m</td>
       </tr>
     </table>
   </mat-card-content>

@@ -1,6 +1,6 @@
-import { Counter } from "./Counters/Counter";
-import { RoundReminder } from "./RoundReminders/RoundReminder";
-import { StatValue } from "./Stats/StatValue";
+import { Counter } from './Counters/Counter';
+import { RoundReminder } from './RoundReminders/RoundReminder';
+import { StatValue } from './Stats/StatValue';
 
 export interface Modifier {
   id: number;
@@ -20,6 +20,6 @@ export interface Modifier {
 
   roundReminderId?: number;
   roundReminder?: RoundReminder;
-  
+
   viewPosition: number;
 }

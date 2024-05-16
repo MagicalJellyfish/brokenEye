@@ -8,7 +8,7 @@ describe('CharTemplateViewComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CharTemplateViewComponent]
+      declarations: [CharTemplateViewComponent],
     });
     fixture = TestBed.createComponent(CharTemplateViewComponent);
     component = fixture.componentInstance;

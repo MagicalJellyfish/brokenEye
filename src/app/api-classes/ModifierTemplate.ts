@@ -1,6 +1,6 @@
-import { CounterTemplate } from "./Counters/CounterTemplate";
-import { RoundReminderTemplate } from "./RoundReminders/RoundReminderTemplate";
-import { StatValue } from "./Stats/StatValue";
+import { CounterTemplate } from './Counters/CounterTemplate';
+import { RoundReminderTemplate } from './RoundReminders/RoundReminderTemplate';
+import { StatValue } from './Stats/StatValue';
 
 export interface ModifierTemplate {
   id: number;

@@ -15,115 +15,132 @@ import { Character } from 'src/app/api-classes/Characters/Character';
 @Component({
   selector: 'app-element-tab',
   templateUrl: './element-tab.component.html',
-  styleUrls: ['./element-tab.component.scss']
+  styleUrls: ['./element-tab.component.scss'],
 })
 export class ElementTabComponent implements OnInit {
+  constructor(
+    private requestService: RequestService,
+    private objectService: ObjectService,
+    private matDialog: MatDialog,
+  ) {}
 
-  constructor(private requestService: RequestService, private objectService: ObjectService,
-    private matDialog: MatDialog) { }
-
-  @Input() pcSubject!: Subject<Character>
-  @Input() char!: Character
-  @Input() propertyName!: keyof Character
-  @Input() elementRoute!: string
+  @Input() pcSubject!: Subject<Character>;
+  @Input() char!: Character;
+  @Input() propertyName!: keyof Character;
+  @Input() elementRoute!: string;
 
   async ngOnInit() {
-    if(this.elementRoute == this.requestService.routes.roundReminder) {
-      this.elementTableCols.push('reminder', 'reminding')
+    if (this.elementRoute == this.requestService.routes.roundReminder) {
+      this.elementTableCols.push('reminder', 'reminding');
 
-      this.elementTable.filterPredicate = function(data, filter: string): boolean {
+      this.elementTable.filterPredicate = function (
+        data,
+        filter: string,
+      ): boolean {
         return data.reminder.toLowerCase().includes(filter);
       };
-    }
-    else {
-      this.elementTableCols.push('name')
+    } else {
+      this.elementTableCols.push('name');
 
-      let routeList = [this.requestService.routes.trait, this.requestService.routes.item, this.requestService.routes.effect]
-      if(routeList.includes(this.elementRoute)) {
-        this.elementTableCols.push('abstract')
-      }
-      else {
-        this.elementTableCols.push('description')
+      let routeList = [
+        this.requestService.routes.trait,
+        this.requestService.routes.item,
+        this.requestService.routes.effect,
+      ];
+      if (routeList.includes(this.elementRoute)) {
+        this.elementTableCols.push('abstract');
+      } else {
+        this.elementTableCols.push('description');
       }
 
-      switch(this.elementRoute) {
+      switch (this.elementRoute) {
         case this.requestService.routes.trait:
-          this.elementTableCols.push('active')
+          this.elementTableCols.push('active');
           break;
         case this.requestService.routes.item:
-          this.elementTableCols.push('equipped')
-          this.elementTableCols.push('amount')
+          this.elementTableCols.push('equipped');
+          this.elementTableCols.push('amount');
           break;
         case this.requestService.routes.counter:
-          this.elementTableCols.push('count')
+          this.elementTableCols.push('count');
           break;
       }
 
-      this.elementTable.filterPredicate = function(data, filter: string): boolean {
+      this.elementTable.filterPredicate = function (
+        data,
+        filter: string,
+      ): boolean {
         return data.name.toLowerCase().includes(filter);
       };
     }
-    this.elementTableCols.push('actions')
+    this.elementTableCols.push('actions');
 
-    this.update()
-  
-    this.pcSubject.subscribe((x: Character) => { 
-      this.char = x
-      this.update()
-    })
+    this.update();
+
+    this.pcSubject.subscribe((x: Character) => {
+      this.char = x;
+      this.update();
+    });
   }
 
   update() {
-    this.elements = this.char[this.propertyName]
+    this.elements = this.char[this.propertyName];
 
-    this.elements.sort(function (a: { viewPosition: number; }, b: { viewPosition: number; }) {
+    this.elements.sort(function (
+      a: { viewPosition: number },
+      b: { viewPosition: number },
+    ) {
       return a.viewPosition - b.viewPosition;
     });
 
-    if(this.elementRoute == this.requestService.routes.counter) {
-      this.char.counters.forEach(x => {
-        this.counterValueDebounces.set(x.id, new Subject<string>())
-        this.counterValueDebouncings.set(x.id, false)
-  
-        this.counterValueDebounces.get(x.id)!.subscribe(_ => this.counterValueDebouncings.set(x.id, true))
-        this.counterValueDebounces.get(x.id)!.pipe(
-        debounceTime(2000),
-        distinctUntilChanged())
-        .subscribe(y => {
-          this.updateCounter(x.id, +y)
-        });
-      })
+    if (this.elementRoute == this.requestService.routes.counter) {
+      this.char.counters.forEach((x) => {
+        this.counterValueDebounces.set(x.id, new Subject<string>());
+        this.counterValueDebouncings.set(x.id, false);
+
+        this.counterValueDebounces
+          .get(x.id)!
+          .subscribe((_) => this.counterValueDebouncings.set(x.id, true));
+        this.counterValueDebounces
+          .get(x.id)!
+          .pipe(debounceTime(2000), distinctUntilChanged())
+          .subscribe((y) => {
+            this.updateCounter(x.id, +y);
+          });
+      });
     }
 
-    if(this.elementRoute == this.requestService.routes.item) {
-      this.char.items.forEach(x => {
-        this.itemAmountDebounces.set(x.id, new Subject<string>())
-        this.itemAmountDebouncings.set(x.id, false)
-  
-        this.itemAmountDebounces.get(x.id)!.subscribe(_ => this.itemAmountDebouncings.set(x.id, true))
-        this.itemAmountDebounces.get(x.id)!.pipe(
-        debounceTime(2000),
-        distinctUntilChanged())
-        .subscribe(y => {
-          this.updateItemAmount(x.id, +y)
-        });
-      })
+    if (this.elementRoute == this.requestService.routes.item) {
+      this.char.items.forEach((x) => {
+        this.itemAmountDebounces.set(x.id, new Subject<string>());
+        this.itemAmountDebouncings.set(x.id, false);
+
+        this.itemAmountDebounces
+          .get(x.id)!
+          .subscribe((_) => this.itemAmountDebouncings.set(x.id, true));
+        this.itemAmountDebounces
+          .get(x.id)!
+          .pipe(debounceTime(2000), distinctUntilChanged())
+          .subscribe((y) => {
+            this.updateItemAmount(x.id, +y);
+          });
+      });
     }
 
-    this.elementTable = new MatTableDataSource(this.elements)
+    this.elementTable = new MatTableDataSource(this.elements);
   }
 
-  elements: any
-  elementTable = new MatTableDataSource<any>()
-  elementTableCols: string[] = []
+  elements: any;
+  elementTable = new MatTableDataSource<any>();
+  elementTableCols: string[] = [];
 
-  counterValueDebounces = new Map<number, Subject<string>>()
-  counterValueDebouncings = new Map<number, boolean>()
+  counterValueDebounces = new Map<number, Subject<string>>();
+  counterValueDebouncings = new Map<number, boolean>();
 
-  itemAmountDebounces = new Map<number, Subject<string>>()
-  itemAmountDebouncings = new Map<number, boolean>()
+  itemAmountDebounces = new Map<number, Subject<string>>();
+  itemAmountDebouncings = new Map<number, boolean>();
 
-  boxProperty: string = ""
+  boxProperty: string = '';
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -131,56 +148,106 @@ export class ElementTabComponent implements OnInit {
   }
 
   async createElement() {
-    let newElement: any =  this.objectService.newAny(this.elementRoute);
+    let newElement: any = this.objectService.newAny(this.elementRoute);
     newElement.characterId = this.char.id;
 
-    (await this.requestService.create(this.elementRoute, newElement)).subscribe((x: any) => {
-      this.matDialog.open(ElementEditComponent, { maxWidth: '90vw', data: { id: x.id, route: this.elementRoute }})
-    })
+    (await this.requestService.create(this.elementRoute, newElement)).subscribe(
+      (x: any) => {
+        this.matDialog.open(ElementEditComponent, {
+          maxWidth: '90vw',
+          data: { id: x.id, route: this.elementRoute },
+        });
+      },
+    );
   }
 
   orderElements() {
-    this.matDialog.open(ElementOrderComponent, { data: { elements: this.elements, route: this.elementRoute }})
+    this.matDialog.open(ElementOrderComponent, {
+      data: { elements: this.elements, route: this.elementRoute },
+    });
   }
 
   addTemplate() {
-    this.matDialog.open(TemplateSelectComponent, { data: { route: this.requestService.elementToTemplateRoute(this.elementRoute) }}).afterClosed().subscribe(async template => {
-      (await this.requestService.get(this.requestService.elementToTemplateRoute(this.elementRoute) + "/Instantiate", template.id)).subscribe(async (element: any) => {
-        element.characterId = this.char.id;
-        (await this.requestService.create(this.elementRoute, element)).subscribe()
+    this.matDialog
+      .open(TemplateSelectComponent, {
+        data: {
+          route: this.requestService.elementToTemplateRoute(this.elementRoute),
+        },
       })
-    })
+      .afterClosed()
+      .subscribe(async (template) => {
+        (
+          await this.requestService.get(
+            this.requestService.elementToTemplateRoute(this.elementRoute) +
+              '/Instantiate',
+            template.id,
+          )
+        ).subscribe(async (element: any) => {
+          element.characterId = this.char.id;
+          (
+            await this.requestService.create(this.elementRoute, element)
+          ).subscribe();
+        });
+      });
   }
 
   viewElement(id: number) {
-    this.matDialog.open(ElementViewComponent, { maxWidth: '90vw', data: { id: id, route: this.elementRoute }})
+    this.matDialog.open(ElementViewComponent, {
+      maxWidth: '90vw',
+      data: { id: id, route: this.elementRoute },
+    });
   }
 
   async deleteElement(id: number) {
-    this.matDialog.open(ConfirmationDialogComponent, { data: { message: "Are you sure you want to delete this element?" }}).afterClosed().subscribe(async x =>
-      {
-        if(x) {
+    this.matDialog
+      .open(ConfirmationDialogComponent, {
+        data: { message: 'Are you sure you want to delete this element?' },
+      })
+      .afterClosed()
+      .subscribe(async (x) => {
+        if (x) {
           (await this.requestService.delete(this.elementRoute, id)).subscribe();
         }
-      }
-    )
+      });
   }
 
   async updateCounter(id: number, value: number) {
-    (await this.requestService.patch(this.requestService.routes.counter, id, JSON.stringify({
-      "value": value
-    }))).subscribe()
+    (
+      await this.requestService.patch(
+        this.requestService.routes.counter,
+        id,
+        JSON.stringify({
+          value: value,
+        }),
+      )
+    ).subscribe();
   }
 
   async updateItemAmount(id: number, value: number) {
-    (await this.requestService.patch(this.requestService.routes.item, id, JSON.stringify({
-      "amount": value
-    }))).subscribe()
+    (
+      await this.requestService.patch(
+        this.requestService.routes.item,
+        id,
+        JSON.stringify({
+          amount: value,
+        }),
+      )
+    ).subscribe();
   }
 
-  async updateCheckbox(id: number, propertyName: string, event: MatCheckboxChange) {
-    (await this.requestService.patch(this.elementRoute, id, JSON.stringify({
-      [propertyName]: event.checked
-    }))).subscribe()  
+  async updateCheckbox(
+    id: number,
+    propertyName: string,
+    event: MatCheckboxChange,
+  ) {
+    (
+      await this.requestService.patch(
+        this.elementRoute,
+        id,
+        JSON.stringify({
+          [propertyName]: event.checked,
+        }),
+      )
+    ).subscribe();
   }
 }

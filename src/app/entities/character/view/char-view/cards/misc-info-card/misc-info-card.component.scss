@@ -13,8 +13,8 @@ mat-card-title {
   display: flex;
   justify-content: space-between;
   font-size: medium;
-} 
-  
+}
+
 table {
   * {
     padding-top: 0.5vw;
@@ -28,15 +28,17 @@ table {
   }
 
   tr:first-child {
-    border-top: 0.2vh solid #4DB6AC;
-  }  
-  td:first-child, td:nth-child(3) {
+    border-top: 0.2vh solid #4db6ac;
+  }
+  td:first-child,
+  td:nth-child(3) {
     text-align: left;
   }
   td:nth-child(2) {
-    border-right: 0.1vw solid #4DB6AC;
+    border-right: 0.1vw solid #4db6ac;
   }
-  td:last-child, td:nth-child(2) {
+  td:last-child,
+  td:nth-child(2) {
     text-align: right;
   }
 }

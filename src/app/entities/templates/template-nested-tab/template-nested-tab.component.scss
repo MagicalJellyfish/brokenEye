@@ -17,10 +17,11 @@ table {
   }
 
   tr {
-    td, th {
+    td,
+    th {
       text-align: center;
-      border-right: 0.1vw solid #4DB6AC;
-      border-bottom: 0.2vh solid #4DB6AC;
+      border-right: 0.1vw solid #4db6ac;
+      border-bottom: 0.2vh solid #4db6ac;
     }
     th:last-child {
       border-right: 0;

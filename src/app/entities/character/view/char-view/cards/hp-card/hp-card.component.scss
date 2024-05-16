@@ -7,9 +7,9 @@ mat-card {
 
 .effectsTable {
   th {
-    border-bottom: #4DB6AC 0.2vh solid;
+    border-bottom: #4db6ac 0.2vh solid;
   }
-  
+
   tr {
     td {
       padding: 0.2vw;
@@ -20,7 +20,7 @@ mat-card {
     td:last-child {
       text-align: right;
     }
-  } 
+  }
 }
 
 .dyingTable {
@@ -30,16 +30,15 @@ mat-card {
 }
 
 .dyingRounds th {
-  border-bottom: 0.2vh solid #4DB6AC;
+  border-bottom: 0.2vh solid #4db6ac;
 }
 
 .dyingRounds td {
   text-align: center;
 }
 
-
-.hp { 
-  grid-area: hp; 
+.hp {
+  grid-area: hp;
   table {
     width: 100%;
 
@@ -50,25 +49,25 @@ mat-card {
   }
 }
 
-.effects { 
-  grid-area: effects; 
+.effects {
+  grid-area: effects;
   table {
     width: 100%;
   }
   margin-right: 1vw;
 }
-.dyingRounds { 
+.dyingRounds {
   table {
     width: 100%;
   }
-  grid-area: dyingRounds; 
+  grid-area: dyingRounds;
 }
 
 .gridContainer {
   display: grid;
   grid-template-areas:
-    'hp hp hp hp'
-    'effects effects effects dyingRounds';
+    "hp hp hp hp"
+    "effects effects effects dyingRounds";
 }
 
 .gridContainer > div {

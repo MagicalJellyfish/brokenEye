@@ -1,58 +1,104 @@
 <mat-card>
   <mat-card-content>
     <mat-tab-group>
-
       <mat-tab label="Abilities">
-        <app-element-tab [pcSubject]="this.pcSubject" [char]="this.char" [propertyName]="'abilities'" [elementRoute]="this.requestService.routes.ability"></app-element-tab>
+        <app-element-tab
+          [pcSubject]="this.pcSubject"
+          [char]="this.char"
+          [propertyName]="'abilities'"
+          [elementRoute]="this.requestService.routes.ability"
+        ></app-element-tab>
       </mat-tab>
 
       <mat-tab label="Traits">
-        <app-element-tab [pcSubject]="this.pcSubject" [char]="this.char" [propertyName]="'traits'" [elementRoute]="this.requestService.routes.trait"></app-element-tab>
+        <app-element-tab
+          [pcSubject]="this.pcSubject"
+          [char]="this.char"
+          [propertyName]="'traits'"
+          [elementRoute]="this.requestService.routes.trait"
+        ></app-element-tab>
       </mat-tab>
 
-      <mat-tab label="Inventory"> 
+      <mat-tab label="Inventory">
         <div class="moneyContainer">
           <mat-form-field appearance="outline" class="money">
             <mat-label>Money</mat-label>
-              <input matInput [(ngModel)]="money" (ngModelChange)="this.moneyDebounce.next($event)">
-              <span matTextSuffix>€</span>
+            <input
+              matInput
+              [(ngModel)]="money"
+              (ngModelChange)="this.moneyDebounce.next($event)"
+            />
+            <span matTextSuffix>€</span>
           </mat-form-field>
         </div>
-        <app-element-tab [pcSubject]="this.pcSubject" [char]="this.char" [propertyName]="'items'" [elementRoute]="this.requestService.routes.item"></app-element-tab>
+        <app-element-tab
+          [pcSubject]="this.pcSubject"
+          [char]="this.char"
+          [propertyName]="'items'"
+          [elementRoute]="this.requestService.routes.item"
+        ></app-element-tab>
       </mat-tab>
 
       <mat-tab label="Effects">
         <mat-tab-group>
           <mat-tab label="Effects">
-            <app-element-tab [pcSubject]="this.pcSubject" [char]="this.char" [propertyName]="'effects'" [elementRoute]="this.requestService.routes.effect"></app-element-tab>
+            <app-element-tab
+              [pcSubject]="this.pcSubject"
+              [char]="this.char"
+              [propertyName]="'effects'"
+              [elementRoute]="this.requestService.routes.effect"
+            ></app-element-tab>
           </mat-tab>
           <mat-tab label="Injuries">
-            <app-element-tab [pcSubject]="this.pcSubject" [char]="this.char" [propertyName]="'injuryEffects'" [elementRoute]="this.requestService.routes.effect"></app-element-tab>
+            <app-element-tab
+              [pcSubject]="this.pcSubject"
+              [char]="this.char"
+              [propertyName]="'injuryEffects'"
+              [elementRoute]="this.requestService.routes.effect"
+            ></app-element-tab>
           </mat-tab>
         </mat-tab-group>
       </mat-tab>
 
-      <mat-tab label="Counters"> 
+      <mat-tab label="Counters">
         <mat-tab-group>
           <mat-tab label="Character-Counters">
-            <app-element-tab [pcSubject]="this.pcSubject" [char]="this.char" [propertyName]="'counters'" [elementRoute]="this.requestService.routes.counter"></app-element-tab>
+            <app-element-tab
+              [pcSubject]="this.pcSubject"
+              [char]="this.char"
+              [propertyName]="'counters'"
+              [elementRoute]="this.requestService.routes.counter"
+            ></app-element-tab>
           </mat-tab>
           <mat-tab label="Nested Counters">
-            <app-element-nested-tab [pcSubject]="this.pcSubject" [char]="this.char" [elementRoute]="this.requestService.routes.counter"></app-element-nested-tab>
+            <app-element-nested-tab
+              [pcSubject]="this.pcSubject"
+              [char]="this.char"
+              [elementRoute]="this.requestService.routes.counter"
+            ></app-element-nested-tab>
           </mat-tab>
         </mat-tab-group>
       </mat-tab>
 
-      <mat-tab label="Reminders"> 
+      <mat-tab label="Reminders">
         <mat-tab-group>
           <mat-tab label="Character-Reminders">
-            <app-element-tab [pcSubject]="this.pcSubject" [char]="this.char" [propertyName]="'roundReminders'" [elementRoute]="this.requestService.routes.roundReminder"></app-element-tab>
+            <app-element-tab
+              [pcSubject]="this.pcSubject"
+              [char]="this.char"
+              [propertyName]="'roundReminders'"
+              [elementRoute]="this.requestService.routes.roundReminder"
+            ></app-element-tab>
           </mat-tab>
           <mat-tab label="Nested Reminders">
-            <app-element-nested-tab [pcSubject]="this.pcSubject" [char]="this.char" [elementRoute]="this.requestService.routes.roundReminder"></app-element-nested-tab>
+            <app-element-nested-tab
+              [pcSubject]="this.pcSubject"
+              [char]="this.char"
+              [elementRoute]="this.requestService.routes.roundReminder"
+            ></app-element-nested-tab>
           </mat-tab>
         </mat-tab-group>
       </mat-tab>
-    </mat-tab-group>  
+    </mat-tab-group>
   </mat-card-content>
 </mat-card>

@@ -6,28 +6,28 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 //Material imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatIconModule } from '@angular/material/icon'
-import { MatButtonModule } from '@angular/material/button'
-import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import { MatCardModule } from '@angular/material/card'
-import { MatGridListModule } from '@angular/material/grid-list'
-import { MatInputModule } from '@angular/material/input'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatTableModule } from '@angular/material/table'  
-import { MatExpansionModule } from '@angular/material/expansion'
-import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatTabsModule } from '@angular/material/tabs'
-import { MatMenuModule } from '@angular/material/menu'
-import { MatStepperModule } from '@angular/material/stepper'
-import { MatPaginatorModule } from '@angular/material/paginator'
-import { MatSortModule } from '@angular/material/sort'
-import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { DragDropModule } from '@angular/cdk/drag-drop'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSelectModule } from '@angular/material/select';
 
 //Components
@@ -150,12 +150,18 @@ import { ApiUrlService } from './services/api/apiUrl/api-url.service';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     DragDropModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   providers: [
-    { provide: APP_INITIALIZER, multi: true, deps: [ApiUrlService], useFactory: (apiUrlService: ApiUrlService) => () => apiUrlService.loadUrl() },
-    { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true }
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [ApiUrlService],
+      useFactory: (apiUrlService: ApiUrlService) => () =>
+        apiUrlService.loadUrl(),
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

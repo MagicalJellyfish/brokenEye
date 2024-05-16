@@ -8,7 +8,7 @@ describe('ElementOrderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ElementOrderComponent]
+      declarations: [ElementOrderComponent],
     });
     fixture = TestBed.createComponent(ElementOrderComponent);
     component = fixture.componentInstance;

@@ -9,15 +9,16 @@
         <mat-card-content>
           <mat-icon>brightness_5</mat-icon>
           &nbsp;
-          <mat-slide-toggle [(ngModel)]="toggleControl" (change)="onChange()"></mat-slide-toggle>
+          <mat-slide-toggle
+            [(ngModel)]="toggleControl"
+            (change)="onChange()"
+          ></mat-slide-toggle>
           &nbsp;
           <mat-icon>bedtime</mat-icon>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-  
-  
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Close</button>

@@ -1,12 +1,12 @@
-import { Counter } from "../Counters/Counter";
-import { Effect } from "../Effects/Effect";
-import { Item } from "../Items/Item";
-import { Trait } from "../Traits/Trait";
-import { BodypartCondition } from "./BodypartCondition";
-import { RoundReminder } from "../RoundReminders/RoundReminder";
-import { StatValue } from "../Stats/StatValue";
-import { UserSimplified } from "../UserSimplified";
-import { Ability } from "../Abilities/Abilities/Ability";
+import { Counter } from '../Counters/Counter';
+import { Effect } from '../Effects/Effect';
+import { Item } from '../Items/Item';
+import { Trait } from '../Traits/Trait';
+import { BodypartCondition } from './BodypartCondition';
+import { RoundReminder } from '../RoundReminders/RoundReminder';
+import { StatValue } from '../Stats/StatValue';
+import { UserSimplified } from '../UserSimplified';
+import { Ability } from '../Abilities/Abilities/Ability';
 
 export interface Character {
   id: number;
@@ -27,8 +27,8 @@ export interface Character {
   stats: StatValue[];
   bodypartConditions: BodypartCondition[];
 
-  abilitiesIds: number[]
-  abilities: Ability[]
+  abilitiesIds: number[];
+  abilities: Ability[];
 
   itemsIds: number[];
   items: Item[];
@@ -51,8 +51,8 @@ export interface Character {
   age: number;
   notes: string;
   experience: string;
-  
-  image: number[]
+
+  image: number[];
 
   isNPC: boolean;
   ownerId?: number;

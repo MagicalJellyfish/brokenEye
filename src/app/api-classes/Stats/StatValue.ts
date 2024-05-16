@@ -1,7 +1,7 @@
-import { Character } from "../Characters/Character";
-import { Modifier } from "../Modifier";
-import { ModifierTemplate } from "../ModifierTemplate";
-import { Stat } from "./Stat";
+import { Character } from '../Characters/Character';
+import { Modifier } from '../Modifier';
+import { ModifierTemplate } from '../ModifierTemplate';
+import { Stat } from './Stat';
 
 export interface StatValue {
   id: number;

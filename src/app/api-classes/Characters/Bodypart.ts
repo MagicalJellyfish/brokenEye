@@ -1,4 +1,4 @@
-import { BodypartCondition } from "./BodypartCondition";
+import { BodypartCondition } from './BodypartCondition';
 
 export interface Bodypart {
   id: number;
