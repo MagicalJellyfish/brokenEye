@@ -39,7 +39,15 @@
           {{element.description}}
         </td>
       </ng-container>
-    
+
+      <!--Items-->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Amount </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.amount}} {{element.unit}}
+        </td>
+      </ng-container>
+
       <!--Effects-->
       <ng-container matColumnDef="duration">
         <th mat-header-cell *matHeaderCellDef> Duration </th>

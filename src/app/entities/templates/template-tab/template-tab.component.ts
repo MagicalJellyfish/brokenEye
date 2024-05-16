@@ -43,6 +43,10 @@ export class TemplateTabComponent implements OnInit {
         this.elementTableCols.push('description')
       }
 
+      if(this.elementRoute == this.requestService.routes.itemTemplate) {
+        this.elementTableCols.push('amount')
+      }
+
       this.elementTable.filterPredicate = function(data, filter: string): boolean {
         return data.name.toLowerCase().includes(filter);
       };

@@ -42,6 +42,10 @@ export class TemplatesViewTabComponent implements OnInit {
         this.elementTableCols.push('description')
       }
 
+      if(this.elementRoute == this.requestService.routes.itemTemplate) {
+        this.elementTableCols.push('amount')
+      }
+
       if(this.elementRoute == this.requestService.routes.counterTemplate) {
         this.elementTableCols.push('count')
       }

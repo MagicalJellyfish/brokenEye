@@ -148,6 +148,18 @@
         <div><b>Equipped</b> <mat-checkbox [(ngModel)]="this.element.equipped"></mat-checkbox></div> 
       </mat-grid-tile>
 
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('amount')">
+        <mat-form-field appearance="outline">
+          <mat-label>Amount</mat-label>
+          <input matInput [(ngModel)]="this.element.amount">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Unit</mat-label>
+          <input matInput [(ngModel)]="this.element.unit">
+        </mat-form-field>
+      </mat-grid-tile>
+
       <!--Effects-->
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('hp')">
         <mat-form-field appearance="outline">

@@ -93,6 +93,11 @@
         <div><b>Equipped</b> <mat-checkbox disabled="true" [(ngModel)]="this.element.equipped"></mat-checkbox></div> 
       </mat-grid-tile>
 
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('amount')">
+        <div><b>Amount</b> {{element.amount}}</div> 
+        <div><b>Unit</b> {{element.unit}}</div> 
+      </mat-grid-tile>
+
       <!--Effects-->
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('hp')">
         <div><b>HP healed per round</b> {{element.hp}}</div> 

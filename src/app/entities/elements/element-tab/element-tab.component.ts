@@ -52,6 +52,7 @@ export class ElementTabComponent implements OnInit {
           break;
         case this.requestService.routes.item:
           this.elementTableCols.push('equipped')
+          this.elementTableCols.push('amount')
           break;
         case this.requestService.routes.counter:
           this.elementTableCols.push('count')
@@ -94,6 +95,21 @@ export class ElementTabComponent implements OnInit {
       })
     }
 
+    if(this.elementRoute == this.requestService.routes.item) {
+      this.char.items.forEach(x => {
+        this.itemAmountDebounces.set(x.id, new Subject<string>())
+        this.itemAmountDebouncings.set(x.id, false)
+  
+        this.itemAmountDebounces.get(x.id)!.subscribe(_ => this.itemAmountDebouncings.set(x.id, true))
+        this.itemAmountDebounces.get(x.id)!.pipe(
+        debounceTime(2000),
+        distinctUntilChanged())
+        .subscribe(y => {
+          this.updateItemAmount(x.id, +y)
+        });
+      })
+    }
+
     this.elementTable = new MatTableDataSource(this.elements)
   }
 
@@ -103,6 +119,9 @@ export class ElementTabComponent implements OnInit {
 
   counterValueDebounces = new Map<number, Subject<string>>()
   counterValueDebouncings = new Map<number, boolean>()
+
+  itemAmountDebounces = new Map<number, Subject<string>>()
+  itemAmountDebouncings = new Map<number, boolean>()
 
   boxProperty: string = ""
 
@@ -150,6 +169,12 @@ export class ElementTabComponent implements OnInit {
   async updateCounter(id: number, value: number) {
     (await this.requestService.patch(this.requestService.routes.counter, id, JSON.stringify({
       "value": value
+    }))).subscribe()
+  }
+
+  async updateItemAmount(id: number, value: number) {
+    (await this.requestService.patch(this.requestService.routes.item, id, JSON.stringify({
+      "amount": value
     }))).subscribe()
   }
 
