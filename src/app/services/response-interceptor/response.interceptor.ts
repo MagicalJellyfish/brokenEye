@@ -7,11 +7,9 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import {
-  EMPTY,
   Observable,
   OperatorFunction,
   catchError,
-  firstValueFrom,
   retry,
   throwError,
 } from 'rxjs';

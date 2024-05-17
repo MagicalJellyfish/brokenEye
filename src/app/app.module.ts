@@ -25,7 +25,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSelectModule } from '@angular/material/select';
@@ -164,7 +164,7 @@ import { ApiUrlService } from './services/api/apiUrl/api-url.service';
       provide: HTTP_INTERCEPTORS,
       useClass: ResponseInterceptor,
       multi: true,
-      deps: [APP_INITIALIZER],
+      deps: [MatSnackBar, APP_INITIALIZER],
     },
   ],
   bootstrap: [AppComponent],
