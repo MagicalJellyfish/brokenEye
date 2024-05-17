@@ -160,7 +160,12 @@ import { ApiUrlService } from './services/api/apiUrl/api-url.service';
       useFactory: (apiUrlService: ApiUrlService) => () =>
         apiUrlService.loadUrl(),
     },
-    { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptor,
+      multi: true,
+      deps: [APP_INITIALIZER],
+    },
   ],
   bootstrap: [AppComponent],
 })
