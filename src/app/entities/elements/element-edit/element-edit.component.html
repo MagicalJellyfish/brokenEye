@@ -238,6 +238,19 @@
         [(selectedIndex)]="persistencyService.dialogTab"
       >
         <mat-tab
+          label="Abilities"
+          *ngIf="this.element.hasOwnProperty('abilities')"
+        >
+          <app-element-dialog-tab-multiple
+            [parentData]="this.parentData"
+            [elementRoute]="this.requestService.routes.ability"
+            [parent]="this.element"
+            [elementName]="'abilities'"
+            [elementSubject]="this.elementSubject"
+          ></app-element-dialog-tab-multiple>
+        </mat-tab>
+
+        <mat-tab
           label="Reminder"
           *ngIf="this.element.hasOwnProperty('roundReminder')"
         >

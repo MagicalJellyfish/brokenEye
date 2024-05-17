@@ -16,7 +16,7 @@ export class TemplateNestedTabComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {}
 
   @Input() charTemplate!: CharacterTemplate;
@@ -33,27 +33,29 @@ export class TemplateNestedTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string,
+        filter: string
       ): boolean {
         return data.reminder.toLowerCase().includes(filter);
       };
     } else {
       this.elementTableCols.push('name');
 
-      let routeList = [
-        this.requestService.routes.traitTemplate,
-        this.requestService.routes.itemTemplate,
-        this.requestService.routes.effectTemplate,
-      ];
-      if (routeList.includes(this.elementRoute)) {
-        this.elementTableCols.push('abstract');
-      } else {
-        this.elementTableCols.push('description');
+      if (this.elementRoute != this.requestService.routes.abilityTemplate) {
+        let routeList = [
+          this.requestService.routes.traitTemplate,
+          this.requestService.routes.itemTemplate,
+          this.requestService.routes.effectTemplate,
+        ];
+        if (routeList.includes(this.elementRoute)) {
+          this.elementTableCols.push('abstract');
+        } else {
+          this.elementTableCols.push('description');
+        }
       }
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string,
+        filter: string
       ): boolean {
         return data.name.toLowerCase().includes(filter);
       };
@@ -184,6 +186,17 @@ export class TemplateNestedTabComponent implements OnInit {
           }
         });
       }
+    } else if (
+      this.elementRoute == this.requestService.routes.abilityTemplate
+    ) {
+      this.charTemplate.itemTemplates.forEach((itemTemplate) => {
+        if (itemTemplate.abilityTemplates.length > 0) {
+          itemTemplate.abilityTemplates.forEach((abilityTemplate: any) => {
+            abilityTemplate.source = 'Item "' + itemTemplate.name + '"';
+            this.elements.push(abilityTemplate);
+          });
+        }
+      });
     }
 
     this.elementTable = new MatTableDataSource(this.elements);

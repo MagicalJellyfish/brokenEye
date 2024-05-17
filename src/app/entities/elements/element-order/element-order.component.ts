@@ -12,7 +12,7 @@ export class ElementOrderComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     @Inject(MAT_DIALOG_DATA) public data: { elements: any[]; route: string },
-    public dialogRef: MatDialogRef<ElementOrderComponent>,
+    public dialogRef: MatDialogRef<ElementOrderComponent>
   ) {}
 
   async ngOnInit() {
@@ -33,7 +33,7 @@ export class ElementOrderComponent implements OnInit {
           this.elements.at(i)!.id,
           JSON.stringify({
             viewPosition: i,
-          }),
+          })
         )
       ).subscribe();
     }

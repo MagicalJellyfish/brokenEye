@@ -1,5 +1,6 @@
 import { CharacterTemplate } from '../../Characters/CharacterTemplate';
 import { EffectTemplate } from '../../Effects/EffectTemplate';
+import { ItemTemplate } from '../../Items/ItemTemplate';
 import { Roll } from '../Roll';
 import { TargetType } from './TargetType';
 
@@ -22,6 +23,9 @@ export interface AbilityTemplate {
 
   effectTemplatesIds: number[];
   effectTemplates: EffectTemplate[];
+
+  itemTemplatesIds: number[];
+  itemTemplates: ItemTemplate[];
 
   characterTemplatesIds: number[];
   characterTemplates: CharacterTemplate[];

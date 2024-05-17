@@ -44,6 +44,7 @@ export class ObjectService {
     'modifierTemplates',
     'characterTemplates',
     'abilityTemplates',
+    'itemTemplates',
   ];
 
   newAny(route: string) {
@@ -137,6 +138,7 @@ export class ObjectService {
       effectTemplatesIds: [],
       effectTemplates: [],
       targetType: TargetType.None,
+      viewPosition: 0,
     };
 
     return ability;
@@ -182,6 +184,8 @@ export class ObjectService {
       statIncreases: [],
       countersIds: [],
       counters: [],
+      abilitiesIds: [],
+      abilities: [],
       viewPosition: 0,
     };
 
@@ -289,6 +293,8 @@ export class ObjectService {
       characterTemplatesIds: [],
       characterTemplates: [],
       targetType: TargetType.None,
+      itemTemplatesIds: [],
+      itemTemplates: [],
     };
 
     return abilityTemplate;
@@ -365,6 +371,8 @@ export class ObjectService {
       counterTemplates: [],
       characterTemplatesIds: [],
       characterTemplates: [],
+      abilityTemplatesIds: [],
+      abilityTemplates: [],
     };
 
     return itemTemplate;

@@ -17,7 +17,7 @@ export class TemplateDialogTabMultipleComponent {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {}
 
   @Input() parentData!: ParentData;
@@ -56,7 +56,7 @@ export class TemplateDialogTabMultipleComponent {
         (
           await this.requestService.get(
             this.parentData.parentRoute,
-            this.parentData.parentId,
+            this.parentData.parentId
           )
         ).subscribe((x: any) => {
           this.elements = x[this.elementName];
@@ -74,6 +74,10 @@ export class TemplateDialogTabMultipleComponent {
       } else {
         newElement.abilityTemplatesIds.push(this.parentData.parentId);
       }
+    } else if (
+      this.elementRoute == this.requestService.routes.abilityTemplate
+    ) {
+      newElement.itemTemplatesIds.push(this.parentData.parentId);
     } else {
       newElement.modifierTemplatesIds.push(this.parentData.parentId);
     }
@@ -82,7 +86,7 @@ export class TemplateDialogTabMultipleComponent {
       (x: any) => {
         this.elements.push(x);
         this.elementTable = new MatTableDataSource(this.elements);
-      },
+      }
     );
   }
 
@@ -104,7 +108,7 @@ export class TemplateDialogTabMultipleComponent {
                   path: '/' + propertyName + '/-',
                   value: x.id,
                 },
-              ],
+              ]
             )
           ).subscribe((_) => {
             this.elements.push(x);
@@ -126,7 +130,7 @@ export class TemplateDialogTabMultipleComponent {
             op: 'remove',
             path: '/' + propertyName + '/' + id,
           },
-        ],
+        ]
       )
     ).subscribe((_) => {
       this.elements.forEach((item: { id: number }, index: number) => {

@@ -17,7 +17,7 @@ export class ElementDialogTabMultipleComponent {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {}
 
   @Input() parentData!: ParentData;
@@ -52,7 +52,7 @@ export class ElementDialogTabMultipleComponent {
         (
           await this.requestService.get(
             this.parentData.parentRoute,
-            this.parentData.parentId,
+            this.parentData.parentId
           )
         ).subscribe((x: any) => {
           this.elements = x[this.elementName];
@@ -64,12 +64,17 @@ export class ElementDialogTabMultipleComponent {
   async createElement() {
     let newElement: any = this.objectService.newAny(this.elementRoute);
 
-    newElement.modifierId = this.parentData.parentId;
+    if (this.elementRoute != this.requestService.routes.ability) {
+      newElement.modifierId = this.parentData.parentId;
+    } else {
+      newElement.itemId = this.parentData.parentId;
+    }
+
     (await this.requestService.create(this.elementRoute, newElement)).subscribe(
       (x: any) => {
         this.elements.push(x);
         this.elementTable = new MatTableDataSource(this.elements);
-      },
+      }
     );
   }
 
@@ -86,7 +91,7 @@ export class ElementDialogTabMultipleComponent {
           await this.requestService.get(
             this.requestService.elementToTemplateRoute(this.elementRoute) +
               '/Instantiate',
-            template.id,
+            template.id
           )
         ).subscribe(async (newElement: any) => {
           newElement.modifierId = this.parentData.parentId;

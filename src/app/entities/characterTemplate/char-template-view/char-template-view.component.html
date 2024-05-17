@@ -147,12 +147,23 @@
       <div>
         <mat-tab-group class="listTabs">
           <mat-tab label="Abilities">
-            <app-template-tab
-              [charTemplate]="this.charTemplate"
-              [propertyName]="'abilityTemplates'"
-              [elementRoute]="this.requestService.routes.abilityTemplate"
-              [changeSubject]="changeSubject"
-            ></app-template-tab>
+            <mat-tab-group>
+              <mat-tab label="Abilities">
+                <app-template-tab
+                  [charTemplate]="this.charTemplate"
+                  [propertyName]="'abilityTemplates'"
+                  [elementRoute]="this.requestService.routes.abilityTemplate"
+                  [changeSubject]="changeSubject"
+                ></app-template-tab>
+              </mat-tab>
+              <mat-tab label="Nested Abilities">
+                <app-template-nested-tab
+                  [charTemplate]="this.charTemplate"
+                  [elementRoute]="this.requestService.routes.abilityTemplate"
+                  [changeSubject]="changeSubject"
+                ></app-template-nested-tab>
+              </mat-tab>
+            </mat-tab-group>
           </mat-tab>
 
           <mat-tab label="Traits">

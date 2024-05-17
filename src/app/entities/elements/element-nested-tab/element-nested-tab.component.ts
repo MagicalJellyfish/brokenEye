@@ -21,7 +21,7 @@ export class ElementNestedTabComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {}
 
   @Input() pcSubject!: Subject<Character>;
@@ -34,22 +34,24 @@ export class ElementNestedTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string,
+        filter: string
       ): boolean {
         return data.reminder.toLowerCase().includes(filter);
       };
     } else {
       this.elementTableCols.push('name');
 
-      let routeList = [
-        this.requestService.routes.trait,
-        this.requestService.routes.item,
-        this.requestService.routes.effect,
-      ];
-      if (routeList.includes(this.elementRoute)) {
-        this.elementTableCols.push('abstract');
-      } else {
-        this.elementTableCols.push('description');
+      if (this.elementRoute != this.requestService.routes.ability) {
+        let routeList = [
+          this.requestService.routes.trait,
+          this.requestService.routes.item,
+          this.requestService.routes.effect,
+        ];
+        if (routeList.includes(this.elementRoute)) {
+          this.elementTableCols.push('abstract');
+        } else {
+          this.elementTableCols.push('description');
+        }
       }
 
       switch (this.elementRoute) {
@@ -66,7 +68,7 @@ export class ElementNestedTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string,
+        filter: string
       ): boolean {
         return data.name.toLowerCase().includes(filter);
       };
@@ -187,11 +189,20 @@ export class ElementNestedTabComponent implements OnInit {
           }
         });
       }
+    } else if (this.elementRoute == this.requestService.routes.ability) {
+      this.char.items.forEach((item) => {
+        if (item.abilities.length > 0) {
+          item.abilities.forEach((ability: any) => {
+            ability.source = 'Item "' + item.name + '"';
+            this.elements.push(ability);
+          });
+        }
+      });
     }
 
     this.elements.sort(function (
       a: { viewPosition: number },
-      b: { viewPosition: number },
+      b: { viewPosition: number }
     ) {
       return a.viewPosition - b.viewPosition;
     });
@@ -263,7 +274,7 @@ export class ElementNestedTabComponent implements OnInit {
         id,
         JSON.stringify({
           value: value,
-        }),
+        })
       )
     ).subscribe();
   }
@@ -271,7 +282,7 @@ export class ElementNestedTabComponent implements OnInit {
   async updateCheckbox(
     id: number,
     propertyName: string,
-    event: MatCheckboxChange,
+    event: MatCheckboxChange
   ) {
     (
       await this.requestService.patch(
@@ -279,7 +290,7 @@ export class ElementNestedTabComponent implements OnInit {
         id,
         JSON.stringify({
           [propertyName]: event.checked,
-        }),
+        })
       )
     ).subscribe();
   }
