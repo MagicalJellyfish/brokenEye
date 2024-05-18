@@ -7,11 +7,10 @@ import { ApiUrlService } from '../api/apiUrl/api-url.service';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(
-    private http: HttpClient,
-    private apiUrlService: ApiUrlService,
-  ) {
-    this.apiUrl = apiUrlService.apiUrl + '/api/Auth/';
+  constructor(private http: HttpClient, private apiUrlService: ApiUrlService) {}
+
+  public InitUser() {
+    this.apiUrl = this.apiUrlService.apiUrl + '/api/Auth/';
 
     this.username = localStorage.getItem('username');
     this.accessToken = localStorage.getItem('accessToken');
@@ -20,16 +19,16 @@ export class UserService {
     var accessExpirationString = localStorage.getItem('accessTokenExpiration');
     if (accessExpirationString != null) {
       this.accessTokenExpiration = new Date(
-        +localStorage.getItem('accessTokenExpiration')!,
+        +localStorage.getItem('accessTokenExpiration')!
       );
     }
 
     var refreshExpirationString = localStorage.getItem(
-      'refreshTokenExpiration',
+      'refreshTokenExpiration'
     );
     if (refreshExpirationString != null) {
       this.refreshTokenExpiration = new Date(
-        +localStorage.getItem('refreshTokenExpiration')!,
+        +localStorage.getItem('refreshTokenExpiration')!
       );
     }
 
@@ -52,7 +51,7 @@ export class UserService {
     }
   }
 
-  private apiUrl;
+  private apiUrl!: string;
 
   public username: string | null = null;
   public accessToken: string | null = null;
@@ -64,7 +63,7 @@ export class UserService {
     username: string,
     password: string,
     discordId: number,
-    registrationToken: string,
+    registrationToken: string
   ): Promise<boolean> {
     try {
       var response = await firstValueFrom(
@@ -73,7 +72,7 @@ export class UserService {
           password,
           discordId,
           registrationToken,
-        }),
+        })
       );
 
       return await this.getTokens(username, password);
@@ -108,7 +107,7 @@ export class UserService {
           accessTokenExpiration: number;
           refreshToken: string;
           refreshTokenExpiration: number;
-        }>(this.apiUrl + 'login', { username, password }),
+        }>(this.apiUrl + 'login', { username, password })
       );
 
       this.username = response.username;
@@ -121,12 +120,12 @@ export class UserService {
       localStorage.setItem('accessToken', response.accessToken);
       localStorage.setItem(
         'accessTokenExpiration',
-        response.accessTokenExpiration.toString(),
+        response.accessTokenExpiration.toString()
       );
       localStorage.setItem('refreshToken', response.refreshToken);
       localStorage.setItem(
         'refreshTokenExpiration',
-        response.refreshTokenExpiration.toString(),
+        response.refreshTokenExpiration.toString()
       );
       return true;
     } catch (error) {
@@ -153,7 +152,7 @@ export class UserService {
         }>(this.apiUrl + 'refresh-token', {
           accessToken: this.accessToken,
           refreshToken: this.refreshToken,
-        }),
+        })
       );
 
       this.username = response.username;
@@ -166,12 +165,12 @@ export class UserService {
       localStorage.setItem('accessToken', response.accessToken);
       localStorage.setItem(
         'accessTokenExpiration',
-        response.accessTokenExpiration.toString(),
+        response.accessTokenExpiration.toString()
       );
       localStorage.setItem('refreshToken', response.refreshToken);
       localStorage.setItem(
         'refreshTokenExpiration',
-        response.refreshTokenExpiration.toString(),
+        response.refreshTokenExpiration.toString()
       );
 
       this.refreshing = false;

@@ -75,6 +75,8 @@ import { TemplatesViewTabComponent } from './entities/templates/templates-view/t
 import { RollsEditComponent } from './entities/roll/rolls-edit/rolls-edit.component';
 import { RollDialogTabComponent } from './entities/roll/roll-dialog-tab/roll-dialog-tab.component';
 import { ApiUrlService } from './services/api/apiUrl/api-url.service';
+import { SignalrService } from './services/signalr/signalr.service';
+import { UserService } from './services/user/user.service';
 
 @NgModule({
   declarations: [
@@ -156,9 +158,13 @@ import { ApiUrlService } from './services/api/apiUrl/api-url.service';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [ApiUrlService],
-      useFactory: (apiUrlService: ApiUrlService) => () =>
-        apiUrlService.loadUrl(),
+      deps: [ApiUrlService, UserService],
+      useFactory:
+        (apiUrlService: ApiUrlService, userService: UserService) =>
+        async () => {
+          await apiUrlService.loadUrl();
+          await userService.InitUser();
+        },
     },
     {
       provide: HTTP_INTERCEPTORS,

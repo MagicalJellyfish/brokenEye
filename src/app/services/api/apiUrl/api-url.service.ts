@@ -14,7 +14,7 @@ export class ApiUrlService {
 
   async loadUrl() {
     let value: any = await firstValueFrom(
-      this.http.get('/assets/appsettings.json'),
+      this.http.get('/assets/appsettings.json')
     );
     this.apiUrl = value.brokenHeart.url;
     return;

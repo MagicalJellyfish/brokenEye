@@ -12,9 +12,8 @@ import {
   MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
-import { WebsocketService } from 'src/app/services/api/websocket/websocket.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 
 @Component({
@@ -34,7 +33,6 @@ export class CharEditComponent implements OnInit {
     private matDialog: MatDialog,
     private router: Router,
     public dialogRef: MatDialogRef<CharEditComponent>,
-    private webSocketService: WebsocketService,
     @Inject(MAT_DIALOG_DATA)
     public data: {
       id: number;
@@ -45,7 +43,7 @@ export class CharEditComponent implements OnInit {
       age: number;
       defaultShortcut: string;
       isNPC: boolean;
-    },
+    }
   ) {
     this.name.setValue(data.name);
     this.height.setValue(data.height?.toString());
@@ -87,7 +85,7 @@ export class CharEditComponent implements OnInit {
           age: this.age.value,
           defaultShortcut: this.defaultShortcut.value,
           isNPC: this.isNPC,
-        }),
+        })
       )
     ).subscribe();
   }
@@ -103,11 +101,10 @@ export class CharEditComponent implements OnInit {
           (
             await this.requestService.delete(
               this.requestService.routes.character,
-              this.data.id,
+              this.data.id
             )
           ).subscribe((_) => {
             this.router.navigate(['char/view']);
-            this.webSocketService.closeConnection();
             this.dialogRef.close();
           });
         }
