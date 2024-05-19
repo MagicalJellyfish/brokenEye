@@ -18,7 +18,7 @@ export class TemplateTabComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {}
 
   @Input() charTemplate!: CharacterTemplate;
@@ -32,7 +32,7 @@ export class TemplateTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string,
+        filter: string
       ): boolean {
         return data.reminder.toLowerCase().includes(filter);
       };
@@ -56,18 +56,18 @@ export class TemplateTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string,
+        filter: string
       ): boolean {
         return data.name.toLowerCase().includes(filter);
       };
     }
     this.elementTableCols.push('actions');
 
+    this.elements = this.charTemplate[this.propertyName];
     this.update();
   }
 
   update() {
-    this.elements = this.charTemplate[this.propertyName];
     this.elementTable = new MatTableDataSource(this.elements);
     this.changeSubject.next();
   }
@@ -100,10 +100,10 @@ export class TemplateTabComponent implements OnInit {
               (edited) => {
                 this.elements.push(edited);
                 this.update();
-              },
+              }
             );
           });
-      },
+      }
     );
   }
 
@@ -137,13 +137,13 @@ export class TemplateTabComponent implements OnInit {
       .subscribe(async (_) => {
         (await this.requestService.get(this.elementRoute, id)).subscribe(
           (edited) => {
-            this.elements.forEach((element: any) => {
-              if (element.id == id) {
-                element = edited;
+            for (let i = 0; i < this.elements.length; i++) {
+              if (this.elements[i].id == id) {
+                this.elements[i] = edited;
               }
-            });
+            }
             this.update();
-          },
+          }
         );
       });
   }

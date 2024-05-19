@@ -19,10 +19,17 @@
         <div class="top">
           <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
-            <input matInput [formControl]="this.name" />
+            <input
+              matInput
+              [formControl]="this.name"
+              (ngModelChange)="this.nameDebouncer.InputSubject.next($event)"
+            />
             <mat-error *ngIf="name.invalid">{{ getNameError() }}</mat-error>
           </mat-form-field>
-          <mat-checkbox labelPosition="before" [(ngModel)]="isNPC"
+          <mat-checkbox
+            labelPosition="before"
+            [(ngModel)]="isNPC"
+            (ngModelChange)="saveIsNpc()"
             >Is NPC</mat-checkbox
           >
         </div>
@@ -32,7 +39,14 @@
             <td>
               <mat-form-field appearance="outline">
                 <mat-label>Height</mat-label>
-                <input matInput [formControl]="this.height" type="number" />
+                <input
+                  matInput
+                  [formControl]="this.height"
+                  type="number"
+                  (ngModelChange)="
+                    this.heightDebouncer.InputSubject.next($event)
+                  "
+                />
                 <span matTextSuffix>m</span>
                 <mat-error *ngIf="height.invalid">{{
                   getHeightError()
@@ -42,7 +56,12 @@
             <td>
               <mat-form-field appearance="outline">
                 <mat-label>Age</mat-label>
-                <input matInput [formControl]="this.age" type="number" />
+                <input
+                  matInput
+                  [formControl]="this.age"
+                  type="number"
+                  (ngModelChange)="this.ageDebouncer.InputSubject.next($event)"
+                />
                 <mat-error *ngIf="age.invalid">{{ getAgeError() }}</mat-error>
               </mat-form-field>
             </td>
@@ -52,7 +71,14 @@
             <td>
               <mat-form-field appearance="outline">
                 <mat-label>Weight</mat-label>
-                <input matInput [formControl]="this.weight" type="number" />
+                <input
+                  matInput
+                  [formControl]="this.weight"
+                  type="number"
+                  (ngModelChange)="
+                    this.weightDebouncer.InputSubject.next($event)
+                  "
+                />
                 <span matTextSuffix>kg</span>
                 <mat-error *ngIf="weight.invalid">{{
                   getWeightError()
@@ -62,7 +88,13 @@
             <td>
               <mat-form-field appearance="outline">
                 <mat-label>Money</mat-label>
-                <input matInput [formControl]="this.money" />
+                <input
+                  matInput
+                  [formControl]="this.money"
+                  (ngModelChange)="
+                    this.moneyDebouncer.InputSubject.next($event)
+                  "
+                />
                 <span matTextSuffix>€</span>
                 <mat-error *ngIf="money.invalid">{{
                   getMoneyError()
@@ -78,6 +110,9 @@
             <textarea
               matInput
               [(ngModel)]="this.description"
+              (ngModelChange)="
+                this.descriptionDebouncer.InputSubject.next($event)
+              "
               cdkTextareaAutosize
               #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="2"
@@ -89,6 +124,7 @@
             <textarea
               matInput
               [(ngModel)]="this.notes"
+              (ngModelChange)="this.notesDebouncer.InputSubject.next($event)"
               cdkTextareaAutosize
               #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="2"
@@ -100,15 +136,15 @@
             <textarea
               matInput
               [(ngModel)]="this.experience"
+              (ngModelChange)="
+                this.experienceDebouncer.InputSubject.next($event)
+              "
               cdkTextareaAutosize
               #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="2"
             ></textarea></mat-form-field
           ><br />
         </div>
-
-        <button mat-button color="primary" (click)="save()">Save inputs</button
-        ><br />
 
         <div class="bottomRow">
           <table mat-table [dataSource]="statTable">

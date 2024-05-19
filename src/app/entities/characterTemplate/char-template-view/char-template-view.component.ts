@@ -10,6 +10,7 @@ import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTempl
 import { Stat } from 'src/app/api-classes/Stats/Stat';
 import { StatValue } from 'src/app/api-classes/Stats/StatValue';
 import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
+import { Debouncer } from 'src/app/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 
 @Component({
@@ -23,55 +24,36 @@ export class CharTemplateViewComponent implements OnInit {
     private route: ActivatedRoute,
     protected requestService: RequestService,
     private matDialog: MatDialog,
-    private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar
   ) {}
 
   async ngOnInit(): Promise<void> {
     (
       await this.requestService.getAll(
-        this.requestService.routes.constant + '/Stats',
+        this.requestService.routes.constant + '/Stats'
       )
     ).subscribe((stats: any) => {
       this.allStats = stats;
     });
 
+    this.nameDebouncer.SaveSubject.subscribe(() => this.saveName());
+    this.heightDebouncer.SaveSubject.subscribe(() => this.saveHeight());
+    this.weightDebouncer.SaveSubject.subscribe(() => this.saveWeight());
+    this.ageDebouncer.SaveSubject.subscribe(() => this.saveAge());
+    this.moneyDebouncer.SaveSubject.subscribe(() => this.saveMoney());
+    this.experienceDebouncer.SaveSubject.subscribe(() => this.saveExperience());
+    this.descriptionDebouncer.SaveSubject.subscribe(() =>
+      this.saveDescription()
+    );
+    this.notesDebouncer.SaveSubject.subscribe(() => this.saveNotes());
+
     (
       await this.requestService.get(
         this.requestService.routes.characterTemplate,
-        +this.route.snapshot.paramMap.get('id')!,
+        +this.route.snapshot.paramMap.get('id')!
       )
     ).subscribe((x: any) => {
       this.charTemplate = x;
-
-      this.experience = this.charTemplate!.experience;
-      this.description = this.charTemplate!.description;
-      this.notes = this.charTemplate!.notes;
-
-      var charCodeString: string = '';
-      for (var i = 0; i < this.charTemplate!.image.length; i++) {
-        charCodeString += String.fromCharCode(this.charTemplate!.image[i]);
-      }
-      this.image = btoa(charCodeString);
-
-      this.name.setValue(this.charTemplate!.name);
-      this.money.setValue(this.charTemplate!.money.toString());
-
-      let height = null;
-      if (this.charTemplate!.height != undefined)
-        height = this.charTemplate!.height.toString();
-
-      let weight = null;
-      if (this.charTemplate!.weight != undefined)
-        weight = this.charTemplate!.weight.toString();
-
-      let age = null;
-      if (this.charTemplate!.age != undefined)
-        age = this.charTemplate!.age.toString();
-
-      this.height.setValue(height);
-      this.weight.setValue(weight);
-      this.age.setValue(age);
-      this.isNPC = this.charTemplate!.isNPC;
 
       this.update();
     });
@@ -99,14 +81,16 @@ export class CharTemplateViewComponent implements OnInit {
 
     this.charTemplate?.itemTemplates.forEach((itemTemplate) => {
       itemTemplate.statIncreases.forEach((statIncrease) => {
-        statIncreases.push(statIncrease);
+        for (let i = 0; i < itemTemplate.amount; i++) {
+          statIncreases.push(statIncrease);
+        }
       });
     });
 
     this.allStats.forEach((stat) => {
       let totalIncrease = 0;
       let relevantStatIncreases = statIncreases.filter(
-        (x) => x.statId == stat.id,
+        (x) => x.statId == stat.id
       );
       relevantStatIncreases.forEach((relevantStatIncrease) => {
         totalIncrease += relevantStatIncrease.value;
@@ -121,6 +105,53 @@ export class CharTemplateViewComponent implements OnInit {
     });
 
     this.statTable = new MatTableDataSource(this.statValues);
+
+    var charCodeString: string = '';
+    for (var i = 0; i < this.charTemplate!.image.length; i++) {
+      charCodeString += String.fromCharCode(this.charTemplate!.image[i]);
+    }
+    this.image = btoa(charCodeString);
+
+    if (!this.experienceDebouncer.Debouncing) {
+      this.experience = this.charTemplate!.experience;
+    }
+    if (!this.descriptionDebouncer.Debouncing) {
+      this.description = this.charTemplate!.description;
+    }
+    if (!this.notesDebouncer.Debouncing) {
+      this.notes = this.charTemplate!.notes;
+    }
+
+    if (!this.nameDebouncer.Debouncing) {
+      this.name.setValue(this.charTemplate!.name);
+    }
+
+    if (!this.nameDebouncer.Debouncing) {
+      this.money.setValue(this.charTemplate!.money.toString());
+    }
+
+    if (!this.heightDebouncer.Debouncing) {
+      let height = null;
+      if (this.charTemplate!.height != undefined)
+        height = this.charTemplate!.height.toString();
+      this.height.setValue(height);
+    }
+
+    if (!this.weightDebouncer.Debouncing) {
+      let weight = null;
+      if (this.charTemplate!.weight != undefined)
+        weight = this.charTemplate!.weight.toString();
+      this.weight.setValue(weight);
+    }
+
+    if (!this.ageDebouncer.Debouncing) {
+      let age = null;
+      if (this.charTemplate!.age != undefined)
+        age = this.charTemplate!.age.toString();
+      this.age.setValue(age);
+    }
+
+    this.isNPC = this.charTemplate!.isNPC;
   }
 
   changeSubject: Subject<void> = new Subject();
@@ -150,21 +181,39 @@ export class CharTemplateViewComponent implements OnInit {
     money: this.money,
   });
 
-  patternMsg = 'has to be in format';
-
   allStats!: Stat[];
   statValues!: StatValue[];
   statTable: MatTableDataSource<StatValue> =
     new MatTableDataSource<StatValue>();
   statTableCols: string[] = ['name', 'value'];
 
-  async save() {
+  nameDebouncer = new Debouncer<void>();
+  heightDebouncer = new Debouncer<void>();
+  weightDebouncer = new Debouncer<void>();
+  ageDebouncer = new Debouncer<void>();
+  moneyDebouncer = new Debouncer<void>();
+  experienceDebouncer = new Debouncer<void>();
+  descriptionDebouncer = new Debouncer<void>();
+  notesDebouncer = new Debouncer<void>();
+
+  async saveName() {
     (
       await this.requestService.patch(
         this.requestService.routes.characterTemplate,
         this.charTemplate!.id,
         JSON.stringify({
           name: this.name.value,
+        })
+      )
+    ).subscribe();
+  }
+
+  async saveHeight() {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.characterTemplate,
+        this.charTemplate!.id,
+        JSON.stringify({
           height: this.height.value,
           weight: this.weight.value,
           age: this.age.value,
@@ -173,11 +222,99 @@ export class CharTemplateViewComponent implements OnInit {
           experience: this.experience,
           description: this.description,
           notes: this.notes,
-        }),
+        })
       )
-    ).subscribe((_) =>
-      this.snackBar.open('Saved changes!', 'OK', { duration: 2000 }),
-    );
+    ).subscribe();
+  }
+
+  async saveWeight() {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.characterTemplate,
+        this.charTemplate!.id,
+        JSON.stringify({
+          weight: this.weight.value,
+          age: this.age.value,
+          money: this.money.value,
+          isNPC: this.isNPC,
+          experience: this.experience,
+          description: this.description,
+          notes: this.notes,
+        })
+      )
+    ).subscribe();
+  }
+
+  async saveAge() {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.characterTemplate,
+        this.charTemplate!.id,
+        JSON.stringify({
+          age: this.age.value,
+        })
+      )
+    ).subscribe();
+  }
+
+  async saveMoney() {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.characterTemplate,
+        this.charTemplate!.id,
+        JSON.stringify({
+          money: this.money.value,
+        })
+      )
+    ).subscribe();
+  }
+
+  async saveIsNpc() {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.characterTemplate,
+        this.charTemplate!.id,
+        JSON.stringify({
+          isNPC: this.isNPC,
+        })
+      )
+    ).subscribe();
+  }
+
+  async saveExperience() {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.characterTemplate,
+        this.charTemplate!.id,
+        JSON.stringify({
+          experience: this.experience,
+        })
+      )
+    ).subscribe();
+  }
+
+  async saveDescription() {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.characterTemplate,
+        this.charTemplate!.id,
+        JSON.stringify({
+          description: this.description,
+        })
+      )
+    ).subscribe();
+  }
+
+  async saveNotes() {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.characterTemplate,
+        this.charTemplate!.id,
+        JSON.stringify({
+          notes: this.notes,
+        })
+      )
+    ).subscribe();
   }
 
   updateImage(inputEvent: any) {
@@ -201,7 +338,7 @@ export class CharTemplateViewComponent implements OnInit {
             this.charTemplate!.id,
             JSON.stringify({
               image: byteArray,
-            }),
+            })
           )
         ).subscribe((_) => (this.image = resultString.substring(22)));
       };
@@ -214,13 +351,13 @@ export class CharTemplateViewComponent implements OnInit {
     (
       await this.requestService.get(
         this.requestService.routes.characterTemplate + '/Instantiate',
-        this.charTemplate!.id,
+        this.charTemplate!.id
       )
     ).subscribe(async (x) => {
       (
         await this.requestService.create(
           this.requestService.routes.character,
-          x,
+          x
         )
       ).subscribe((x: any) => {
         let snackBarRef = this.snackBar.open('Character was created!', 'Open', {
@@ -247,7 +384,7 @@ export class CharTemplateViewComponent implements OnInit {
           (
             await this.requestService.delete(
               this.requestService.routes.characterTemplate,
-              this.charTemplate!.id,
+              this.charTemplate!.id
             )
           ).subscribe((_) => {
             this.router.navigate(['charTemplate/view']);
@@ -255,6 +392,8 @@ export class CharTemplateViewComponent implements OnInit {
         }
       });
   }
+
+  patternMsg = 'has to be in format';
 
   getNameError() {
     return `Name can not be empty!`;
