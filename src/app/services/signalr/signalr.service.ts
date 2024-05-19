@@ -6,6 +6,7 @@ import {
 } from '@microsoft/signalr';
 import { ApiUrlService } from '../api/apiUrl/api-url.service';
 import { UserService } from '../user/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,8 @@ export class SignalrService {
 
   constructor(
     private apiUrlService: ApiUrlService,
-    private userService: UserService
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) {
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(this.apiUrlService.apiUrl + '/signalr', {
@@ -26,9 +28,18 @@ export class SignalrService {
 
   registrations: string[] = [];
 
+  async StartConnection() {
+    await this.hubConnection!.start();
+    this.hubConnection.on('error', (message: string) =>
+      this.snackBar.open('Websocket Error - ' + message, 'Close', {
+        duration: 60000,
+      })
+    );
+  }
+
   async RegisterForCharChange(id: number, func: () => void) {
     if (this.hubConnection.state != HubConnectionState.Connected) {
-      await this.hubConnection!.start();
+      await this.StartConnection();
     }
 
     this.hubConnection.invoke('RegisterForCharChange', id);
