@@ -5,12 +5,13 @@ import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { ElementEditComponent } from '../element-edit/element-edit.component';
 import { ElementViewComponent } from '../element-view/element-view.component';
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ElementOrderComponent } from '../element-order/element-order.component';
 import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TemplateSelectComponent } from '../../templates/template-select/template-select.component';
 import { Character } from 'src/app/api-classes/Characters/Character';
+import { Debouncer } from 'src/app/core/debouncer/debouncer';
 
 @Component({
   selector: 'app-element-tab',
@@ -21,7 +22,7 @@ export class ElementTabComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {}
 
   @Input() pcSubject!: Subject<Character>;
@@ -35,7 +36,7 @@ export class ElementTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string,
+        filter: string
       ): boolean {
         return data.reminder.toLowerCase().includes(filter);
       };
@@ -68,7 +69,7 @@ export class ElementTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string,
+        filter: string
       ): boolean {
         return data.name.toLowerCase().includes(filter);
       };
@@ -88,42 +89,28 @@ export class ElementTabComponent implements OnInit {
 
     this.elements.sort(function (
       a: { viewPosition: number },
-      b: { viewPosition: number },
+      b: { viewPosition: number }
     ) {
       return a.viewPosition - b.viewPosition;
     });
 
     if (this.elementRoute == this.requestService.routes.counter) {
       this.char.counters.forEach((x) => {
-        this.counterValueDebounces.set(x.id, new Subject<string>());
-        this.counterValueDebouncings.set(x.id, false);
+        this.counterValueDebouncers.set(x.id, new Debouncer<string>());
 
-        this.counterValueDebounces
+        this.counterValueDebouncers
           .get(x.id)!
-          .subscribe((_) => this.counterValueDebouncings.set(x.id, true));
-        this.counterValueDebounces
-          .get(x.id)!
-          .pipe(debounceTime(2000), distinctUntilChanged())
-          .subscribe((y) => {
-            this.updateCounter(x.id, +y);
-          });
+          .SaveSubject.subscribe((y) => this.updateCounter(x.id, +y));
       });
     }
 
     if (this.elementRoute == this.requestService.routes.item) {
       this.char.items.forEach((x) => {
-        this.itemAmountDebounces.set(x.id, new Subject<string>());
-        this.itemAmountDebouncings.set(x.id, false);
+        this.itemAmountDebouncers.set(x.id, new Debouncer<string>());
 
-        this.itemAmountDebounces
+        this.itemAmountDebouncers
           .get(x.id)!
-          .subscribe((_) => this.itemAmountDebouncings.set(x.id, true));
-        this.itemAmountDebounces
-          .get(x.id)!
-          .pipe(debounceTime(2000), distinctUntilChanged())
-          .subscribe((y) => {
-            this.updateItemAmount(x.id, +y);
-          });
+          .SaveSubject.subscribe((y) => this.updateItemAmount(x.id, +y));
       });
     }
 
@@ -134,11 +121,9 @@ export class ElementTabComponent implements OnInit {
   elementTable = new MatTableDataSource<any>();
   elementTableCols: string[] = [];
 
-  counterValueDebounces = new Map<number, Subject<string>>();
-  counterValueDebouncings = new Map<number, boolean>();
+  counterValueDebouncers = new Map<number, Debouncer<string>>();
 
-  itemAmountDebounces = new Map<number, Subject<string>>();
-  itemAmountDebouncings = new Map<number, boolean>();
+  itemAmountDebouncers = new Map<number, Debouncer<string>>();
 
   boxProperty: string = '';
 
@@ -157,7 +142,7 @@ export class ElementTabComponent implements OnInit {
           maxWidth: '90vw',
           data: { id: x.id, route: this.elementRoute },
         });
-      },
+      }
     );
   }
 
@@ -180,7 +165,7 @@ export class ElementTabComponent implements OnInit {
           await this.requestService.get(
             this.requestService.elementToTemplateRoute(this.elementRoute) +
               '/Instantiate',
-            template.id,
+            template.id
           )
         ).subscribe(async (element: any) => {
           element.characterId = this.char.id;
@@ -218,9 +203,10 @@ export class ElementTabComponent implements OnInit {
         id,
         JSON.stringify({
           value: value,
-        }),
+        })
       )
     ).subscribe();
+    this.counterValueDebouncers.get(id)!.Debouncing = false;
   }
 
   async updateItemAmount(id: number, value: number) {
@@ -230,15 +216,16 @@ export class ElementTabComponent implements OnInit {
         id,
         JSON.stringify({
           amount: value,
-        }),
+        })
       )
     ).subscribe();
+    this.itemAmountDebouncers.get(id)!.Debouncing = false;
   }
 
   async updateCheckbox(
     id: number,
     propertyName: string,
-    event: MatCheckboxChange,
+    event: MatCheckboxChange
   ) {
     (
       await this.requestService.patch(
@@ -246,7 +233,7 @@ export class ElementTabComponent implements OnInit {
         id,
         JSON.stringify({
           [propertyName]: event.checked,
-        }),
+        })
       )
     ).subscribe();
   }

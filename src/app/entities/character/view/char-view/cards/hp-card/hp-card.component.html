@@ -18,7 +18,7 @@
                 <input
                   matInput
                   [(ngModel)]="this.hp"
-                  (ngModelChange)="this.hpDebounce.next($event)"
+                  (ngModelChange)="this.hpDebouncer.InputSubject.next($event)"
                 />
                 <span matTextSuffix>/{{ this.char.maxHp }}</span>
               </mat-form-field>
@@ -28,7 +28,9 @@
                 <input
                   matInput
                   [(ngModel)]="this.tempHp"
-                  (ngModelChange)="this.tempHpDebounce.next($event)"
+                  (ngModelChange)="
+                    this.tempHpDebouncer.InputSubject.next($event)
+                  "
                 />
                 <span matTextSuffix>/{{ this.char.maxTempHp }}</span>
               </mat-form-field>

@@ -37,7 +37,7 @@
             <input
               matInput
               [(ngModel)]="money"
-              (ngModelChange)="this.moneyDebounce.next($event)"
+              (ngModelChange)="this.moneyDebouncer.InputSubject.next($event)"
             />
             <span matTextSuffix>€</span>
           </mat-form-field>

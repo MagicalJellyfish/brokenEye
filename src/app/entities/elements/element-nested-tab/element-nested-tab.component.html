@@ -74,7 +74,9 @@
               matInput
               [(ngModel)]="element.value"
               (ngModelChange)="
-                this.counterValueDebounces.get(element.id)!.next($event)
+                this.counterValueDebouncers
+                  .get(element.id)!
+                  .InputSubject.next($event)
               "
             />
             <span matTextSuffix>/{{ element.max }}</span>

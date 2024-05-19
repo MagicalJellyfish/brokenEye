@@ -1,13 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  Subject,
-  buffer,
-  debounceTime,
-  distinctUntilChanged,
-  timeout,
-  timer,
-} from 'rxjs';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
+import { Debouncer } from 'src/app/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 
 @Component({
@@ -29,21 +23,10 @@ export class MiscCharCardComponent implements OnInit {
       this.update();
     });
 
-    this.descriptionDebounce.subscribe(
-      (_) => (this.descriptionDebouncing = true),
+    this.descriptionDebouncer.SaveSubject.subscribe(() =>
+      this.updateDescription()
     );
-    this.descriptionDebounce
-      .pipe(debounceTime(2000), distinctUntilChanged())
-      .subscribe((_) => {
-        this.updateDescription();
-      });
-
-    this.notesDebounce.subscribe((_) => (this.notesDebouncing = true));
-    this.notesDebounce
-      .pipe(debounceTime(2000), distinctUntilChanged())
-      .subscribe((_) => {
-        this.updateNotes();
-      });
+    this.notesDebouncer.SaveSubject.subscribe(() => this.updateNotes());
   }
 
   update() {
@@ -53,10 +36,10 @@ export class MiscCharCardComponent implements OnInit {
     }
     this.image = btoa(charCodeString);
 
-    if (!this.descriptionDebouncing) {
+    if (!this.descriptionDebouncer.Debouncing) {
       this.description = this.char.description;
     }
-    if (!this.notesDebouncing) {
+    if (!this.notesDebouncer.Debouncing) {
       this.notes = this.char.notes;
     }
   }
@@ -64,12 +47,10 @@ export class MiscCharCardComponent implements OnInit {
   image: string = '';
 
   description = '';
-  descriptionDebounce = new Subject<string>();
-  descriptionDebouncing = false;
+  descriptionDebouncer = new Debouncer();
 
   notes = '';
-  notesDebounce = new Subject<string>();
-  notesDebouncing = false;
+  notesDebouncer = new Debouncer();
 
   updateImage(inputEvent: any) {
     let file: File = inputEvent.target.files[0];
@@ -92,7 +73,7 @@ export class MiscCharCardComponent implements OnInit {
             this.char.id,
             JSON.stringify({
               image: byteArray,
-            }),
+            })
           )
         ).subscribe();
       };
@@ -108,10 +89,9 @@ export class MiscCharCardComponent implements OnInit {
         this.char.id,
         JSON.stringify({
           description: this.description,
-        }),
+        })
       )
     ).subscribe();
-    this.descriptionDebouncing = false;
   }
 
   async updateNotes() {
@@ -121,9 +101,8 @@ export class MiscCharCardComponent implements OnInit {
         this.char.id,
         JSON.stringify({
           notes: this.notes,
-        }),
+        })
       )
     ).subscribe();
-    this.notesDebouncing = false;
   }
 }

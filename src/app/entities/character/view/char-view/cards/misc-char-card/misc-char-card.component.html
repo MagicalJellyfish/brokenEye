@@ -8,7 +8,9 @@
             <textarea
               matInput
               [(ngModel)]="this.description"
-              (ngModelChange)="this.descriptionDebounce.next($event)"
+              (ngModelChange)="
+                this.descriptionDebouncer.InputSubject.next($event)
+              "
               cdkTextareaAutosize
               #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="5"
@@ -38,7 +40,7 @@
           <textarea
             matInput
             [(ngModel)]="this.notes"
-            (ngModelChange)="this.notesDebounce.next($event)"
+            (ngModelChange)="this.notesDebouncer.InputSubject.next($event)"
             cdkTextareaAutosize
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="5"

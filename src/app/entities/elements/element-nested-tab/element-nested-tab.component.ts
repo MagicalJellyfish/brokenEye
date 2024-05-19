@@ -3,14 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
-import { ElementEditComponent } from '../element-edit/element-edit.component';
 import { ElementViewComponent } from '../element-view/element-view.component';
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ElementOrderComponent } from '../element-order/element-order.component';
 import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { TemplateSelectComponent } from '../../templates/template-select/template-select.component';
 import { Character } from 'src/app/api-classes/Characters/Character';
+import { Debouncer } from 'src/app/core/debouncer/debouncer';
 
 @Component({
   selector: 'app-element-nested-tab',
@@ -209,18 +208,11 @@ export class ElementNestedTabComponent implements OnInit {
 
     if (this.elementRoute == this.requestService.routes.counter) {
       this.char.counters.forEach((x) => {
-        this.counterValueDebounces.set(x.id, new Subject<string>());
-        this.counterValueDebouncings.set(x.id, false);
+        this.counterValueDebouncers.set(x.id, new Debouncer<string>());
 
-        this.counterValueDebounces
+        this.counterValueDebouncers
           .get(x.id)!
-          .subscribe((_) => this.counterValueDebouncings.set(x.id, true));
-        this.counterValueDebounces
-          .get(x.id)!
-          .pipe(debounceTime(2000), distinctUntilChanged())
-          .subscribe((y) => {
-            this.updateCounter(x.id, +y);
-          });
+          .SaveSubject.subscribe((y) => this.updateCounter(x.id, +y));
       });
     }
 
@@ -231,8 +223,7 @@ export class ElementNestedTabComponent implements OnInit {
   elementTable = new MatTableDataSource<any>();
   elementTableCols: string[] = ['source'];
 
-  counterValueDebounces = new Map<number, Subject<string>>();
-  counterValueDebouncings = new Map<number, boolean>();
+  counterValueDebouncers = new Map<number, Debouncer<string>>();
 
   boxProperty: string = '';
 
@@ -277,6 +268,7 @@ export class ElementNestedTabComponent implements OnInit {
         })
       )
     ).subscribe();
+    this.counterValueDebouncers.get(id)!.Debouncing = false;
   }
 
   async updateCheckbox(

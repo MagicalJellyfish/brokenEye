@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
+import { Debouncer } from 'src/app/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 
 @Component({
@@ -22,23 +23,17 @@ export class LargeCardComponent implements OnInit {
       this.update();
     });
 
-    this.moneyDebounce.subscribe((_) => (this.moneyDebouncing = true));
-    this.moneyDebounce
-      .pipe(debounceTime(2000), distinctUntilChanged())
-      .subscribe((_) => {
-        this.updateMoney();
-      });
+    this.moneyDebouncer.SaveSubject.subscribe(() => this.updateMoney());
   }
 
   update() {
-    if (!this.moneyDebouncing) {
+    if (!this.moneyDebouncer.Debouncing) {
       this.money = this.char.money;
     }
   }
 
-  moneyDebounce = new Subject<string>();
-  moneyDebouncing = false;
   money = 0;
+  moneyDebouncer = new Debouncer<void>();
 
   async updateMoney() {
     (
@@ -47,10 +42,9 @@ export class LargeCardComponent implements OnInit {
         this.char.id,
         JSON.stringify({
           money: this.money,
-        }),
+        })
       )
     ).subscribe();
-    this.moneyDebouncing = false;
   }
 }
 

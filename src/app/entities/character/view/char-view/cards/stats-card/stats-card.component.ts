@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { StatValue } from 'src/app/api-classes/Stats/StatValue';
+import { Debouncer } from 'src/app/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { SignalrService } from 'src/app/services/signalr/signalr.service';
-import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-stats-card',
@@ -29,14 +29,9 @@ export class StatsCardComponent implements OnInit {
       this.update();
     });
 
-    this.experienceDebounce.subscribe(
-      (_) => (this.experienceDebouncing = true)
+    this.experienceDebouncer.SaveSubject.subscribe(() =>
+      this.updateExperience()
     );
-    this.experienceDebounce
-      .pipe(debounceTime(2000), distinctUntilChanged())
-      .subscribe((_) => {
-        this.updateExperience();
-      });
   }
 
   update() {
@@ -45,14 +40,13 @@ export class StatsCardComponent implements OnInit {
     });
     this.statTable = new MatTableDataSource(this.char.stats);
 
-    if (!this.experienceDebouncing) {
+    if (!this.experienceDebouncer.Debouncing) {
       this.experience = this.char.experience;
     }
   }
 
   experience = '';
-  experienceDebounce = new Subject<string>();
-  experienceDebouncing = false;
+  experienceDebouncer = new Debouncer<void>();
 
   mainTableCols: string[] = ['name', 'value'];
 
@@ -69,7 +63,6 @@ export class StatsCardComponent implements OnInit {
         })
       )
     ).subscribe();
-    this.experienceDebouncing = false;
   }
 
   async rollStat(statId: number) {
