@@ -4,6 +4,8 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { StatValue } from 'src/app/api-classes/Stats/StatValue';
 import { RequestService } from 'src/app/services/entities/request/request.service';
+import { SignalrService } from 'src/app/services/signalr/signalr.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-stats-card',
@@ -11,7 +13,10 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
   styleUrls: ['./stats-card.component.scss'],
 })
 export class StatsCardComponent implements OnInit {
-  constructor(private requestService: RequestService) {}
+  constructor(
+    private requestService: RequestService,
+    private signalrService: SignalrService
+  ) {}
 
   @Input() pcSubject!: Subject<Character>;
   @Input() char!: Character;
@@ -25,7 +30,7 @@ export class StatsCardComponent implements OnInit {
     });
 
     this.experienceDebounce.subscribe(
-      (_) => (this.experienceDebouncing = true),
+      (_) => (this.experienceDebouncing = true)
     );
     this.experienceDebounce
       .pipe(debounceTime(2000), distinctUntilChanged())
@@ -61,9 +66,15 @@ export class StatsCardComponent implements OnInit {
         this.char.id,
         JSON.stringify({
           experience: this.experience,
-        }),
+        })
       )
     ).subscribe();
     this.experienceDebouncing = false;
+  }
+
+  async rollStat(statId: number) {
+    (await this.requestService.getAll('Auth/discord')).subscribe((x: any) =>
+      this.signalrService.RollStat(this.char.id, statId, x.discordId)
+    );
   }
 }

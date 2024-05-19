@@ -66,4 +66,8 @@ export class SignalrService {
     this.hubConnection.invoke('UnregisterFromCharChange', id);
     this.hubConnection.off('charChanged/' + id);
   }
+
+  RollStat(charId: number, statId: number, discordId: string) {
+    this.hubConnection.invoke('RollStat', charId, statId, discordId);
+  }
 }

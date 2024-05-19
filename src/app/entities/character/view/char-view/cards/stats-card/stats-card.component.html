@@ -17,7 +17,11 @@
         </td>
       </ng-container>
 
-      <tr mat-row *matRowDef="let row; columns: mainTableCols"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: mainTableCols"
+        (click)="rollStat(row.stat.id)"
+      ></tr>
     </table>
 
     <mat-form-field appearance="outline">
