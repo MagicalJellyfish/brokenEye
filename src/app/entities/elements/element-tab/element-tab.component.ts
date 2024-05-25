@@ -50,7 +50,7 @@ export class ElementTabComponent implements OnInit {
       ];
       if (routeList.includes(this.elementRoute)) {
         this.elementTableCols.push('abstract');
-      } else {
+      } else if (this.elementRoute != this.requestService.routes.variable) {
         this.elementTableCols.push('description');
       }
 
@@ -64,6 +64,9 @@ export class ElementTabComponent implements OnInit {
           break;
         case this.requestService.routes.counter:
           this.elementTableCols.push('count');
+          break;
+        case this.requestService.routes.variable:
+          this.elementTableCols.push('value');
           break;
       }
 
@@ -114,6 +117,16 @@ export class ElementTabComponent implements OnInit {
       });
     }
 
+    if (this.elementRoute == this.requestService.routes.variable) {
+      this.char.variables.forEach((x) => {
+        this.variableValueDebouncers.set(x.id, new Debouncer<string>());
+
+        this.variableValueDebouncers
+          .get(x.id)!
+          .SaveSubject.subscribe((y) => this.updateVariable(x.id, +y));
+      });
+    }
+
     this.elementTable = new MatTableDataSource(this.elements);
   }
 
@@ -122,8 +135,8 @@ export class ElementTabComponent implements OnInit {
   elementTableCols: string[] = [];
 
   counterValueDebouncers = new Map<number, Debouncer<string>>();
-
   itemAmountDebouncers = new Map<number, Debouncer<string>>();
+  variableValueDebouncers = new Map<number, Debouncer<string>>();
 
   boxProperty: string = '';
 
@@ -206,7 +219,6 @@ export class ElementTabComponent implements OnInit {
         })
       )
     ).subscribe();
-    this.counterValueDebouncers.get(id)!.Debouncing = false;
   }
 
   async updateItemAmount(id: number, value: number) {
@@ -219,7 +231,18 @@ export class ElementTabComponent implements OnInit {
         })
       )
     ).subscribe();
-    this.itemAmountDebouncers.get(id)!.Debouncing = false;
+  }
+
+  async updateVariable(id: number, value: number) {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.variable,
+        id,
+        JSON.stringify({
+          value: value,
+        })
+      )
+    ).subscribe();
   }
 
   async updateCheckbox(

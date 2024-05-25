@@ -25,21 +25,21 @@ export class TemplateViewComponent implements OnInit {
     private matDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { id: number; route: string },
     public dialogRef: MatDialogRef<TemplateViewComponent>,
-    protected persistencyService: PersistencyService,
+    protected persistencyService: PersistencyService
   ) {
     if (data.route.includes('Counter')) {
       this.parentData = new ParentData(
         ParentType.Counter,
         data.route,
         data.id,
-        false,
+        false
       );
     } else {
       this.parentData = new ParentData(
         ParentType.Modifier,
         data.route,
         data.id,
-        false,
+        false
       );
     }
   }
@@ -53,7 +53,7 @@ export class TemplateViewComponent implements OnInit {
         this.element = x;
 
         this.elementSubject.next(x);
-      },
+      }
     );
   }
 
@@ -70,7 +70,7 @@ export class TemplateViewComponent implements OnInit {
       .afterClosed()
       .subscribe(async (x) => {
         if (x === false) {
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         } else {
           (
             await this.requestService.get(this.data.route, this.data.id)

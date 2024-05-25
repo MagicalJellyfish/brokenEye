@@ -17,6 +17,7 @@ import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTempl
 import { Ability } from 'src/app/api-classes/Abilities/Abilities/Ability';
 import { AbilityTemplate } from 'src/app/api-classes/Abilities/Abilities/AbilityTemplate';
 import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
+import { Variable } from 'src/app/api-classes/Characters/Variable';
 
 @Injectable({
   providedIn: 'root',
@@ -80,6 +81,8 @@ export class ObjectService {
         return this.newAbility();
       case routes.abilityTemplate:
         return this.newAbilityTemplate();
+      case routes.variable:
+        return this.newVariable();
     }
 
     return;
@@ -121,6 +124,8 @@ export class ObjectService {
       isNPC: false,
       abilitiesIds: [],
       abilities: [],
+      variablesIds: [],
+      variables: [],
     };
 
     return c;
@@ -253,6 +258,17 @@ export class ObjectService {
     return counter;
   }
 
+  newVariable() {
+    let variable: Variable = {
+      id: 0,
+      name: 'unnamed',
+      value: 0,
+      viewPosition: 0,
+    };
+
+    return variable;
+  }
+
   newCharacterTemplate() {
     let ct: CharacterTemplate = {
       id: 0,
@@ -275,6 +291,8 @@ export class ObjectService {
       isNPC: true,
       abilityTemplatesIds: [],
       abilityTemplates: [],
+      variablesIds: [],
+      variables: [],
     };
 
     return ct;

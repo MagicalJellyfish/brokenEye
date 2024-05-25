@@ -7,7 +7,7 @@
     <mat-icon>add</mat-icon>Create Element
   </button>
   <button
-    *ngIf="propertyName != 'injuryEffects'"
+    *ngIf="propertyName != 'injuryEffects' && propertyName != 'variables'"
     mat-button
     (click)="addTemplate()"
   >
@@ -151,6 +151,28 @@
           <div *ngIf="element.effectCounter">
             {{ element.effectCounter.value }}/{{ element.effectCounter.max }}
           </div>
+        </td>
+      </ng-container>
+
+      <!--Variables-->
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef>Value</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          (click)="$event.stopPropagation()"
+        >
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              [(ngModel)]="element.value"
+              (ngModelChange)="
+                this.variableValueDebouncers
+                  .get(element.id)!
+                  .InputSubject.next($event)
+              "
+            />
+          </mat-form-field>
         </td>
       </ng-container>
 

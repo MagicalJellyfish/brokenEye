@@ -114,6 +114,11 @@
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('duration')">
         <div><b>Duration</b> {{ element.duration }}</div>
       </mat-grid-tile>
+
+      <!--Variables-->
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('value')">
+        <div><b>Value</b> {{ element.value }}</div>
+      </mat-grid-tile>
     </mat-grid-list>
 
     <mat-tab-group

@@ -8,6 +8,7 @@ import { TemplateEditComponent } from '../template-edit/template-edit.component'
 import { TemplateViewComponent } from '../template-view/template-view.component';
 import { TemplateSelectComponent } from '../template-select/template-select.component';
 import { Subject } from 'rxjs';
+import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-template-tab',
@@ -46,12 +47,17 @@ export class TemplateTabComponent implements OnInit {
       ];
       if (routeList.includes(this.elementRoute)) {
         this.elementTableCols.push('abstract');
-      } else {
+      } else if (this.elementRoute != this.requestService.routes.variable) {
         this.elementTableCols.push('description');
       }
 
-      if (this.elementRoute == this.requestService.routes.itemTemplate) {
-        this.elementTableCols.push('amount');
+      switch (this.elementRoute) {
+        case this.requestService.routes.itemTemplate:
+          this.elementTableCols.push('amount');
+          break;
+        case this.requestService.routes.variable:
+          this.elementTableCols.push('value');
+          break;
       }
 
       this.elementTable.filterPredicate = function (
@@ -85,7 +91,11 @@ export class TemplateTabComponent implements OnInit {
 
   async createElement() {
     let newElement: any = this.objectService.newAny(this.elementRoute);
-    newElement.characterTemplatesIds = [this.charTemplate.id];
+    if (this.elementRoute != this.requestService.routes.variable) {
+      newElement.characterTemplatesIds = [this.charTemplate.id];
+    } else {
+      newElement.characterTemplateId = this.charTemplate.id;
+    }
 
     (await this.requestService.create(this.elementRoute, newElement)).subscribe(
       (x: any) => {
@@ -134,33 +144,58 @@ export class TemplateTabComponent implements OnInit {
         data: { id: id, route: this.elementRoute },
       })
       .afterClosed()
-      .subscribe(async (_) => {
-        (await this.requestService.get(this.elementRoute, id)).subscribe(
-          (edited) => {
-            for (let i = 0; i < this.elements.length; i++) {
-              if (this.elements[i].id == id) {
-                this.elements[i] = edited;
+      .subscribe(async (deleted) => {
+        if (deleted) {
+          this.elements = this.elements.filter(
+            (x: { id: number }) => x.id != id
+          );
+          this.update();
+        } else {
+          (await this.requestService.get(this.elementRoute, id)).subscribe(
+            (edited) => {
+              for (let i = 0; i < this.elements.length; i++) {
+                if (this.elements[i].id == id) {
+                  this.elements[i] = edited;
+                }
               }
+              this.update();
             }
-            this.update();
-          }
-        );
+          );
+        }
       });
   }
 
   async removeElement(id: number) {
-    (
-      await this.requestService.fullPatch(this.elementRoute, id, [
-        {
-          op: 'remove',
-          path: '/characterTemplatesIds/' + this.charTemplate.id,
-        },
-      ])
-    ).subscribe((_) => {
-      this.elements.forEach((element: any, index: any) => {
-        if (element.id == id) this.elements.splice(index, 1);
+    if (this.elementRoute != this.requestService.routes.variable) {
+      (
+        await this.requestService.fullPatch(this.elementRoute, id, [
+          {
+            op: 'remove',
+            path: '/characterTemplatesIds/' + this.charTemplate.id,
+          },
+        ])
+      ).subscribe((_) => {
+        this.elements = this.elements.filter((x: { id: number }) => x.id != id);
+        this.update();
       });
-      this.update();
-    });
+    } else {
+      this.matDialog
+        .open(ConfirmationDialogComponent, {
+          data: { message: 'Are you sure you want to delete this element?' },
+        })
+        .afterClosed()
+        .subscribe(async (x) => {
+          if (x) {
+            (await this.requestService.delete(this.elementRoute, id)).subscribe(
+              (_) => {
+                this.elements = this.elements.filter(
+                  (x: { id: number }) => x.id != id
+                );
+                this.update();
+              }
+            );
+          }
+        });
+    }
   }
 }

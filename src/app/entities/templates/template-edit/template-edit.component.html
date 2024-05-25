@@ -193,6 +193,14 @@
           <input matInput [(ngModel)]="this.element.duration" />
         </mat-form-field>
       </mat-grid-tile>
+
+      <!--Variables-->
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('value')">
+        <mat-form-field appearance="outline">
+          <mat-label>Value</mat-label>
+          <input matInput [(ngModel)]="this.element.value" />
+        </mat-form-field>
+      </mat-grid-tile>
     </mat-grid-list>
 
     <div *ngIf="this.element" class="tabs">

@@ -35,6 +35,7 @@ export class RequestService {
     traitTemplate: 'TraitTemplates',
     ability: 'Abilities',
     abilityTemplate: 'AbilityTemplates',
+    variable: 'Variables',
   };
 
   elementToTemplateRoute(elementRoute: string) {

@@ -110,6 +110,15 @@
           </mat-tab>
         </mat-tab-group>
       </mat-tab>
+
+      <mat-tab label="Variables">
+        <app-element-tab
+          [pcSubject]="this.pcSubject"
+          [char]="this.char"
+          [propertyName]="'variables'"
+          [elementRoute]="this.requestService.routes.variable"
+        ></app-element-tab>
+      </mat-tab>
     </mat-tab-group>
   </mat-card-content>
 </mat-card>

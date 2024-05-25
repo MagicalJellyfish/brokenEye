@@ -272,6 +272,15 @@
               </mat-tab>
             </mat-tab-group>
           </mat-tab>
+
+          <mat-tab label="Variables">
+            <app-template-tab
+              [charTemplate]="this.charTemplate"
+              [propertyName]="'variables'"
+              [elementRoute]="this.requestService.routes.variable"
+              [changeSubject]="changeSubject"
+            ></app-template-tab>
+          </mat-tab>
         </mat-tab-group>
       </div>
     </mat-card-content>

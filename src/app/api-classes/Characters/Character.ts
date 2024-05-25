@@ -7,6 +7,7 @@ import { RoundReminder } from '../RoundReminders/RoundReminder';
 import { StatValue } from '../Stats/StatValue';
 import { UserSimplified } from '../UserSimplified';
 import { Ability } from '../Abilities/Abilities/Ability';
+import { Variable } from './Variable';
 
 export interface Character {
   id: number;
@@ -23,6 +24,9 @@ export interface Character {
   movementSpeed: number;
   armor: number;
   evasion: number;
+
+  variablesIds: number[];
+  variables: Variable[];
 
   stats: StatValue[];
   bodypartConditions: BodypartCondition[];
