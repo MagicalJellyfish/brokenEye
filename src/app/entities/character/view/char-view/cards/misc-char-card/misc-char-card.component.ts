@@ -31,8 +31,8 @@ export class MiscCharCardComponent implements OnInit {
 
   update() {
     var charCodeString: string = '';
-    for (var i = 0; i < this.char.image.length; i++) {
-      charCodeString += String.fromCharCode(this.char.image[i]);
+    for (var i = 0; i < this.char.image.bytes.length; i++) {
+      charCodeString += String.fromCharCode(this.char.image.bytes[i]);
     }
     this.image = btoa(charCodeString);
 
@@ -69,10 +69,10 @@ export class MiscCharCardComponent implements OnInit {
 
         (
           await this.requestService.patch(
-            this.requestService.routes.character,
-            this.char.id,
+            this.requestService.routes.characterImage,
+            this.char.imageId,
             JSON.stringify({
-              image: byteArray,
+              bytes: byteArray,
             })
           )
         ).subscribe();
@@ -101,6 +101,18 @@ export class MiscCharCardComponent implements OnInit {
         this.char.id,
         JSON.stringify({
           notes: this.notes,
+        })
+      )
+    ).subscribe();
+  }
+
+  async removeImage() {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.characterImage,
+        this.char.imageId,
+        JSON.stringify({
+          bytes: [],
         })
       )
     ).subscribe();

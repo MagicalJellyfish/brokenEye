@@ -93,7 +93,6 @@ export class ObjectService {
       age: 0,
       notes: '',
       experience: '',
-      image: [],
       id: 0,
       name: 'unnamed',
       description: '',
@@ -126,6 +125,8 @@ export class ObjectService {
       abilities: [],
       variablesIds: [],
       variables: [],
+      imageId: 0,
+      image: { id: 0, bytes: [] },
     };
 
     return c;

@@ -16,22 +16,22 @@ export class UserCharListComponent implements OnInit {
   constructor(
     private router: Router,
     private requestService: RequestService,
-    private userService: UserService,
+    private userService: UserService
   ) {}
 
   async ngOnInit(): Promise<void> {
     (
       await this.requestService.get(
         this.requestService.routes.character + '/User',
-        this.userService.username,
+        this.userService.username
       )
     ).subscribe((x: any) => {
       this.userChars = x;
 
       x.forEach((c: Character) => {
         var charCodeString: string = '';
-        for (var i = 0; i < c.image.length; i++) {
-          charCodeString += String.fromCharCode(c.image[i]);
+        for (var i = 0; i < c.image.bytes.length; i++) {
+          charCodeString += String.fromCharCode(c.image.bytes[i]);
         }
         this.userCharImages.push(btoa(charCodeString));
       });
@@ -39,15 +39,15 @@ export class UserCharListComponent implements OnInit {
 
     (
       await this.requestService.getAll(
-        this.requestService.routes.character + '/Players',
+        this.requestService.routes.character + '/Players'
       )
     ).subscribe((x: any) => {
       this.allChars = x;
 
       x.forEach((c: Character) => {
         var charCodeString: string = '';
-        for (var i = 0; i < c.image.length; i++) {
-          charCodeString += String.fromCharCode(c.image[i]);
+        for (var i = 0; i < c.image.bytes.length; i++) {
+          charCodeString += String.fromCharCode(c.image.bytes[i]);
         }
         this.allCharImages.push(btoa(charCodeString));
       });

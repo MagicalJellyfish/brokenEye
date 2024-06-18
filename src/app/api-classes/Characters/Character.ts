@@ -8,6 +8,7 @@ import { StatValue } from '../Stats/StatValue';
 import { UserSimplified } from '../UserSimplified';
 import { Ability } from '../Abilities/Abilities/Ability';
 import { Variable } from './Variable';
+import { CharacterImage } from './CharacterImage';
 
 export interface Character {
   id: number;
@@ -56,7 +57,8 @@ export interface Character {
   notes: string;
   experience: string;
 
-  image: number[];
+  imageId: number;
+  image: CharacterImage;
 
   isNPC: boolean;
   ownerId?: number;
