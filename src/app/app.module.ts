@@ -170,7 +170,7 @@ import { UserService } from './services/user/user.service';
       provide: HTTP_INTERCEPTORS,
       useClass: ResponseInterceptor,
       multi: true,
-      deps: [MatSnackBar, APP_INITIALIZER],
+      deps: [MatSnackBar, UserService],
     },
   ],
   bootstrap: [AppComponent],
