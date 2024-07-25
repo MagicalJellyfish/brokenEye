@@ -1,6 +1,6 @@
 import { CharacterTemplate } from '../../Characters/CharacterTemplate';
 import { EffectTemplate } from '../../Effects/EffectTemplate';
-import { ItemTemplate } from '../../Items/ItemTemplate';
+import { ModifierTemplate } from '../../ModifierTemplate';
 import { Roll } from '../Roll';
 import { TargetType } from './TargetType';
 
@@ -21,11 +21,11 @@ export interface AbilityTemplate {
   rollsIds: number[];
   rolls: Roll[];
 
-  effectTemplatesIds: number[];
-  effectTemplates: EffectTemplate[];
+  appliedEffectTemplatesIds: number[];
+  appliedEffectTemplates: EffectTemplate[];
 
-  itemTemplatesIds: number[];
-  itemTemplates: ItemTemplate[];
+  modifierTemplatesIds: number[];
+  modifierTemplates: ModifierTemplate[];
 
   characterTemplatesIds: number[];
   characterTemplates: CharacterTemplate[];

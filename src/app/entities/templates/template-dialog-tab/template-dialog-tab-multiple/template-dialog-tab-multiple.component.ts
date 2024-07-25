@@ -70,14 +70,10 @@ export class TemplateDialogTabMultipleComponent {
 
     if (this.parentData.parentRoute.includes('Abilit')) {
       if (this.parentData.parentRoute == this.requestService.routes.ability) {
-        newElement.abilitiesIds.push(this.parentData.parentId);
+        newElement.applyingAbilitiesIds.push(this.parentData.parentId);
       } else {
-        newElement.abilityTemplatesIds.push(this.parentData.parentId);
+        newElement.applyingAbilityTemplatesIds.push(this.parentData.parentId);
       }
-    } else if (
-      this.elementRoute == this.requestService.routes.abilityTemplate
-    ) {
-      newElement.itemTemplatesIds.push(this.parentData.parentId);
     } else {
       newElement.modifierTemplatesIds.push(this.parentData.parentId);
     }
@@ -96,7 +92,7 @@ export class TemplateDialogTabMultipleComponent {
       .afterClosed()
       .subscribe(async (x) => {
         if (x != undefined) {
-          let propertyName = this.elementRoute + 'Ids';
+          let propertyName = this.elementName + 'Ids';
 
           (
             await this.requestService.fullPatch(
@@ -119,7 +115,7 @@ export class TemplateDialogTabMultipleComponent {
   }
 
   async removeElement(id: number) {
-    let propertyName = this.elementRoute + 'Ids';
+    let propertyName = this.elementName + 'Ids';
 
     (
       await this.requestService.fullPatch(

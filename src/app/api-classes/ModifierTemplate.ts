@@ -1,3 +1,4 @@
+import { AbilityTemplate } from './Abilities/Abilities/AbilityTemplate';
 import { CounterTemplate } from './Counters/CounterTemplate';
 import { RoundReminderTemplate } from './RoundReminders/RoundReminderTemplate';
 import { StatValue } from './Stats/StatValue';
@@ -14,6 +15,9 @@ export interface ModifierTemplate {
 
   statIncreasesIds: number[];
   statIncreases: StatValue[];
+
+  abilityTemplatesIds: number[];
+  abilityTemplates: AbilityTemplate[];
 
   counterTemplatesIds: number[];
   counterTemplates: CounterTemplate[];

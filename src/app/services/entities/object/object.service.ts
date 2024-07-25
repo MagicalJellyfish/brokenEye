@@ -46,6 +46,9 @@ export class ObjectService {
     'characterTemplates',
     'abilityTemplates',
     'itemTemplates',
+    'applyingAbilities',
+    'applyingAbilityTemplates',
+    'appliedEffectTemplates',
   ];
 
   newAny(route: string) {
@@ -141,8 +144,8 @@ export class ObjectService {
       canInjure: false,
       rollsIds: [],
       rolls: [],
-      effectTemplatesIds: [],
-      effectTemplates: [],
+      appliedEffectTemplatesIds: [],
+      appliedEffectTemplates: [],
       targetType: TargetType.None,
       viewPosition: 0,
     };
@@ -168,6 +171,8 @@ export class ObjectService {
       countersIds: [],
       counters: [],
       viewPosition: 0,
+      abilitiesIds: [],
+      abilities: [],
     };
 
     return effect;
@@ -225,6 +230,8 @@ export class ObjectService {
       countersIds: [],
       counters: [],
       viewPosition: 0,
+      abilitiesIds: [],
+      abilities: [],
     };
 
     return trait;
@@ -307,13 +314,13 @@ export class ObjectService {
       canInjure: false,
       rollsIds: [],
       rolls: [],
-      effectTemplatesIds: [],
-      effectTemplates: [],
       characterTemplatesIds: [],
       characterTemplates: [],
       targetType: TargetType.None,
-      itemTemplatesIds: [],
-      itemTemplates: [],
+      appliedEffectTemplatesIds: [],
+      appliedEffectTemplates: [],
+      modifierTemplatesIds: [],
+      modifierTemplates: [],
     };
 
     return abilityTemplate;
@@ -367,6 +374,8 @@ export class ObjectService {
       counterTemplates: [],
       characterTemplatesIds: [],
       characterTemplates: [],
+      abilityTemplatesIds: [],
+      abilityTemplates: [],
     };
 
     return traitTemplate;
@@ -418,8 +427,10 @@ export class ObjectService {
       characterTemplates: [],
       abilityTemplatesIds: [],
       abilityTemplates: [],
-      abilitiesIds: [],
-      abilities: [],
+      applyingAbilityTemplatesIds: [],
+      applyingAbilityTemplates: [],
+      applyingAbilitiesIds: [],
+      applyingAbilities: [],
     };
 
     return effectTemplate;

@@ -15,9 +15,9 @@ export interface EffectTemplate extends ModifierTemplate {
   characterTemplatesIds: number[];
   characterTemplates: CharacterTemplate[];
 
-  abilityTemplatesIds: number[];
-  abilityTemplates: AbilityTemplate[];
+  applyingAbilityTemplatesIds: number[];
+  applyingAbilityTemplates: AbilityTemplate[];
 
-  abilitiesIds: number[];
-  abilities: Ability[];
+  applyingAbilitiesIds: number[];
+  applyingAbilities: Ability[];
 }

@@ -64,11 +64,7 @@ export class ElementDialogTabMultipleComponent {
   async createElement() {
     let newElement: any = this.objectService.newAny(this.elementRoute);
 
-    if (this.elementRoute != this.requestService.routes.ability) {
-      newElement.modifierId = this.parentData.parentId;
-    } else {
-      newElement.itemId = this.parentData.parentId;
-    }
+    newElement.modifierId = this.parentData.parentId;
 
     (await this.requestService.create(this.elementRoute, newElement)).subscribe(
       (x: any) => {

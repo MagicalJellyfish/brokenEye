@@ -1,3 +1,4 @@
+import { Ability } from './Abilities/Abilities/Ability';
 import { Counter } from './Counters/Counter';
 import { RoundReminder } from './RoundReminders/RoundReminder';
 import { StatValue } from './Stats/StatValue';
@@ -14,6 +15,9 @@ export interface Modifier {
 
   statIncreasesIds: number[];
   statIncreases: StatValue[];
+
+  abilitiesIds: number[];
+  abilities: Ability[];
 
   countersIds: number[];
   counters: Counter[];
