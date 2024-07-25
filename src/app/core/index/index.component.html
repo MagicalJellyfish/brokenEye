@@ -1,6 +1,91 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title> Start Page </mat-card-title>
+    <mat-card-title> broken v1.2.0</mat-card-title>
   </mat-card-header>
-  <mat-card-content> Nothing interesting here </mat-card-content>
+  <mat-card-content>
+    <ul>
+      <li>Add changelog here</li>
+
+      <li>
+        Any "Modifier-Element" (Items, Effects, Traits) can now grant Abilities,
+        not just Items
+      </li>
+
+      <li>Fixed bug where character-templates can't be instantiated</li>
+
+      <li>
+        Fixed bug where element-templates wouldn't also instantiate related
+        templates on adding to character
+      </li>
+
+      <li>Backend-changes</li>
+    </ul>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> broken v1.1.1</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ul>
+      <li>Fixed bug where images would impact performance immensely</li>
+
+      <li>
+        Fixed bug where pressing on a stat in character-view wouldn't roll
+      </li>
+
+      <li>Maybe fixed random logout bug</li>
+    </ul>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> broken v1.1.0</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ul>
+      <li>Items can grant Abilities now</li>
+
+      <li>
+        New fields "Amount" and "Unit" on Items as the intended way to note
+        multiples
+      </li>
+
+      <li>
+        Pressing on a stat in character-view automatically rolls 1d20+[Stat] and
+        sends it to the configured channel
+      </li>
+
+      <li>
+        Command "Ability" shows additional text when target of ability is at 0
+        HP after execution
+      </li>
+
+      <li>
+        Combined both ability and char-ability - command "Ability" now
+        differentiates between character-id and shortcut by itself
+      </li>
+      <ul>
+        <li>
+          As a result, shortcuts are no longer allowed to be exclusively
+          comprised of numbers
+        </li>
+      </ul>
+
+      <li>Improved automatic updates on character-template-view</li>
+
+      <li>Minor fixes and backend-changes</li>
+
+      <li>Maybe fixed random logout bug</li>
+    </ul>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> broken v1.0.0</mat-card-title>
+  </mat-card-header>
+  <mat-card-content> Initial functional project setup. </mat-card-content>
 </mat-card>
