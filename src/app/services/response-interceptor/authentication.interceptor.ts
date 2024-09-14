@@ -2,57 +2,73 @@ import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
-  HttpEvent,
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
 import {
-  Observable,
-  OperatorFunction,
-  catchError,
-  from,
+  concatMap,
+  defer,
+  findIndex,
+  first,
+  of,
+  retry,
   throwError,
 } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../user/user.service';
+import { ApiUrlService } from '../api/apiUrl/api-url.service';
 
 @Injectable()
-export class ResponseInterceptor implements HttpInterceptor {
+export class AuthenticationInterceptor implements HttpInterceptor {
   constructor(
     private snackBar: MatSnackBar,
-    private userService: UserService
+    private userService: UserService,
+    private apiUrlService: ApiUrlService
   ) {}
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        console.log(error.message);
+  intercept(request: HttpRequest<unknown>, next: HttpHandler) {
+    if (
+      request.url.includes(this.apiUrlService.apiUrl) &&
+      !request.url.includes('/Auth/refresh-token') &&
+      !request.url.includes('/Auth/login') &&
+      !request.url.includes('/Auth/register')
+    ) {
+      let firstAttempt: boolean = true;
 
-        if (error.status == 401) {
-          return from(this.userService.refreshTokens()).pipe((_) => {
-            let headers = request.headers;
-            headers.set(
+      return defer(() =>
+        of(
+          request.clone({
+            headers: request.headers.set(
               'Authorization',
               'Bearer ' + this.userService.accessToken
-            );
+            ),
+          })
+        )
+      ).pipe(
+        concatMap((authenticatedRequest) => {
+          return next.handle(authenticatedRequest);
+        }),
+        retry({
+          delay: (error) => {
+            if (error instanceof HttpErrorResponse && error.status == 401) {
+              if (firstAttempt) {
+                firstAttempt = false;
+                return this.userService.refreshTokens();
+              }
 
-            let requestRetry = request.clone({ headers });
-            return next.handle(requestRetry);
-          });
-        }
+              this.userService.logout();
+              this.snackBar.open('Reauthentication failed. Logging out.');
+              return throwError(() => error);
+            }
 
-        this.errorMessaging(error);
-        return throwError(() => error);
-      }),
+            this.errorMessaging(error);
+            return throwError(() => error);
+          },
+        })
+      );
+    }
 
-      catchError((error: HttpErrorResponse) => {
-        this.errorMessaging(error);
-        return throwError(() => error);
-      })
-    );
+    return next.handle(request);
   }
 
   private errorMessaging(error: HttpErrorResponse) {
@@ -74,7 +90,11 @@ export class ResponseInterceptor implements HttpInterceptor {
       }
 
       if (errorMsg != '') {
-        errorMsg += error.error;
+        if (typeof error.error == 'object') {
+          errorMsg += error.error.title;
+        } else {
+          errorMsg += error.error;
+        }
       }
     }
 

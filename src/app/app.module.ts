@@ -46,7 +46,7 @@ import { IndexComponent } from './core/index/index.component';
 import { CharCreateComponent } from './entities/character/create/char-create/char-create.component';
 import { CommonModule } from '@angular/common';
 import { AccountComponent } from './core/account/account/account.component';
-import { ResponseInterceptor } from './services/response-interceptor/response.interceptor';
+import { AuthenticationInterceptor } from './services/response-interceptor/authentication.interceptor';
 import { ConfirmationDialogComponent } from './core/confirmation-dialog/confirmation-dialog.component';
 import { StatsEditComponent } from './entities/stat/stats-edit/stats-edit.component';
 import { TemplatesViewComponent } from './entities/templates/templates-view/templates-view.component';
@@ -168,9 +168,9 @@ import { UserService } from './services/user/user.service';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ResponseInterceptor,
+      useClass: AuthenticationInterceptor,
       multi: true,
-      deps: [MatSnackBar, UserService],
+      deps: [MatSnackBar, UserService, ApiUrlService],
     },
   ],
   bootstrap: [AppComponent],
