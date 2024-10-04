@@ -1,8 +1,5 @@
 mat-card {
   height: min-content;
-  * {
-    height: auto;
-  }
 }
 
 .effectsTable {
@@ -68,6 +65,10 @@ mat-card {
   grid-template-areas:
     "hp hp hp hp"
     "effects effects effects dyingRounds";
+
+  * {
+    height: auto;
+  }
 }
 
 .gridContainer > div {
@@ -76,7 +77,7 @@ mat-card {
 }
 
 mat-expansion-panel {
-  margin-top: 2vh;
+  margin-top: 1vh;
 
   table {
     width: 100%;
@@ -127,4 +128,10 @@ mat-expansion-panel-header {
   -o-transition: all 0.1s ease;
   -ms-transition: all 0.1s ease;
   transition: all 0.1s ease;
+}
+
+.restButtons {
+  margin-top: 2vh;
+  display: flex;
+  justify-content: space-around;
 }

@@ -54,7 +54,7 @@ export class RequestService {
     );
   }
 
-  create(route: string, object: object) {
+  create(route: string, object?: object) {
     return this.http.post(
       this.apiUrl + route,
       object,

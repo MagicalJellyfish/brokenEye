@@ -1,9 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { Counter } from 'src/app/api-classes/Counters/Counter';
 import { Effect } from 'src/app/api-classes/Effects/Effect';
+import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 import { Debouncer } from 'src/app/core/debouncer/debouncer';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
@@ -16,7 +19,9 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
 export class HpCardComponent implements OnInit {
   constructor(
     private requestService: RequestService,
-    private objectService: ObjectService
+    private objectService: ObjectService,
+    private matDialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   @Input() pcSubject!: Subject<Character>;
@@ -291,5 +296,53 @@ export class HpCardComponent implements OnInit {
     } else {
       return (injuryLevel -= 1);
     }
+  }
+
+  shortRest() {
+    this.matDialog
+      .open(ConfirmationDialogComponent, {
+        data: { message: 'Are you sure you want to perform a short rest?' },
+      })
+      .afterClosed()
+      .subscribe(async (x) => {
+        if (x) {
+          this.requestService
+            .create(
+              this.requestService.routes.character +
+                '/ShortRest/' +
+                this.char.id,
+              undefined
+            )
+            .subscribe((x) => {
+              this.snackBar.open('Short rest successful!', 'OK', {
+                duration: 2000,
+              });
+            });
+        }
+      });
+  }
+
+  longRest() {
+    this.matDialog
+      .open(ConfirmationDialogComponent, {
+        data: { message: 'Are you sure you want to perform a long rest?' },
+      })
+      .afterClosed()
+      .subscribe(async (x) => {
+        if (x) {
+          this.requestService
+            .create(
+              this.requestService.routes.character +
+                '/LongRest/' +
+                this.char.id,
+              undefined
+            )
+            .subscribe((x) => {
+              this.snackBar.open('Short rest successful!', 'OK', {
+                duration: 2000,
+              });
+            });
+        }
+      });
   }
 }
