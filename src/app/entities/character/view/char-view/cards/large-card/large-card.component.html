@@ -32,7 +32,7 @@
 
       <mat-tab label="Inventory">
         <div class="moneyContainer">
-          <mat-form-field appearance="outline" class="money">
+          <mat-form-field appearance="outline">
             <mat-label>Money</mat-label>
             <input
               matInput
@@ -40,6 +40,16 @@
               (ngModelChange)="this.moneyDebouncer.InputSubject.next($event)"
             />
             <span matTextSuffix>€</span>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>C</mat-label>
+            <input
+              matInput
+              [(ngModel)]="c"
+              (ngModelChange)="this.cDebouncer.InputSubject.next($event)"
+            />
+            <span matTextSuffix>C</span>
           </mat-form-field>
         </div>
         <app-element-tab

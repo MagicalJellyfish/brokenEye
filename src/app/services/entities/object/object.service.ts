@@ -103,6 +103,7 @@ export class ObjectService {
       height: 0,
       weight: 0,
       money: 0,
+      c: 0,
       maxHp: 0,
       hp: 0,
       maxTempHp: 0,

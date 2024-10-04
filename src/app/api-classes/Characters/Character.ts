@@ -18,6 +18,7 @@ export interface Character {
   height: number;
   weight: number;
   money: number;
+  c: number;
   maxHp: number;
   hp: number;
   maxTempHp: number;

@@ -24,16 +24,24 @@ export class LargeCardComponent implements OnInit {
     });
 
     this.moneyDebouncer.SaveSubject.subscribe(() => this.updateMoney());
+    this.cDebouncer.SaveSubject.subscribe(() => this.updateC());
   }
 
   update() {
     if (!this.moneyDebouncer.Debouncing) {
       this.money = this.char.money;
     }
+
+    if (!this.cDebouncer.Debouncing) {
+      this.c = this.char.c;
+    }
   }
 
   money = 0;
   moneyDebouncer = new Debouncer<void>();
+
+  c = 0;
+  cDebouncer = new Debouncer<void>();
 
   async updateMoney() {
     (
@@ -42,6 +50,18 @@ export class LargeCardComponent implements OnInit {
         this.char.id,
         JSON.stringify({
           money: this.money,
+        })
+      )
+    ).subscribe();
+  }
+
+  async updateC() {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.character,
+        this.char.id,
+        JSON.stringify({
+          c: this.c,
         })
       )
     ).subscribe();
