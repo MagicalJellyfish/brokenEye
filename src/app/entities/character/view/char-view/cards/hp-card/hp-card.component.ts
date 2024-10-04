@@ -38,7 +38,7 @@ export class HpCardComponent implements OnInit {
   tempHp = 0;
   tempHpDebouncer = new Debouncer<void>();
 
-  injuryDebouncer = new Debouncer<void>();
+  injuryDebouncer = new Debouncer<string>();
 
   deathCounter!: Counter;
   dying: boolean[] = [];
@@ -219,62 +219,62 @@ export class HpCardComponent implements OnInit {
 
   headLC() {
     this.injuries.head = this.increaseInjury(this.injuries.head);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('Head;' + this.injuries.head);
   }
   headRC(event: any) {
     event.preventDefault();
     this.injuries.head = this.decreaseInjury(this.injuries.head);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('Head;' + this.injuries.head);
   }
 
   torsoLC() {
     this.injuries.torso = this.increaseInjury(this.injuries.torso);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('Torso;' + this.injuries.torso);
   }
   torsoRC(event: any) {
     event.preventDefault();
     this.injuries.torso = this.decreaseInjury(this.injuries.torso);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('Torso;' + this.injuries.torso);
   }
 
   lArmLC() {
     this.injuries.armLeft = this.increaseInjury(this.injuries.armLeft);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('ArmL;' + this.injuries.armLeft);
   }
   lArmRC(event: any) {
     event.preventDefault();
     this.injuries.armLeft = this.decreaseInjury(this.injuries.armLeft);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('ArmL;' + this.injuries.armLeft);
   }
 
   rArmLC() {
     this.injuries.armRight = this.increaseInjury(this.injuries.armRight);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('ArmR;' + this.injuries.armRight);
   }
   rArmRC(event: any) {
     event.preventDefault();
     this.injuries.armRight = this.decreaseInjury(this.injuries.armRight);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('ArmR;' + this.injuries.armRight);
   }
 
   lLegLC() {
     this.injuries.legLeft = this.increaseInjury(this.injuries.legLeft);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('LegL;' + this.injuries.legLeft);
   }
   lLegRC(event: any) {
     event.preventDefault();
     this.injuries.legLeft = this.decreaseInjury(this.injuries.legLeft);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('LegL;' + this.injuries.legLeft);
   }
 
   rLegLC() {
     this.injuries.legRight = this.increaseInjury(this.injuries.legRight);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('LegR;' + this.injuries.legRight);
   }
   rLegRC(event: any) {
     event.preventDefault();
     this.injuries.legRight = this.decreaseInjury(this.injuries.legRight);
-    this.injuryDebouncer.InputSubject.next();
+    this.injuryDebouncer.InputSubject.next('LegR;' + this.injuries.legRight);
   }
 
   increaseInjury(injuryLevel: number) {
