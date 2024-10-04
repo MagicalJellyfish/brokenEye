@@ -189,10 +189,28 @@ export class ElementNestedTabComponent implements OnInit {
         });
       }
     } else if (this.elementRoute == this.requestService.routes.ability) {
+      this.char.traits.forEach((trait) => {
+        if (trait.abilities.length > 0) {
+          trait.abilities.forEach((ability: any) => {
+            ability.source = 'Trait "' + trait.name + '"';
+            this.elements.push(ability);
+          });
+        }
+      });
+
       this.char.items.forEach((item) => {
         if (item.abilities.length > 0) {
           item.abilities.forEach((ability: any) => {
             ability.source = 'Item "' + item.name + '"';
+            this.elements.push(ability);
+          });
+        }
+      });
+
+      this.char.effects.forEach((effect) => {
+        if (effect.abilities.length > 0) {
+          effect.abilities.forEach((ability: any) => {
+            ability.source = 'Effect "' + effect.name + '"';
             this.elements.push(ability);
           });
         }

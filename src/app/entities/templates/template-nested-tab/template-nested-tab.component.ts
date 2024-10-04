@@ -189,10 +189,28 @@ export class TemplateNestedTabComponent implements OnInit {
     } else if (
       this.elementRoute == this.requestService.routes.abilityTemplate
     ) {
+      this.charTemplate.traitTemplates.forEach((traitTemplate) => {
+        if (traitTemplate.abilityTemplates.length > 0) {
+          traitTemplate.abilityTemplates.forEach((abilityTemplate: any) => {
+            abilityTemplate.source = 'Trait "' + traitTemplate.name + '"';
+            this.elements.push(abilityTemplate);
+          });
+        }
+      });
+
       this.charTemplate.itemTemplates.forEach((itemTemplate) => {
         if (itemTemplate.abilityTemplates.length > 0) {
           itemTemplate.abilityTemplates.forEach((abilityTemplate: any) => {
             abilityTemplate.source = 'Item "' + itemTemplate.name + '"';
+            this.elements.push(abilityTemplate);
+          });
+        }
+      });
+
+      this.charTemplate.effectTemplates.forEach((effectTemplate) => {
+        if (effectTemplate.abilityTemplates.length > 0) {
+          effectTemplate.abilityTemplates.forEach((abilityTemplate: any) => {
+            abilityTemplate.source = 'Effect "' + effectTemplate.name + '"';
             this.elements.push(abilityTemplate);
           });
         }
