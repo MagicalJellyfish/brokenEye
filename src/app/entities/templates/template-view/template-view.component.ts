@@ -10,6 +10,7 @@ import { TemplateEditComponent } from '../template-edit/template-edit.component'
 import { PersistencyService } from 'src/app/services/persistency/persistency.service';
 import { Subject } from 'rxjs';
 import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
+import { ReplenishType } from 'src/app/api-classes/Abilities/Abilities/ReplenishType';
 
 @Component({
   selector: 'app-template-view',
@@ -60,6 +61,7 @@ export class TemplateViewComponent implements OnInit {
   element?: any;
 
   targetType = TargetType;
+  replenishType = ReplenishType;
 
   editElement() {
     this.matDialog

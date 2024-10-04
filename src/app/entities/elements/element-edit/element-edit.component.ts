@@ -11,6 +11,7 @@ import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/co
 import { PersistencyService } from 'src/app/services/persistency/persistency.service';
 import { Subject } from 'rxjs';
 import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
+import { ReplenishType } from 'src/app/api-classes/Abilities/Abilities/ReplenishType';
 
 @Component({
   selector: 'app-element-edit',
@@ -24,21 +25,21 @@ export class ElementEditComponent implements OnInit {
     public dialogRef: MatDialogRef<ElementEditComponent>,
     private matDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { id: number; route: string },
-    protected persistencyService: PersistencyService,
+    protected persistencyService: PersistencyService
   ) {
     if (data.route.includes('Counter')) {
       this.parentData = new ParentData(
         ParentType.Counter,
         data.route,
         data.id,
-        true,
+        true
       );
     } else {
       this.parentData = new ParentData(
         ParentType.Modifier,
         data.route,
         data.id,
-        true,
+        true
       );
     }
   }
@@ -53,10 +54,11 @@ export class ElementEditComponent implements OnInit {
 
         if (this.data.route.includes('Abilit')) {
           this.selectedTargetType = TargetType[x.targetType];
+          this.selectedReplenishType = ReplenishType[x.replenishType];
         }
 
         this.elementSubject.next(x);
-      },
+      }
     );
   }
 
@@ -64,6 +66,11 @@ export class ElementEditComponent implements OnInit {
 
   targetTypeOptions = Object.keys(TargetType).filter((x) => isNaN(Number(x)));
   selectedTargetType: string = TargetType[TargetType.None];
+
+  replenishTypeOptions = Object.keys(ReplenishType).filter((x) =>
+    isNaN(Number(x))
+  );
+  selectedReplenishType: string = ReplenishType[ReplenishType.None];
 
   async save() {
     if (this.element) {
@@ -82,13 +89,18 @@ export class ElementEditComponent implements OnInit {
       if (this.data.route.includes('Abilit')) {
         requestElement.targetType =
           TargetType[this.selectedTargetType as keyof typeof TargetType];
+
+        requestElement.replenishType =
+          ReplenishType[
+            this.selectedReplenishType as keyof typeof ReplenishType
+          ];
       }
 
       (
         await this.requestService.patch(
           this.data.route,
           this.element.id,
-          JSON.stringify(requestElement),
+          JSON.stringify(requestElement)
         )
       ).subscribe();
     }

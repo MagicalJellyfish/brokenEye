@@ -24,6 +24,29 @@
 
   <div class="tableContainer">
     <table mat-table [dataSource]="elementTable">
+      <!-- Abilities -->
+      <ng-container matColumnDef="uses">
+        <th mat-header-cell *matHeaderCellDef>Uses</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          (click)="$event.stopPropagation()"
+        >
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              [(ngModel)]="element.uses"
+              (ngModelChange)="
+                this.abilityUsesDebouncers
+                  .get(element.id)!
+                  .InputSubject.next($event)
+              "
+            />
+            <span matTextSuffix>/{{ element.maxUses }}</span>
+          </mat-form-field>
+        </td>
+      </ng-container>
+
       <!--Reminders-->
       <ng-container matColumnDef="reminder">
         <th mat-header-cell *matHeaderCellDef>Reminder</th>

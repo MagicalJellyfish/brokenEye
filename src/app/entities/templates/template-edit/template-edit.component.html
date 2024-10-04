@@ -99,6 +99,26 @@
         </mat-form-field>
       </mat-grid-tile>
 
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('maxUses')">
+        <mat-form-field appearance="outline">
+          <mat-label>Maximum Uses</mat-label>
+          <input matInput [(ngModel)]="this.element.maxUses" />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('replenishType')">
+        <mat-form-field appearance="outline">
+          <mat-label>Replenish Type</mat-label>
+          <mat-select [(ngModel)]="selectedReplenishType">
+            <mat-option
+              *ngFor="let replenishType of replenishTypeOptions"
+              [value]="replenishType"
+              >{{ replenishType }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
       <!--Reminders-->
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('reminding')">
         <div>

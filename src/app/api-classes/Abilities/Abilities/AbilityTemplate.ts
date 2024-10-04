@@ -2,6 +2,7 @@ import { CharacterTemplate } from '../../Characters/CharacterTemplate';
 import { EffectTemplate } from '../../Effects/EffectTemplate';
 import { ModifierTemplate } from '../../ModifierTemplate';
 import { Roll } from '../Roll';
+import { ReplenishType } from './ReplenishType';
 import { TargetType } from './TargetType';
 
 export interface AbilityTemplate {
@@ -17,6 +18,9 @@ export interface AbilityTemplate {
   damage?: string;
 
   range?: string;
+
+  maxUses?: number;
+  replenishType: ReplenishType;
 
   rollsIds: number[];
   rolls: Roll[];

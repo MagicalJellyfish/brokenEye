@@ -18,6 +18,7 @@ import { Ability } from 'src/app/api-classes/Abilities/Abilities/Ability';
 import { AbilityTemplate } from 'src/app/api-classes/Abilities/Abilities/AbilityTemplate';
 import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
 import { Variable } from 'src/app/api-classes/Characters/Variable';
+import { ReplenishType } from 'src/app/api-classes/Abilities/Abilities/ReplenishType';
 
 @Injectable({
   providedIn: 'root',
@@ -148,6 +149,7 @@ export class ObjectService {
       appliedEffectTemplates: [],
       targetType: TargetType.None,
       viewPosition: 0,
+      replenishType: ReplenishType.None,
     };
 
     return ability;
@@ -321,6 +323,7 @@ export class ObjectService {
       appliedEffectTemplates: [],
       modifierTemplatesIds: [],
       modifierTemplates: [],
+      replenishType: ReplenishType.None,
     };
 
     return abilityTemplate;

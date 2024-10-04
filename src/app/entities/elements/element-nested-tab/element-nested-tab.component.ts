@@ -54,6 +54,9 @@ export class ElementNestedTabComponent implements OnInit {
       }
 
       switch (this.elementRoute) {
+        case this.requestService.routes.ability:
+          this.elementTableCols.push('uses');
+          break;
         case this.requestService.routes.trait:
           this.elementTableCols.push('active');
           break;
@@ -224,6 +227,16 @@ export class ElementNestedTabComponent implements OnInit {
       return a.viewPosition - b.viewPosition;
     });
 
+    if (this.elementRoute == this.requestService.routes.ability) {
+      this.char.abilities.forEach((x) => {
+        this.abilityUsesDebouncers.set(x.id, new Debouncer<string>());
+
+        this.abilityUsesDebouncers
+          .get(x.id)!
+          .SaveSubject.subscribe((y) => this.updateAbilityUses(x.id, +y));
+      });
+    }
+
     if (this.elementRoute == this.requestService.routes.counter) {
       this.char.counters.forEach((x) => {
         this.counterValueDebouncers.set(x.id, new Debouncer<string>());
@@ -241,6 +254,7 @@ export class ElementNestedTabComponent implements OnInit {
   elementTable = new MatTableDataSource<any>();
   elementTableCols: string[] = ['source'];
 
+  abilityUsesDebouncers = new Map<number, Debouncer<string>>();
   counterValueDebouncers = new Map<number, Debouncer<string>>();
 
   boxProperty: string = '';
@@ -274,6 +288,18 @@ export class ElementNestedTabComponent implements OnInit {
           (await this.requestService.delete(this.elementRoute, id)).subscribe();
         }
       });
+  }
+
+  async updateAbilityUses(id: number, uses: number) {
+    (
+      await this.requestService.patch(
+        this.requestService.routes.ability,
+        id,
+        JSON.stringify({
+          uses: uses,
+        })
+      )
+    ).subscribe();
   }
 
   async updateCounter(id: number, value: number) {

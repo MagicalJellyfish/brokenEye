@@ -42,6 +42,16 @@
         <div><b>Range</b> {{ element.range }}</div>
       </mat-grid-tile>
 
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('maxUses')">
+        <div><b>Maximum Uses</b> {{ element.maxUses }}</div>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="this.element.hasOwnProperty('replenishType')">
+        <div>
+          <b>Replenish Type</b> {{ replenishType[element.replenishType] }}
+        </div>
+      </mat-grid-tile>
+
       <!--Reminders-->
       <mat-grid-tile *ngIf="this.element.hasOwnProperty('reminding')">
         <div>

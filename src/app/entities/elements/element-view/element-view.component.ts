@@ -10,6 +10,7 @@ import { ElementEditComponent } from '../element-edit/element-edit.component';
 import { PersistencyService } from 'src/app/services/persistency/persistency.service';
 import { Subject } from 'rxjs';
 import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
+import { ReplenishType } from 'src/app/api-classes/Abilities/Abilities/ReplenishType';
 
 @Component({
   selector: 'app-element-view',
@@ -22,21 +23,21 @@ export class ElementViewComponent implements OnInit {
     private matDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { id: number; route: string },
     public dialogRef: MatDialogRef<ElementViewComponent>,
-    protected persistencyService: PersistencyService,
+    protected persistencyService: PersistencyService
   ) {
     if (data.route.includes('Counter')) {
       this.parentData = new ParentData(
         ParentType.Counter,
         data.route,
         data.id,
-        false,
+        false
       );
     } else {
       this.parentData = new ParentData(
         ParentType.Modifier,
         data.route,
         data.id,
-        false,
+        false
       );
     }
   }
@@ -45,6 +46,7 @@ export class ElementViewComponent implements OnInit {
   parentData: ParentData;
 
   targetType = TargetType;
+  replenishType = ReplenishType;
 
   async ngOnInit() {
     (await this.requestService.get(this.data.route, this.data.id)).subscribe(
@@ -52,7 +54,7 @@ export class ElementViewComponent implements OnInit {
         this.element = x;
 
         this.elementSubject.next(x);
-      },
+      }
     );
   }
 
