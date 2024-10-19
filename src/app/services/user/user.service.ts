@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { Subject, first, firstValueFrom } from 'rxjs';
 import { ApiUrlService } from '../api/apiUrl/api-url.service';
 
 @Injectable({
@@ -134,10 +134,11 @@ export class UserService {
   }
 
   refreshing = false;
+  refreshSubject: Subject<boolean> = new Subject<boolean>();
 
   async refreshTokens(): Promise<boolean> {
     if (this.refreshing) {
-      return true;
+      return await firstValueFrom(this.refreshSubject);
     }
 
     this.refreshing = true;
@@ -173,14 +174,17 @@ export class UserService {
         response.refreshTokenExpiration.toString()
       );
 
-      this.refreshing = false;
+      this.refreshSubject.next(true);
       return true;
     } catch (error: any) {
-      this.refreshing = false;
       if (error.status == 0) {
+        this.refreshSubject.next(true);
         return true;
       }
+      this.refreshSubject.next(false);
       return false;
+    } finally {
+      this.refreshing = false;
     }
   }
 }

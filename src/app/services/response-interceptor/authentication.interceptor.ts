@@ -6,6 +6,7 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import {
+  catchError,
   concatMap,
   defer,
   findIndex,
@@ -28,6 +29,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler) {
     if (
+      this.userService.accessToken != undefined &&
       request.url.includes(this.apiUrlService.apiUrl) &&
       !request.url.includes('/Auth/refresh-token') &&
       !request.url.includes('/Auth/login') &&
@@ -53,7 +55,12 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             if (error instanceof HttpErrorResponse && error.status == 401) {
               if (firstAttempt) {
                 firstAttempt = false;
-                return this.userService.refreshTokens();
+
+                let result = this.userService.refreshTokens();
+                if (!result) {
+                  return throwError(() => new Error());
+                }
+                return result;
               }
 
               this.userService.logout();
@@ -68,12 +75,17 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       );
     }
 
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError((error) => {
+        this.errorMessaging(error);
+        return throwError(() => error);
+      })
+    );
   }
 
   private errorMessaging(error: HttpErrorResponse) {
     let errorMsg = '';
-    if (error.message != '') {
+    if (error.error != null) {
       switch (error.status) {
         case 400:
           errorMsg = '400 Bad Request - ';
