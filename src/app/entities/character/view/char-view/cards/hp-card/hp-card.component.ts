@@ -338,7 +338,7 @@ export class HpCardComponent implements OnInit {
               undefined
             )
             .subscribe((x) => {
-              this.snackBar.open('Short rest successful!', 'OK', {
+              this.snackBar.open('Long rest successful!', 'OK', {
                 duration: 2000,
               });
             });
