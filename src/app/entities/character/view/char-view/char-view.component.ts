@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { SignalrService } from 'src/app/services/signalr/signalr.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-char-view',
@@ -14,7 +15,8 @@ export class CharViewComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private requestService: RequestService,
-    private signalrService: SignalrService
+    private signalrService: SignalrService,
+    private title: Title
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -25,6 +27,7 @@ export class CharViewComponent implements OnInit, OnDestroy {
       )
     ).subscribe((x: any) => {
       this.char = x;
+      this.title.setTitle(this.char!.name);
     });
 
     this.signalrService.RegisterForCharChange(
@@ -42,6 +45,7 @@ export class CharViewComponent implements OnInit, OnDestroy {
               console.log('Server indicated change - reloading!');
               this.char = x;
               this.pcSubject.next(x);
+              this.title.setTitle(this.char!.name);
             });
           }
         }, 50);
@@ -55,6 +59,7 @@ export class CharViewComponent implements OnInit, OnDestroy {
   pcSubject: Subject<Character> = new Subject();
 
   ngOnDestroy() {
+    this.title.setTitle('BrokenEye');
     this.signalrService.UnregisterFromCharChange(
       +this.route.snapshot.paramMap.get('id')!
     );
