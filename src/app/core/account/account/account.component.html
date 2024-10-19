@@ -6,75 +6,99 @@
     <mat-tab-group>
       <mat-tab label="Log in">
         <div class="tab-content">
-          <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
-            <input matInput [(ngModel)]="this.username" />
-          </mat-form-field>
-          <br />
-          <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input
-              matInput
-              [(ngModel)]="this.password"
-              [type]="this.hidePassword ? 'password' : 'text'"
-            />
-            <button
-              mat-icon-button
-              matSuffix
-              (click)="this.hidePassword = !this.hidePassword"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="this.hidePassword"
-            >
-              <mat-icon>{{
-                this.hidePassword ? "visibility_off" : "visibility"
-              }}</mat-icon>
-            </button>
-          </mat-form-field>
-          <br />
-          <div class="error">{{ loginErrorMsg }}</div>
-          <button mat-button (click)="login()">Log in</button>
+          <form (submit)="login()">
+            <mat-form-field appearance="outline">
+              <mat-label>Username</mat-label>
+              <input
+                matInput
+                [(ngModel)]="this.username"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </mat-form-field>
+            <br />
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                [(ngModel)]="this.password"
+                [ngModelOptions]="{ standalone: true }"
+                [type]="this.hidePassword ? 'password' : 'text'"
+              />
+              <button
+                mat-icon-button
+                type="button"
+                matSuffix
+                (click)="this.hidePassword = !this.hidePassword"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="this.hidePassword"
+              >
+                <mat-icon>{{
+                  this.hidePassword ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <br />
+            <div class="error">{{ loginErrorMsg }}</div>
+            <button mat-button type="submit">Log in</button>
+          </form>
         </div>
       </mat-tab>
 
       <mat-tab label="Register">
         <div class="tab-content">
-          <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
-            <input matInput [(ngModel)]="this.username" />
-          </mat-form-field>
-          <br />
-          <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input
-              matInput
-              [(ngModel)]="this.password"
-              [type]="this.hidePassword ? 'password' : 'text'"
-            />
-            <button
-              mat-icon-button
-              matSuffix
-              (click)="this.hidePassword = !this.hidePassword"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="this.hidePassword"
-            >
-              <mat-icon>{{
-                this.hidePassword ? "visibility_off" : "visibility"
-              }}</mat-icon>
-            </button>
-          </mat-form-field>
-          <br />
-          <mat-form-field appearance="outline">
-            <mat-label>Discord-ID</mat-label>
-            <input matInput [(ngModel)]="this.discordId" />
-          </mat-form-field>
-          <br />
-          <mat-form-field appearance="outline">
-            <mat-label>Registration Token</mat-label>
-            <input matInput [(ngModel)]="this.registrationToken" />
-          </mat-form-field>
-          <br />
-          <div class="error">{{ registerErrorMsg }}</div>
-          <button mat-button (click)="register()">Register</button>
+          <form (submit)="register()">
+            <mat-form-field appearance="outline">
+              <mat-label>Username</mat-label>
+              <input
+                matInput
+                [(ngModel)]="this.username"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </mat-form-field>
+            <br />
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                [(ngModel)]="this.password"
+                [ngModelOptions]="{ standalone: true }"
+                [type]="this.hidePassword ? 'password' : 'text'"
+              />
+              <button
+                mat-icon-button
+                type="button"
+                matSuffix
+                (click)="this.hidePassword = !this.hidePassword"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="this.hidePassword"
+              >
+                <mat-icon>{{
+                  this.hidePassword ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <br />
+            <mat-form-field appearance="outline">
+              <mat-label>Discord-ID</mat-label>
+              <input
+                matInput
+                [(ngModel)]="this.discordId"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </mat-form-field>
+            <br />
+            <mat-form-field appearance="outline">
+              <mat-label>Registration Token</mat-label>
+              <input
+                matInput
+                [(ngModel)]="this.registrationToken"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </mat-form-field>
+            <br />
+            <div class="error">{{ registerErrorMsg }}</div>
+            <button mat-button type="submit">Register</button>
+          </form>
         </div>
       </mat-tab>
     </mat-tab-group>
