@@ -62,7 +62,6 @@ import { StatDialogTabComponent } from './entities/stat/stat-dialog-tab/stat-dia
 import { ElementDialogTabSingleComponent } from './entities/elements/element-dialog-tab/element-dialog-tab-single/element-dialog-tab-single.component';
 import { ElementDialogTabMultipleComponent } from './entities/elements/element-dialog-tab/element-dialog-tab-multiple/element-dialog-tab-multiple.component';
 import { ElementTabComponent } from './entities/elements/element-tab/element-tab.component';
-import { ElementNestedTabComponent } from './entities/elements/element-nested-tab/element-nested-tab.component';
 import { DiscordUidEditComponent } from './core/discord-uid-edit/discord-uid-edit.component';
 import { CharTemplateViewComponent } from './entities/characterTemplate/char-template-view/char-template-view.component';
 import { CharTemplateListComponent } from './entities/characterTemplate/char-template-list/char-template-list.component';
@@ -70,12 +69,10 @@ import { UserCharListComponent } from './entities/character/list/user-char-list/
 import { NpcCharListComponent } from './entities/character/list/npc-char-list/npc-char-list.component';
 import { CharTemplateCreateComponent } from './entities/characterTemplate/char-template-create/char-template-create.component';
 import { TemplateTabComponent } from './entities/templates/template-tab/template-tab.component';
-import { TemplateNestedTabComponent } from './entities/templates/template-nested-tab/template-nested-tab.component';
 import { TemplatesViewTabComponent } from './entities/templates/templates-view/templates-view-tab/templates-view-tab.component';
 import { RollsEditComponent } from './entities/roll/rolls-edit/rolls-edit.component';
 import { RollDialogTabComponent } from './entities/roll/roll-dialog-tab/roll-dialog-tab.component';
 import { ApiUrlService } from './services/api/apiUrl/api-url.service';
-import { SignalrService } from './services/signalr/signalr.service';
 import { UserService } from './services/user/user.service';
 
 @NgModule({
@@ -108,7 +105,6 @@ import { UserService } from './services/user/user.service';
     ElementDialogTabSingleComponent,
     ElementDialogTabMultipleComponent,
     ElementTabComponent,
-    ElementNestedTabComponent,
     DiscordUidEditComponent,
     CharTemplateViewComponent,
     CharTemplateListComponent,
@@ -116,7 +112,6 @@ import { UserService } from './services/user/user.service';
     NpcCharListComponent,
     CharTemplateCreateComponent,
     TemplateTabComponent,
-    TemplateNestedTabComponent,
     TemplatesViewTabComponent,
     RollsEditComponent,
     RollDialogTabComponent,

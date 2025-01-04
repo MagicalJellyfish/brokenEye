@@ -2,23 +2,12 @@
   <mat-card-content>
     <mat-tab-group>
       <mat-tab label="Abilities">
-        <mat-tab-group>
-          <mat-tab label="Abilities">
-            <app-element-tab
-              [pcSubject]="this.pcSubject"
-              [char]="this.char"
-              [propertyName]="'abilities'"
-              [elementRoute]="this.requestService.routes.ability"
-            ></app-element-tab>
-          </mat-tab>
-          <mat-tab label="Nested Abilities">
-            <app-element-nested-tab
-              [pcSubject]="this.pcSubject"
-              [char]="this.char"
-              [elementRoute]="this.requestService.routes.ability"
-            ></app-element-nested-tab>
-          </mat-tab>
-        </mat-tab-group>
+        <app-element-tab
+          [pcSubject]="this.pcSubject"
+          [char]="this.char"
+          [propertyName]="'abilities'"
+          [elementRoute]="this.requestService.routes.ability"
+        ></app-element-tab>
       </mat-tab>
 
       <mat-tab label="Traits">
@@ -82,43 +71,21 @@
       </mat-tab>
 
       <mat-tab label="Counters">
-        <mat-tab-group>
-          <mat-tab label="Character-Counters">
-            <app-element-tab
-              [pcSubject]="this.pcSubject"
-              [char]="this.char"
-              [propertyName]="'counters'"
-              [elementRoute]="this.requestService.routes.counter"
-            ></app-element-tab>
-          </mat-tab>
-          <mat-tab label="Nested Counters">
-            <app-element-nested-tab
-              [pcSubject]="this.pcSubject"
-              [char]="this.char"
-              [elementRoute]="this.requestService.routes.counter"
-            ></app-element-nested-tab>
-          </mat-tab>
-        </mat-tab-group>
+        <app-element-tab
+          [pcSubject]="this.pcSubject"
+          [char]="this.char"
+          [propertyName]="'counters'"
+          [elementRoute]="this.requestService.routes.counter"
+        ></app-element-tab>
       </mat-tab>
 
       <mat-tab label="Reminders">
-        <mat-tab-group>
-          <mat-tab label="Character-Reminders">
-            <app-element-tab
-              [pcSubject]="this.pcSubject"
-              [char]="this.char"
-              [propertyName]="'roundReminders'"
-              [elementRoute]="this.requestService.routes.roundReminder"
-            ></app-element-tab>
-          </mat-tab>
-          <mat-tab label="Nested Reminders">
-            <app-element-nested-tab
-              [pcSubject]="this.pcSubject"
-              [char]="this.char"
-              [elementRoute]="this.requestService.routes.roundReminder"
-            ></app-element-nested-tab>
-          </mat-tab>
-        </mat-tab-group>
+        <app-element-tab
+          [pcSubject]="this.pcSubject"
+          [char]="this.char"
+          [propertyName]="'roundReminders'"
+          [elementRoute]="this.requestService.routes.roundReminder"
+        ></app-element-tab>
       </mat-tab>
 
       <mat-tab label="Variables">

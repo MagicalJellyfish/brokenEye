@@ -31,6 +31,8 @@ export class ElementTabComponent implements OnInit {
   @Input() elementRoute!: string;
 
   async ngOnInit() {
+    this.elementTableCols.push('source');
+
     if (this.elementRoute == this.requestService.routes.roundReminder) {
       this.elementTableCols.push('reminder', 'reminding');
 
@@ -92,6 +94,7 @@ export class ElementTabComponent implements OnInit {
 
   update() {
     this.elements = this.char[this.propertyName];
+    this.addNestedElements();
 
     this.elements.sort(function (
       a: { viewPosition: number },
@@ -141,6 +144,141 @@ export class ElementTabComponent implements OnInit {
     }
 
     this.elementTable = new MatTableDataSource(this.elements);
+  }
+
+  addNestedElements() {
+    if (this.elementRoute == this.requestService.routes.counter) {
+      this.char.traits.forEach((trait) => {
+        if (trait.counters.length > 0) {
+          trait.counters.forEach((counter: any) => {
+            counter.source = 'Trait "' + trait.name + '"';
+            this.elements.push(counter);
+          });
+        }
+      });
+
+      this.char.items.forEach((item) => {
+        if (item.counters.length > 0) {
+          item.counters.forEach((counter: any) => {
+            counter.source = 'Item "' + item.name + '"';
+            this.elements.push(counter);
+          });
+        }
+      });
+
+      this.char.effects.forEach((effect) => {
+        if (effect.counters.length > 0) {
+          effect.counters.forEach((counter: any) => {
+            counter.source = 'Effect "' + effect.name + '"';
+            this.elements.push(counter);
+          });
+        }
+        if (effect.effectCounter != undefined) {
+          let effectCounter: any = effect.effectCounter;
+          effectCounter.source =
+            'Effect-Counter of Effect  "' + effect.name + '"';
+          this.elements.push(effectCounter);
+        }
+      });
+    } else if (this.elementRoute == this.requestService.routes.roundReminder) {
+      this.char.traits.forEach((trait) => {
+        if (trait.roundReminder != undefined) {
+          let roundReminder: any = trait.roundReminder;
+          roundReminder.source = 'Trait "' + trait.name + '"';
+          this.elements.push(roundReminder);
+        }
+
+        if (trait.counters.length > 0) {
+          trait.counters.forEach((counter) => {
+            if (counter.roundReminder != undefined) {
+              let roundReminder: any = counter.roundReminder;
+              roundReminder.source =
+                'Counter "' + counter.name + '" on Trait "' + trait.name + '"';
+              this.elements.push(roundReminder);
+            }
+          });
+        }
+      });
+
+      this.char.items.forEach((item) => {
+        if (item.roundReminder != undefined) {
+          let roundReminder: any = item.roundReminder;
+          roundReminder.source = 'Item "' + item.name + '"';
+          this.elements.push(roundReminder);
+        }
+
+        if (item.counters.length > 0) {
+          item.counters.forEach((counter) => {
+            if (counter.roundReminder != undefined) {
+              let roundReminder: any = counter.roundReminder;
+              roundReminder.source =
+                'Counter "' + counter.name + '" on Item "' + item.name + '"';
+              this.elements.push(roundReminder);
+            }
+          });
+        }
+      });
+
+      this.char.effects.forEach((effect) => {
+        if (effect.roundReminder != undefined) {
+          let roundReminder: any = effect.roundReminder;
+          roundReminder.source = 'Effect "' + effect.name + '"';
+          this.elements.push(roundReminder);
+        }
+
+        if (effect.counters.length > 0) {
+          effect.counters.forEach((counter) => {
+            if (counter.roundReminder != undefined) {
+              let roundReminder: any = counter.roundReminder;
+              roundReminder.source =
+                'Counter "' +
+                counter.name +
+                '" on Effect "' +
+                effect.name +
+                '"';
+              this.elements.push(roundReminder);
+            }
+          });
+        }
+      });
+
+      if (this.char.counters.length > 0) {
+        this.char.counters.forEach((counter) => {
+          if (counter.roundReminder != undefined) {
+            let roundReminder: any = counter.roundReminder;
+            roundReminder.source = 'Counter "' + counter.name + '"';
+            this.elements.push(roundReminder);
+          }
+        });
+      }
+    } else if (this.elementRoute == this.requestService.routes.ability) {
+      this.char.traits.forEach((trait) => {
+        if (trait.abilities.length > 0) {
+          trait.abilities.forEach((ability: any) => {
+            ability.source = 'Trait "' + trait.name + '"';
+            this.elements.push(ability);
+          });
+        }
+      });
+
+      this.char.items.forEach((item) => {
+        if (item.abilities.length > 0) {
+          item.abilities.forEach((ability: any) => {
+            ability.source = 'Item "' + item.name + '"';
+            this.elements.push(ability);
+          });
+        }
+      });
+
+      this.char.effects.forEach((effect) => {
+        if (effect.abilities.length > 0) {
+          effect.abilities.forEach((ability: any) => {
+            ability.source = 'Effect "' + effect.name + '"';
+            this.elements.push(ability);
+          });
+        }
+      });
+    }
   }
 
   elements: any;
