@@ -1,21 +1,57 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatTableDataSource,
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { TemplateEditComponent } from '../../template-edit/template-edit.component';
 import { TemplateViewComponent } from '../../template-view/template-view.component';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-templates-view-tab',
   templateUrl: './templates-view-tab.component.html',
   styleUrls: ['./templates-view-tab.component.scss'],
+  imports: [
+    MatButton,
+    MatIcon,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatCheckbox,
+    MatIconButton,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+  ],
 })
 export class TemplatesViewTabComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {}
 
   @Input() elementRoute!: string;
@@ -25,7 +61,7 @@ export class TemplatesViewTabComponent implements OnInit {
       (x: any) => {
         this.elements = x;
         this.elementTable = new MatTableDataSource(this.elements);
-      },
+      }
     );
 
     if (this.elementRoute == this.requestService.routes.roundReminderTemplate) {
@@ -33,7 +69,7 @@ export class TemplatesViewTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string,
+        filter: string
       ): boolean {
         return data.reminder.toLowerCase().includes(filter);
       };
@@ -61,7 +97,7 @@ export class TemplatesViewTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string,
+        filter: string
       ): boolean {
         return data.name.toLowerCase().includes(filter);
       };
@@ -90,7 +126,7 @@ export class TemplatesViewTabComponent implements OnInit {
         });
         this.elements.push(x);
         this.elementTable = new MatTableDataSource(this.elements);
-      },
+      }
     );
   }
 
@@ -106,7 +142,7 @@ export class TemplatesViewTabComponent implements OnInit {
           (x: any) => {
             this.elements = x;
             this.elementTable = new MatTableDataSource(this.elements);
-          },
+          }
         );
       });
   }

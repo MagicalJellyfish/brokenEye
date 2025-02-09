@@ -5,11 +5,37 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { SignalrService } from 'src/app/services/signalr/signalr.service';
 import { Title } from '@angular/platform-browser';
+import { NgIf } from '@angular/common';
+import {
+  MatCard,
+  MatCardHeader,
+  MatCardTitle,
+  MatCardContent,
+} from '@angular/material/card';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MiscInfoCardComponent } from './cards/misc-info-card/misc-info-card.component';
+import { StatsCardComponent } from './cards/stats-card/stats-card.component';
+import { LargeCardComponent } from './cards/large-card/large-card.component';
+import { HpCardComponent } from './cards/hp-card/hp-card.component';
+import { MiscCharCardComponent } from './cards/misc-char-card/misc-char-card.component';
 
 @Component({
   selector: 'app-char-view',
   templateUrl: './char-view.component.html',
   styleUrls: ['./char-view.component.scss'],
+  imports: [
+    NgIf,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardContent,
+    MatProgressSpinner,
+    MiscInfoCardComponent,
+    StatsCardComponent,
+    LargeCardComponent,
+    HpCardComponent,
+    MiscCharCardComponent,
+  ],
 })
 export class CharViewComponent implements OnInit, OnDestroy {
   constructor(

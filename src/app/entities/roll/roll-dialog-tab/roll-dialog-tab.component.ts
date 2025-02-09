@@ -4,18 +4,46 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { Roll } from 'src/app/api-classes/Abilities/Roll';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatTableDataSource,
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
 import { RollsEditComponent } from '../rolls-edit/rolls-edit.component';
+import { NgIf } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-roll-dialog-tab',
   templateUrl: './roll-dialog-tab.component.html',
   styleUrls: ['./roll-dialog-tab.component.scss'],
+  imports: [
+    NgIf,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    MatButton,
+  ],
 })
 export class RollDialogTabComponent {
   constructor(
     private requestService: RequestService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {}
 
   @Input() parentData!: ParentData;
@@ -55,7 +83,7 @@ export class RollDialogTabComponent {
             (
               await this.requestService.create(
                 this.requestService.routes.rolls,
-                rolls[i],
+                rolls[i]
               )
             ).subscribe((x: any) => {
               rolls[i] = x;
@@ -74,7 +102,7 @@ export class RollDialogTabComponent {
                     JSON.stringify({
                       name: rolls[i].name,
                       instruction: rolls[i].instruction,
-                    }),
+                    })
                   )
                 ).subscribe();
               }
@@ -87,7 +115,7 @@ export class RollDialogTabComponent {
             (
               await this.requestService.delete(
                 this.requestService.routes.rolls,
-                origRoll.id,
+                origRoll.id
               )
             ).subscribe();
           }

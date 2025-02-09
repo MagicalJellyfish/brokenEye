@@ -16,11 +16,12 @@ mat-card-title {
 }
 
 table {
+  width: 100%;
+  border-collapse: collapse;
+
   * {
     padding-top: 0.5vw;
   }
-  width: 100%;
-  border-collapse: collapse;
 
   td {
     padding-left: 1vw;

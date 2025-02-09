@@ -1,21 +1,49 @@
 import { Component, Input } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatTableDataSource,
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
 import { StatValue } from 'src/app/api-classes/Stats/StatValue';
 import { ParentData } from '../../ParentData';
 import { MatDialog } from '@angular/material/dialog';
 import { StatsEditComponent } from '../stats-edit/stats-edit.component';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { Subject } from 'rxjs';
+import { NgIf } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-stat-dialog-tab',
   templateUrl: './stat-dialog-tab.component.html',
   styleUrls: ['./stat-dialog-tab.component.scss'],
+  imports: [
+    NgIf,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    MatButton,
+  ],
 })
 export class StatDialogTabComponent {
   constructor(
     private requestService: RequestService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {}
 
   @Input() parentData!: ParentData;
@@ -61,7 +89,7 @@ export class StatDialogTabComponent {
             (
               await this.requestService.create(
                 this.requestService.routes.statValue,
-                requestStatValue,
+                requestStatValue
               )
             ).subscribe((x: any) => {
               statValues[
@@ -79,7 +107,7 @@ export class StatDialogTabComponent {
             (
               await this.requestService.delete(
                 this.requestService.routes.statValue,
-                statValues[i].id,
+                statValues[i].id
               )
             ).subscribe();
             statValues.splice(i, 1);
@@ -96,7 +124,7 @@ export class StatDialogTabComponent {
                 statValues[i].id,
                 JSON.stringify({
                   value: statValues[i].value,
-                }),
+                })
               )
             ).subscribe();
           }

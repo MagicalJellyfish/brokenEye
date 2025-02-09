@@ -1,24 +1,52 @@
-import { Component, Input, Inject } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource,
+} from '@angular/material/table';
+import { Subject } from 'rxjs';
+import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 import { ParentData, ParentType } from 'src/app/entities/ParentData';
+import { TemplateSelectComponent } from 'src/app/entities/templates/template-select/template-select.component';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { ElementViewComponent } from '../../element-view/element-view.component';
-import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
-import { TemplateSelectComponent } from 'src/app/entities/templates/template-select/template-select.component';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-element-dialog-tab-single',
   templateUrl: './element-dialog-tab-single.component.html',
   styleUrls: ['./element-dialog-tab-single.component.scss'],
+  imports: [
+    NgIf,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    MatButton,
+  ],
 })
 export class ElementDialogTabSingleComponent {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {}
 
   @Input() parentData!: ParentData;
@@ -59,7 +87,7 @@ export class ElementDialogTabSingleComponent {
         (
           await this.requestService.get(
             this.parentData.parentRoute,
-            this.parentData.parentId,
+            this.parentData.parentId
           )
         ).subscribe((x: any) => {
           this.element = x[this.elementName];
@@ -88,7 +116,7 @@ export class ElementDialogTabSingleComponent {
       (x: any) => {
         this.element = x;
         this.elementTable = new MatTableDataSource([this.element!]);
-      },
+      }
     );
   }
 
@@ -105,7 +133,7 @@ export class ElementDialogTabSingleComponent {
           await this.requestService.get(
             this.requestService.elementToTemplateRoute(this.elementRoute) +
               '/Instantiate',
-            template.id,
+            template.id
           )
         ).subscribe(async (newElement: any) => {
           switch (this.parentData.parentType) {

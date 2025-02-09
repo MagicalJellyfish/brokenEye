@@ -1,6 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatTableDataSource,
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
 import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTemplate';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
@@ -9,11 +21,35 @@ import { TemplateViewComponent } from '../template-view/template-view.component'
 import { TemplateSelectComponent } from '../template-select/template-select.component';
 import { Subject } from 'rxjs';
 import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-template-tab',
   templateUrl: './template-tab.component.html',
   styleUrls: ['./template-tab.component.scss'],
+  imports: [
+    MatButton,
+    MatIcon,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    NgIf,
+    MatIconButton,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+  ],
 })
 export class TemplateTabComponent implements OnInit {
   constructor(

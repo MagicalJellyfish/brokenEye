@@ -1,9 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatTab } from '@angular/material/tabs';
+import {
+  MatTableDataSource,
+  MatTable,
+  MatColumnDef,
+  MatCellDef,
+  MatCell,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTemplate';
@@ -12,11 +26,59 @@ import { StatValue } from 'src/app/api-classes/Stats/StatValue';
 import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 import { Debouncer } from 'src/app/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
+import { NgIf } from '@angular/common';
+import {
+  MatCard,
+  MatCardHeader,
+  MatCardTitle,
+  MatCardContent,
+  MatCardActions,
+} from '@angular/material/card';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import {
+  MatFormField,
+  MatLabel,
+  MatError,
+  MatSuffix,
+} from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { MatButton } from '@angular/material/button';
+import { TemplateTabComponent } from '../../templates/template-tab/template-tab.component';
 
 @Component({
   selector: 'app-char-template-view',
   templateUrl: './char-template-view.component.html',
   styleUrls: ['./char-template-view.component.scss'],
+  imports: [
+    NgIf,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardContent,
+    MatProgressSpinner,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    MatError,
+    MatCheckbox,
+    MatSuffix,
+    CdkTextareaAutosize,
+    MatTable,
+    MatColumnDef,
+    MatCellDef,
+    MatCell,
+    MatRowDef,
+    MatRow,
+    MatButton,
+    MatTabGroup,
+    MatTab,
+    TemplateTabComponent,
+    MatCardActions,
+  ],
 })
 export class CharTemplateViewComponent implements OnInit {
   constructor(

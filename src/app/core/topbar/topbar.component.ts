@@ -4,17 +4,36 @@ import { SettingsDialogComponent } from '../settings-dialog/settings-dialog.comp
 import { UserService } from 'src/app/services/user/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DiscordUidEditComponent } from '../discord-uid-edit/discord-uid-edit.component';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss'],
+  imports: [
+    MatToolbar,
+    MatButton,
+    RouterLink,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    NgIf,
+  ],
 })
 export class TopbarComponent implements OnInit {
   constructor(
     protected userService: UserService,
     private matDialog: MatDialog,
-    private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {}

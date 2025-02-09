@@ -1,16 +1,51 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatTableDataSource,
+  MatTable,
+  MatColumnDef,
+  MatCellDef,
+  MatCell,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { StatValue } from 'src/app/api-classes/Stats/StatValue';
 import { Debouncer } from 'src/app/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { SignalrService } from 'src/app/services/signalr/signalr.service';
+import {
+  MatCard,
+  MatCardHeader,
+  MatCardTitle,
+  MatCardContent,
+} from '@angular/material/card';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-stats-card',
   templateUrl: './stats-card.component.html',
   styleUrls: ['./stats-card.component.scss'],
+  imports: [
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardContent,
+    MatTable,
+    MatColumnDef,
+    MatCellDef,
+    MatCell,
+    MatRowDef,
+    MatRow,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    CdkTextareaAutosize,
+    FormsModule,
+  ],
 })
 export class StatsCardComponent implements OnInit {
   constructor(

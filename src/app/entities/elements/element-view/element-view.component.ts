@@ -1,21 +1,55 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { NgIf } from '@angular/common';
+import { Component, Inject, OnInit, forwardRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { RequestService } from 'src/app/services/entities/request/request.service';
-import { ParentData, ParentType } from '../../ParentData';
-import { ElementEditComponent } from '../element-edit/element-edit.component';
-import { PersistencyService } from 'src/app/services/persistency/persistency.service';
+import { MatGridList, MatGridTile } from '@angular/material/grid-list';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { Subject } from 'rxjs';
-import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
 import { ReplenishType } from 'src/app/api-classes/Abilities/Abilities/ReplenishType';
+import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
+import { RequestService } from 'src/app/services/entities/request/request.service';
+import { PersistencyService } from 'src/app/services/persistency/persistency.service';
+import { ParentData, ParentType } from '../../ParentData';
+import { RollDialogTabComponent } from '../../roll/roll-dialog-tab/roll-dialog-tab.component';
+import { StatDialogTabComponent } from '../../stat/stat-dialog-tab/stat-dialog-tab.component';
+import { TemplateDialogTabMultipleComponent } from '../../templates/template-dialog-tab/template-dialog-tab-multiple/template-dialog-tab-multiple.component';
+import { ElementDialogTabMultipleComponent } from '../element-dialog-tab/element-dialog-tab-multiple/element-dialog-tab-multiple.component';
+import { ElementDialogTabSingleComponent } from '../element-dialog-tab/element-dialog-tab-single/element-dialog-tab-single.component';
+import { ElementEditComponent } from '../element-edit/element-edit.component';
 
 @Component({
   selector: 'app-element-view',
   templateUrl: './element-view.component.html',
   styleUrls: ['../../dialog-view-shared.scss', './element-view.component.scss'],
+  imports: [
+    CdkScrollable,
+    MatDialogContent,
+    NgIf,
+    MatGridList,
+    MatGridTile,
+    MatCheckbox,
+    FormsModule,
+    MatTabGroup,
+    MatTab,
+    forwardRef(() => ElementDialogTabMultipleComponent),
+    forwardRef(() => ElementDialogTabSingleComponent),
+    StatDialogTabComponent,
+    TemplateDialogTabMultipleComponent,
+    RollDialogTabComponent,
+    MatDialogActions,
+    MatButton,
+    MatDialogClose,
+  ],
 })
 export class ElementViewComponent implements OnInit {
   constructor(
