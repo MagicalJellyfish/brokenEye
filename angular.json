@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "brokenEye:build:production"
+              "buildTarget": "brokenEye:build:production"
             },
             "development": {
-              "browserTarget": "brokenEye:build:development"
+              "buildTarget": "brokenEye:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "brokenEye:build"
+            "buildTarget": "brokenEye:build"
           }
         },
         "test": {
