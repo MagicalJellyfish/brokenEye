@@ -20,6 +20,7 @@
       <tr
         mat-row
         *matRowDef="let row; columns: mainTableCols"
+        class="clickableTableRow"
         (click)="rollStat(row.stat.id)"
       ></tr>
     </table>

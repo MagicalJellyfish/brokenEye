@@ -2,7 +2,11 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 //Material imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -116,6 +120,7 @@ import { UserService } from './services/user/user.service';
     RollsEditComponent,
     RollDialogTabComponent,
   ],
+  bootstrap: [AppComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -123,8 +128,6 @@ import { UserService } from './services/user/user.service';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -167,7 +170,7 @@ import { UserService } from './services/user/user.service';
       multi: true,
       deps: [MatSnackBar, UserService, ApiUrlService],
     },
+    provideHttpClient(withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}
