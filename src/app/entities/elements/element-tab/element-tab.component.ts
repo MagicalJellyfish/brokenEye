@@ -1,22 +1,66 @@
+import { NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatFormField,
+  MatLabel,
+  MatSuffix,
+} from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource,
+} from '@angular/material/table';
+import { Subject } from 'rxjs';
+import { Character } from 'src/app/api-classes/Characters/Character';
+import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
+import { Debouncer } from 'src/app/core/debouncer/debouncer';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
-import { ElementEditComponent } from '../element-edit/element-edit.component';
-import { ElementViewComponent } from '../element-view/element-view.component';
-import { Subject } from 'rxjs';
-import { ElementOrderComponent } from '../element-order/element-order.component';
-import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { TemplateSelectComponent } from '../../templates/template-select/template-select.component';
-import { Character } from 'src/app/api-classes/Characters/Character';
-import { Debouncer } from 'src/app/core/debouncer/debouncer';
+import { ElementEditComponent } from '../element-edit/element-edit.component';
+import { ElementOrderComponent } from '../element-order/element-order.component';
+import { ElementViewComponent } from '../element-view/element-view.component';
 
 @Component({
   selector: 'app-element-tab',
   templateUrl: './element-tab.component.html',
   styleUrls: ['./element-tab.component.scss'],
+  imports: [
+    NgIf,
+    MatButton,
+    MatIcon,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    FormsModule,
+    MatSuffix,
+    MatCheckbox,
+    MatIconButton,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+  ],
 })
 export class ElementTabComponent implements OnInit {
   constructor(

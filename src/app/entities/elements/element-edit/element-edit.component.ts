@@ -6,17 +6,63 @@ import {
   MAT_DIALOG_DATA,
   MatDialog,
   MatDialogRef,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
 } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 import { PersistencyService } from 'src/app/services/persistency/persistency.service';
 import { Subject } from 'rxjs';
 import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
 import { ReplenishType } from 'src/app/api-classes/Abilities/Abilities/ReplenishType';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { NgIf, NgFor } from '@angular/common';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { FormsModule } from '@angular/forms';
+import { MatGridList, MatGridTile } from '@angular/material/grid-list';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { ElementDialogTabMultipleComponent } from '../element-dialog-tab/element-dialog-tab-multiple/element-dialog-tab-multiple.component';
+import { ElementDialogTabSingleComponent } from '../element-dialog-tab/element-dialog-tab-single/element-dialog-tab-single.component';
+import { StatDialogTabComponent } from '../../stat/stat-dialog-tab/stat-dialog-tab.component';
+import { TemplateDialogTabMultipleComponent } from '../../templates/template-dialog-tab/template-dialog-tab-multiple/template-dialog-tab-multiple.component';
+import { RollDialogTabComponent } from '../../roll/roll-dialog-tab/roll-dialog-tab.component';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-element-edit',
   templateUrl: './element-edit.component.html',
   styleUrls: ['../../dialog-edit-shared.scss', './element-edit.component.scss'],
+  imports: [
+    CdkScrollable,
+    MatDialogContent,
+    NgIf,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    CdkTextareaAutosize,
+    FormsModule,
+    MatGridList,
+    MatGridTile,
+    MatSelect,
+    NgFor,
+    MatOption,
+    MatCheckbox,
+    MatTabGroup,
+    MatTab,
+    ElementDialogTabMultipleComponent,
+    ElementDialogTabSingleComponent,
+    StatDialogTabComponent,
+    TemplateDialogTabMultipleComponent,
+    RollDialogTabComponent,
+    MatDialogActions,
+    MatButton,
+    MatDialogClose,
+  ],
 })
 export class ElementEditComponent implements OnInit {
   constructor(

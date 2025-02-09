@@ -3,11 +3,30 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { Debouncer } from 'src/app/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { FormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-misc-char-card',
   templateUrl: './misc-char-card.component.html',
   styleUrls: ['./misc-char-card.component.scss'],
+  imports: [
+    MatCard,
+    MatCardContent,
+    MatTabGroup,
+    MatTab,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    CdkTextareaAutosize,
+    FormsModule,
+    MatButton,
+  ],
 })
 export class MiscCharCardComponent implements OnInit {
   constructor(private requestService: RequestService) {}

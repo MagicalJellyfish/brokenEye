@@ -1,23 +1,51 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatTableDataSource,
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
 import { ParentData, ParentType } from 'src/app/entities/ParentData';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { TemplateViewComponent } from '../../template-view/template-view.component';
 import { TemplateSelectComponent } from '../../template-select/template-select.component';
 import { Subject } from 'rxjs';
+import { NgIf } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-template-dialog-tab-single',
   templateUrl: './template-dialog-tab-single.component.html',
   styleUrls: ['./template-dialog-tab-single.component.scss'],
+  imports: [
+    NgIf,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    MatButton,
+  ],
 })
 export class TemplateDialogTabSingleComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog,
+    private matDialog: MatDialog
   ) {}
 
   @Input() parentData!: ParentData;
@@ -58,7 +86,7 @@ export class TemplateDialogTabSingleComponent implements OnInit {
         (
           await this.requestService.get(
             this.parentData.parentRoute,
-            this.parentData.parentId,
+            this.parentData.parentId
           )
         ).subscribe((x: any) => {
           this.element = x[this.elementName];
@@ -87,7 +115,7 @@ export class TemplateDialogTabSingleComponent implements OnInit {
       (x: any) => {
         this.element = x;
         this.elementTable = new MatTableDataSource([this.element!]);
-      },
+      }
     );
   }
 
@@ -105,7 +133,7 @@ export class TemplateDialogTabSingleComponent implements OnInit {
               this.parentData.parentId,
               JSON.stringify({
                 [propertyName]: x.id,
-              }),
+              })
             )
           ).subscribe((_) => {
             this.element = x;
@@ -124,7 +152,7 @@ export class TemplateDialogTabSingleComponent implements OnInit {
         this.parentData.parentId,
         JSON.stringify({
           [propertyName]: null,
-        }),
+        })
       )
     ).subscribe((_) => {
       this.element = undefined;

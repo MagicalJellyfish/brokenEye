@@ -9,11 +9,19 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { CharEditComponent } from 'src/app/entities/character/edit/char-edit/char-edit.component';
+import {
+  MatCard,
+  MatCardHeader,
+  MatCardTitle,
+  MatCardContent,
+} from '@angular/material/card';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-misc-info-card',
   templateUrl: './misc-info-card.component.html',
   styleUrls: ['./misc-info-card.component.scss'],
+  imports: [MatCard, MatCardHeader, MatCardTitle, MatButton, MatCardContent],
 })
 export class MiscInfoCardComponent implements OnInit {
   constructor(private matDialog: MatDialog) {}

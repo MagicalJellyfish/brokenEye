@@ -3,6 +3,16 @@ import { Router } from '@angular/router';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { UserService } from 'src/app/services/user/user.service';
+import {
+  MatCard,
+  MatCardHeader,
+  MatCardTitle,
+  MatCardContent,
+} from '@angular/material/card';
+import { NgIf, NgFor } from '@angular/common';
+import { MatGridList, MatGridTile } from '@angular/material/grid-list';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-user-char-list',
@@ -10,6 +20,18 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: [
     './user-char-list.component.scss',
     '../../../char-list-shared.scss',
+  ],
+  imports: [
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardContent,
+    NgIf,
+    MatGridList,
+    NgFor,
+    MatGridTile,
+    MatButton,
+    MatIcon,
   ],
 })
 export class UserCharListComponent implements OnInit {

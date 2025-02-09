@@ -1,20 +1,35 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
-  Component,
-  Inject,
-  KeyValueDiffers,
-  NgModule,
-  OnInit,
-} from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+  FormArray,
+  FormControl,
+  FormGroup,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
   MatDialogRef,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
 } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 import { RequestService } from 'src/app/services/entities/request/request.service';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import {
+  MatFormField,
+  MatLabel,
+  MatError,
+  MatSuffix,
+} from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { NgIf } from '@angular/common';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-char-edit',
@@ -25,6 +40,22 @@ import { RequestService } from 'src/app/services/entities/request/request.servic
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { displayDefaultIndicatorType: false, showError: true },
     },
+  ],
+  imports: [
+    CdkScrollable,
+    MatDialogContent,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    MatError,
+    MatCheckbox,
+    MatSuffix,
+    MatDialogActions,
+    MatButton,
+    MatDialogClose,
   ],
 })
 export class CharEditComponent implements OnInit {

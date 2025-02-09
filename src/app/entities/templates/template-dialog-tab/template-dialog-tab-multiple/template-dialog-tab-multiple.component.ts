@@ -1,17 +1,48 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatTableDataSource,
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
 import { ParentData } from 'src/app/entities/ParentData';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { TemplateViewComponent } from '../../template-view/template-view.component';
 import { TemplateSelectComponent } from '../../template-select/template-select.component';
 import { Subject } from 'rxjs';
+import { NgIf } from '@angular/common';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-template-dialog-tab-multiple',
   templateUrl: './template-dialog-tab-multiple.component.html',
   styleUrls: ['./template-dialog-tab-multiple.component.scss'],
+  imports: [
+    NgIf,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatIconButton,
+    MatIcon,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    MatButton,
+  ],
 })
 export class TemplateDialogTabMultipleComponent {
   constructor(

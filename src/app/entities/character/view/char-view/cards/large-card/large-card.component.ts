@@ -3,11 +3,33 @@ import { Subject } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { Debouncer } from 'src/app/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { ElementTabComponent } from '../../../../../elements/element-tab/element-tab.component';
+import {
+  MatFormField,
+  MatLabel,
+  MatSuffix,
+} from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-large-card',
   templateUrl: './large-card.component.html',
   styleUrls: ['./large-card.component.scss'],
+  imports: [
+    MatCard,
+    MatCardContent,
+    MatTabGroup,
+    MatTab,
+    ElementTabComponent,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    MatSuffix,
+  ],
 })
 export class LargeCardComponent implements OnInit {
   constructor(protected requestService: RequestService) {}
