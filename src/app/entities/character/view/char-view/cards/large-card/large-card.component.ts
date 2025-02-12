@@ -1,18 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Character } from 'src/app/api-classes/Characters/Character';
-import { Debouncer } from 'src/app/core/debouncer/debouncer';
-import { RequestService } from 'src/app/services/entities/request/request.service';
+import { FormsModule } from '@angular/forms';
 import { MatCard, MatCardContent } from '@angular/material/card';
-import { MatTabGroup, MatTab } from '@angular/material/tabs';
-import { ElementTabComponent } from '../../../../../elements/element-tab/element-tab.component';
 import {
   MatFormField,
   MatLabel,
   MatSuffix,
 } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
+import { Subject } from 'rxjs';
+import { Character } from 'src/app/api-classes/Characters/Character';
+import { Debouncer } from 'src/app/logic/core/debouncer/debouncer';
+import { RequestService } from 'src/app/services/entities/request/request.service';
+import { ElementTabComponent } from '../../../../../elements/element-tab/element-tab.component';
 
 @Component({
   selector: 'app-large-card',

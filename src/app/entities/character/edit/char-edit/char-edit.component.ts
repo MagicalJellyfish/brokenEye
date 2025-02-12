@@ -1,35 +1,34 @@
+import { CdkScrollable } from '@angular/cdk/scrolling';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { NgIf } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
-  FormArray,
   FormControl,
   FormGroup,
-  Validators,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
-  MatDialogRef,
-  MatDialogContent,
   MatDialogActions,
   MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
 } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
-import { RequestService } from 'src/app/services/entities/request/request.service';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import {
+  MatError,
   MatFormField,
   MatLabel,
-  MatError,
   MatSuffix,
 } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { NgIf } from '@angular/common';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { MatButton } from '@angular/material/button';
+import { Router } from '@angular/router';
+import { RequestService } from 'src/app/services/entities/request/request.service';
+import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-char-edit',

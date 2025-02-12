@@ -3,8 +3,8 @@
     <mat-label>Discord-ID</mat-label>
     <input matInput [(ngModel)]="this.discordId" />
   </mat-form-field>
+  <mat-dialog-actions>
+    <button mat-button color="accent" (click)="save()">Save</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="save()">Save</button>
-  <button mat-button mat-dialog-close>Cancel</button>
-</mat-dialog-actions>

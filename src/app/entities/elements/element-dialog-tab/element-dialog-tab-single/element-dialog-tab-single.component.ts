@@ -16,11 +16,11 @@ import {
   MatTableDataSource,
 } from '@angular/material/table';
 import { Subject } from 'rxjs';
-import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
 import { ParentData, ParentType } from 'src/app/entities/ParentData';
 import { TemplateSelectComponent } from 'src/app/entities/templates/template-select/template-select.component';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
+import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
 import { ElementViewComponent } from '../../element-view/element-view.component';
 
 @Component({

@@ -1,16 +1,16 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { SettingsDialogComponent } from '../settings-dialog/settings-dialog.component';
-import { UserService } from 'src/app/services/user/user.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { DiscordUidEditComponent } from '../discord-uid-edit/discord-uid-edit.component';
-import { MatToolbar } from '@angular/material/toolbar';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
 import { NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatTooltip } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
+import { DiscordUidEditComponent } from '../discord-uid-edit/discord-uid-edit.component';
+import { SettingsDialogComponent } from '../settings-dialog/settings-dialog.component';
 
 @Component({
   selector: 'app-topbar',

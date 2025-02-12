@@ -1,37 +1,37 @@
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { ParentData, ParentType } from '../../ParentData';
-import { RequestService } from 'src/app/services/entities/request/request.service';
-import { ObjectService } from 'src/app/services/entities/object/object.service';
+import { FormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatOption } from '@angular/material/core';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
-  MatDialogRef,
-  MatDialogContent,
   MatDialogActions,
   MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
 } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
-import { PersistencyService } from 'src/app/services/persistency/persistency.service';
-import { Subject } from 'rxjs';
-import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
-import { ReplenishType } from 'src/app/api-classes/Abilities/Abilities/ReplenishType';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { NgIf, NgFor } from '@angular/common';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { FormsModule } from '@angular/forms';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
+import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { MatTabGroup, MatTab } from '@angular/material/tabs';
-import { ElementDialogTabMultipleComponent } from '../element-dialog-tab/element-dialog-tab-multiple/element-dialog-tab-multiple.component';
-import { ElementDialogTabSingleComponent } from '../element-dialog-tab/element-dialog-tab-single/element-dialog-tab-single.component';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
+import { Subject } from 'rxjs';
+import { ReplenishType } from 'src/app/api-classes/Abilities/Abilities/ReplenishType';
+import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
+import { ObjectService } from 'src/app/services/entities/object/object.service';
+import { RequestService } from 'src/app/services/entities/request/request.service';
+import { PersistencyService } from 'src/app/services/persistency/persistency.service';
+import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
+import { ParentData, ParentType } from '../../ParentData';
+import { RollDialogTabComponent } from '../../roll/roll-dialog-tab/roll-dialog-tab.component';
 import { StatDialogTabComponent } from '../../stat/stat-dialog-tab/stat-dialog-tab.component';
 import { TemplateDialogTabMultipleComponent } from '../../templates/template-dialog-tab/template-dialog-tab-multiple/template-dialog-tab-multiple.component';
-import { RollDialogTabComponent } from '../../roll/roll-dialog-tab/roll-dialog-tab.component';
-import { MatButton } from '@angular/material/button';
+import { ElementDialogTabMultipleComponent } from '../element-dialog-tab/element-dialog-tab-multiple/element-dialog-tab-multiple.component';
+import { ElementDialogTabSingleComponent } from '../element-dialog-tab/element-dialog-tab-single/element-dialog-tab-single.component';
 
 @Component({
   selector: 'app-element-edit',

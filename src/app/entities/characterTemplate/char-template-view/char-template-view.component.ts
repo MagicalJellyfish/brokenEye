@@ -1,21 +1,40 @@
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
-  Validators,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardTitle,
+} from '@angular/material/card';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
+import {
+  MatError,
+  MatFormField,
+  MatLabel,
+  MatSuffix,
+} from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
-  MatTableDataSource,
-  MatTable,
-  MatColumnDef,
-  MatCellDef,
   MatCell,
-  MatRowDef,
+  MatCellDef,
+  MatColumnDef,
   MatRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource,
 } from '@angular/material/table';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,28 +42,9 @@ import { Subject } from 'rxjs';
 import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTemplate';
 import { Stat } from 'src/app/api-classes/Stats/Stat';
 import { StatValue } from 'src/app/api-classes/Stats/StatValue';
-import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
-import { Debouncer } from 'src/app/core/debouncer/debouncer';
+import { Debouncer } from 'src/app/logic/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
-import { NgIf } from '@angular/common';
-import {
-  MatCard,
-  MatCardHeader,
-  MatCardTitle,
-  MatCardContent,
-  MatCardActions,
-} from '@angular/material/card';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import {
-  MatFormField,
-  MatLabel,
-  MatError,
-  MatSuffix,
-} from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { MatButton } from '@angular/material/button';
+import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
 import { TemplateTabComponent } from '../../templates/template-tab/template-tab.component';
 
 @Component({
