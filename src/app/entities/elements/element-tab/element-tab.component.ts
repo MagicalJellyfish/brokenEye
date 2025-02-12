@@ -26,10 +26,10 @@ import {
 } from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
-import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
-import { Debouncer } from 'src/app/core/debouncer/debouncer';
+import { Debouncer } from 'src/app/logic/core/debouncer/debouncer';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
+import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
 import { TemplateSelectComponent } from '../../templates/template-select/template-select.component';
 import { ElementEditComponent } from '../element-edit/element-edit.component';
 import { ElementOrderComponent } from '../element-order/element-order.component';

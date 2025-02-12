@@ -1,44 +1,44 @@
+import { NgClass } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  MatTableDataSource,
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
-  MatCell,
-  MatHeaderRowDef,
-  MatHeaderRow,
-  MatRowDef,
-  MatRow,
-} from '@angular/material/table';
-import { Subject } from 'rxjs';
-import { Character } from 'src/app/api-classes/Characters/Character';
-import { Counter } from 'src/app/api-classes/Counters/Counter';
-import { Effect } from 'src/app/api-classes/Effects/Effect';
-import { ConfirmationDialogComponent } from 'src/app/core/confirmation-dialog/confirmation-dialog.component';
-import { Debouncer } from 'src/app/core/debouncer/debouncer';
-import { ObjectService } from 'src/app/services/entities/object/object.service';
-import { RequestService } from 'src/app/services/entities/request/request.service';
+import { FormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import {
   MatCard,
+  MatCardContent,
   MatCardHeader,
   MatCardTitle,
-  MatCardContent,
 } from '@angular/material/card';
-import { MatFormField, MatSuffix } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { NgClass } from '@angular/common';
-import { MatButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import {
   MatExpansionPanel,
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
+import { MatFormField, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource,
+} from '@angular/material/table';
+import { Subject } from 'rxjs';
+import { Character } from 'src/app/api-classes/Characters/Character';
+import { Counter } from 'src/app/api-classes/Counters/Counter';
+import { Effect } from 'src/app/api-classes/Effects/Effect';
+import { Debouncer } from 'src/app/logic/core/debouncer/debouncer';
+import { ObjectService } from 'src/app/services/entities/object/object.service';
+import { RequestService } from 'src/app/services/entities/request/request.service';
+import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-hp-card',
