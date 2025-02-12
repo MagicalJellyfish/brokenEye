@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, first, firstValueFrom } from 'rxjs';
+import { Subject, firstValueFrom } from 'rxjs';
 import { ApiUrlService } from '../api/apiUrl/api-url.service';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { ApiUrlService } from '../api/apiUrl/api-url.service';
 export class UserService {
   constructor(private http: HttpClient, private apiUrlService: ApiUrlService) {}
 
-  public InitUser() {
+  public initUser() {
     this.apiUrl = this.apiUrlService.apiUrl + '/api/Auth/';
 
     this.username = localStorage.getItem('username');
