@@ -21,10 +21,9 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler) {
     if (
       this.userService.accessToken != undefined &&
-      request.url.includes(this.apiUrlService.url()) &&
-      !request.url.includes('/Auth/refresh-token') &&
-      !request.url.includes('/Auth/login') &&
-      !request.url.includes('/Auth/register')
+      (request.url.includes('brokenHeart:') ||
+        request.url.includes(this.apiUrlService.url())) &&
+      !request.url.includes('brokenAuth:')
     ) {
       let firstAttempt: boolean = true;
 

@@ -1,17 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, firstValueFrom } from 'rxjs';
-import { ApiUrlService } from '../api/apiUrl/api-url.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient, private apiUrlService: ApiUrlService) {}
+  constructor(private http: HttpClient) {}
 
   public initUser() {
-    this.apiUrl = this.apiUrlService.url() + '/api/Auth/';
-
     this.username = localStorage.getItem('username');
     this.accessToken = localStorage.getItem('accessToken');
     this.refreshToken = localStorage.getItem('refreshToken');
@@ -51,8 +48,6 @@ export class UserService {
     }
   }
 
-  private apiUrl!: string;
-
   public username: string | null = null;
   public accessToken: string | null = null;
   public accessTokenExpiration: Date | null = null;
@@ -67,7 +62,7 @@ export class UserService {
   ): Promise<boolean> {
     try {
       var response = await firstValueFrom(
-        this.http.post(this.apiUrl + 'register', {
+        this.http.post('brokenAuth:/register', {
           username,
           password,
           discordId,
@@ -84,7 +79,7 @@ export class UserService {
   async logout() {
     var headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this.accessToken);
-    this.http.get(this.apiUrl + 'logout', { headers: headers }).subscribe();
+    this.http.get('brokenAuth:/logout', { headers: headers }).subscribe();
 
     localStorage.removeItem('username');
     this.username = null;
@@ -107,7 +102,7 @@ export class UserService {
           accessTokenExpiration: number;
           refreshToken: string;
           refreshTokenExpiration: number;
-        }>(this.apiUrl + 'login', { username, password })
+        }>('brokenAuth:/login', { username, password })
       );
 
       this.username = response.username;
@@ -150,7 +145,7 @@ export class UserService {
           accessTokenExpiration: number;
           refreshToken: string;
           refreshTokenExpiration: number;
-        }>(this.apiUrl + 'refresh-token', {
+        }>('brokenAuth:/refresh-token', {
           accessToken: this.accessToken,
           refreshToken: this.refreshToken,
         })
