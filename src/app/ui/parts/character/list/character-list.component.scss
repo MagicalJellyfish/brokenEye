@@ -1,0 +1,39 @@
+button {
+  height: 75%;
+  width: 85%;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.img {
+  height: 4vw;
+  width: 4vw;
+  margin-bottom: 5%;
+
+  img {
+    position: static !important;
+  }
+}
+
+.imgIcon {
+  height: 100%;
+  width: 100%;
+  font-size: 4vw;
+}
+
+.text {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  align-items: center;
+
+  .name {
+    font-size: large;
+    font-weight: bold;
+  }
+}
