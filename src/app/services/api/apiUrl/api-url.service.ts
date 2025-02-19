@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 const SETTINGS_LOCATION = 'assets/appsettings.json';
@@ -20,5 +20,9 @@ export class ApiUrlService {
     return;
   }
 
-  apiUrl!: string;
+  private apiUrl!: string;
+
+  url() {
+    return this.apiUrl;
+  }
 }

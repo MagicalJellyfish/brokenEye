@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   HubConnection,
   HubConnectionBuilder,
@@ -6,7 +7,6 @@ import {
 } from '@microsoft/signalr';
 import { ApiUrlService } from '../api/apiUrl/api-url.service';
 import { UserService } from '../user/user.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,7 @@ export class SignalrService {
     private snackBar: MatSnackBar
   ) {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(this.apiUrlService.apiUrl + '/signalr', {
+      .withUrl(this.apiUrlService.url() + '/signalr', {
         accessTokenFactory: () => this.userService.accessToken!,
       })
       .build();
