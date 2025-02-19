@@ -427,7 +427,7 @@ export class CharTemplateViewComponent implements OnInit {
         });
 
         snackBarRef.onAction().subscribe(() => {
-          this.router.navigate(['char/view/' + x.id]);
+          this.router.navigate(['legacy/char/view/' + x.id]);
         });
       });
     });
@@ -449,7 +449,7 @@ export class CharTemplateViewComponent implements OnInit {
               this.charTemplate!.id
             )
           ).subscribe((_) => {
-            this.router.navigate(['charTemplate/view']);
+            this.router.navigate(['legacy/charTemplate/view']);
           });
         }
       });

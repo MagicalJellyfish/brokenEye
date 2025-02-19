@@ -1,18 +1,18 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import {
+  MatCard,
+  MatCardContent,
+  MatCardHeader,
+  MatCardTitle,
+} from '@angular/material/card';
+import { MatGridList, MatGridTile } from '@angular/material/grid-list';
+import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { UserService } from 'src/app/services/user/user.service';
-import {
-  MatCard,
-  MatCardHeader,
-  MatCardTitle,
-  MatCardContent,
-} from '@angular/material/card';
-import { NgIf, NgFor } from '@angular/common';
-import { MatGridList, MatGridTile } from '@angular/material/grid-list';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-npc-char-list',
@@ -63,6 +63,6 @@ export class NpcCharListComponent implements OnInit {
   npcImages: string[] = [];
 
   select(id: number) {
-    this.router.navigate(['char/view/' + id]);
+    this.router.navigate(['legacy/char/view/' + id]);
   }
 }

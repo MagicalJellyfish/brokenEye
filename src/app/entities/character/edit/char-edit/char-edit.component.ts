@@ -134,7 +134,7 @@ export class CharEditComponent implements OnInit {
               this.data.id
             )
           ).subscribe((_) => {
-            this.router.navigate(['char/view']);
+            this.router.navigate(['legacy/char/view']);
             this.dialogRef.close();
           });
         }
