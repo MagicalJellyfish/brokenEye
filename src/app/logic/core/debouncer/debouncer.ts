@@ -1,13 +1,13 @@
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 export class Debouncer<T> {
-  constructor() {
+  constructor(debounceMs: number = 2000) {
     this.InputSubject.subscribe(() => {
       this.Debouncing = true;
     });
 
     this.InputSubject.pipe(
-      debounceTime(2000),
+      debounceTime(debounceMs),
       distinctUntilChanged()
     ).subscribe((x) => {
       this.SaveSubject.next(x);

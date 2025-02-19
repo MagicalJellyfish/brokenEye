@@ -1,0 +1,42 @@
+@if (characters()) {
+  <mat-grid-list cols="6" rowHeight="4:3">
+    @for (character of characters(); track $index) {
+      <mat-grid-tile>
+        <button mat-flat-button color="primary" (click)="select(character.id)">
+          <div class="buttonContainer">
+            <div class="img">
+              @if (!failedImages.includes(character.id)) {
+                <img
+                  [ngSrc]="
+                    apiUrlService.url() + '/image/character/' + character.id
+                  "
+                  (error)="failedImages.push(character.id)"
+                  fill
+                  priority
+                />
+              } @else {
+                <mat-icon class="imgIcon">aspect_ratio</mat-icon>
+              }
+            </div>
+
+            <div class="text">
+              <div class="name">{{ character.name }}</div>
+            </div>
+          </div>
+        </button>
+      </mat-grid-tile>
+    }
+    @if (showCreateButton()) {
+      <mat-grid-tile>
+        <button mat-flat-button class="secondary-button" (click)="create()">
+          <div class="buttonContainer">
+            <div class="text">
+              <mat-icon>add</mat-icon>
+              <div class="name">Create a new Character</div>
+            </div>
+          </div>
+        </button>
+      </mat-grid-tile>
+    }
+  </mat-grid-list>
+}

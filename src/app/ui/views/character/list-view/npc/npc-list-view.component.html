@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> NPCs </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        ngModel
+        (ngModelChange)="this.nameDebouncer.InputSubject.next($event)"
+      />
+    </mat-form-field>
+
+    @if (characters) {
+      <character-list
+        [characters]="characters"
+        [showCreateButton]="true"
+      ></character-list>
+    }
+  </mat-card-content>
+</mat-card>

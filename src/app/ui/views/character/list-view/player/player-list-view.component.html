@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> Your Characters </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    @if (ownedCharacters) {
+      <character-list
+        [characters]="ownedCharacters"
+        [showCreateButton]="true"
+      ></character-list>
+    }
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> Other Characters </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    @if (allCharacters) {
+      <character-list [characters]="allCharacters"></character-list>
+    }
+  </mat-card-content>
+</mat-card>
