@@ -14,12 +14,18 @@ export const routes: Routes = [
   { path: '', component: IndexComponent, pathMatch: 'full' },
   { path: 'index', component: IndexComponent },
   { path: 'account', component: AccountComponent },
-  { path: 'char/view', component: UserCharListComponent },
-  { path: 'char/npc/view', component: NpcCharListComponent },
-  { path: 'char/view/:id', component: CharViewComponent },
-  { path: 'char/create', component: CharCreateComponent },
-  { path: 'templates', component: TemplatesViewComponent },
-  { path: 'charTemplate/view', component: CharTemplateListComponent },
-  { path: 'charTemplate/view/:id', component: CharTemplateViewComponent },
-  { path: 'charTemplate/create', component: CharTemplateCreateComponent },
+
+  { path: 'legacy/char/npc/view', component: NpcCharListComponent },
+  { path: 'legacy/char/view/:id', component: CharViewComponent },
+  { path: 'legacy/char/create', component: CharCreateComponent },
+  { path: 'legacy/templates', component: TemplatesViewComponent },
+  { path: 'legacy/charTemplate/view', component: CharTemplateListComponent },
+  {
+    path: 'legacy/charTemplate/view/:id',
+    component: CharTemplateViewComponent,
+  },
+  {
+    path: 'legacy/charTemplate/create',
+    component: CharTemplateCreateComponent,
+  },
 ];

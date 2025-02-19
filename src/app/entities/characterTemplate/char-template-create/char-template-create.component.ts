@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  MatCard,
+  MatCardContent,
+  MatCardHeader,
+  MatCardTitle,
+} from '@angular/material/card';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
-import {
-  MatCard,
-  MatCardHeader,
-  MatCardTitle,
-  MatCardContent,
-} from '@angular/material/card';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-char-template-create',
@@ -36,7 +36,7 @@ export class CharTemplateCreateComponent implements OnInit {
         this.objectService.newCharacterTemplate()
       )
     ).subscribe((x: any) => {
-      this.router.navigate(['charTemplate/view/' + x.id]);
+      this.router.navigate(['legacy/charTemplate/view/' + x.id]);
     });
   }
 }

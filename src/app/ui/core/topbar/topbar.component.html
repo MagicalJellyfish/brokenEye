@@ -2,28 +2,40 @@
   <div>
     <button mat-button routerLink=""><h1>BrokenEye</h1></button>
 
-    <button mat-button [matMenuTriggerFor]="charMenu">Characters</button>
-    <mat-menu #charMenu="matMenu">
-      <button mat-menu-item routerLink="/char/view">
+    <button mat-button [matMenuTriggerFor]="legacyCharMenu">
+      (Legacy) Characters
+    </button>
+    <mat-menu #legacyCharMenu="matMenu">
+      <button mat-menu-item routerLink="legacy/char/view">
         <mat-icon>search</mat-icon>View
       </button>
-      <button mat-menu-item routerLink="/char/create">
+      <button mat-menu-item routerLink="legacy/char/create">
         <mat-icon>add</mat-icon>Create
       </button>
     </mat-menu>
 
-    <button mat-button routerLink="/templates">Element-Templates</button>
+    <button mat-button [matMenuTriggerFor]="charMenu">Characters</button>
+    <mat-menu #charMenu="matMenu">
+      <button mat-menu-item routerLink="/player/list">
+        <mat-icon>search</mat-icon>Players
+      </button>
+      <button mat-menu-item routerLink="/npc/list">
+        <mat-icon>search</mat-icon>NPCs
+      </button>
+    </mat-menu>
 
-    <button mat-button routerLink="/char/npc/view">NPCs</button>
+    <button mat-button routerLink="legacy/templates">Element-Templates</button>
+
+    <button mat-button routerLink="legacy/char/npc/view">NPCs</button>
 
     <button mat-button [matMenuTriggerFor]="charTemplateMenu">
       Character-Templates
     </button>
     <mat-menu #charTemplateMenu="matMenu">
-      <button mat-menu-item routerLink="/charTemplate/view">
+      <button mat-menu-item routerLink="legacy/charTemplate/view">
         <mat-icon>search</mat-icon>View
       </button>
-      <button mat-menu-item routerLink="/charTemplate/create">
+      <button mat-menu-item routerLink="legacy/charTemplate/create">
         <mat-icon>add</mat-icon>Create
       </button>
     </mat-menu>
