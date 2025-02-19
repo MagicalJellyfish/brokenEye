@@ -1,23 +1,14 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
+  HttpErrorResponse,
   HttpHandler,
   HttpInterceptor,
-  HttpErrorResponse,
+  HttpRequest,
 } from '@angular/common/http';
-import {
-  catchError,
-  concatMap,
-  defer,
-  findIndex,
-  first,
-  of,
-  retry,
-  throwError,
-} from 'rxjs';
+import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserService } from '../user/user.service';
+import { catchError, concatMap, defer, of, retry, throwError } from 'rxjs';
 import { ApiUrlService } from '../api/apiUrl/api-url.service';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
@@ -30,7 +21,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler) {
     if (
       this.userService.accessToken != undefined &&
-      request.url.includes(this.apiUrlService.apiUrl) &&
+      request.url.includes(this.apiUrlService.url()) &&
       !request.url.includes('/Auth/refresh-token') &&
       !request.url.includes('/Auth/login') &&
       !request.url.includes('/Auth/register')
