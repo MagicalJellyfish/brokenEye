@@ -7,7 +7,7 @@ import { ApiUrlService } from '../../api/apiUrl/api-url.service';
 })
 export class RequestService {
   constructor(private http: HttpClient, private apiUrlService: ApiUrlService) {
-    this.apiUrl = apiUrlService.apiUrl + '/api/';
+    this.apiUrl = apiUrlService.url() + '/api/';
   }
 
   routes = {

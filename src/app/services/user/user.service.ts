@@ -10,7 +10,7 @@ export class UserService {
   constructor(private http: HttpClient, private apiUrlService: ApiUrlService) {}
 
   public initUser() {
-    this.apiUrl = this.apiUrlService.apiUrl + '/api/Auth/';
+    this.apiUrl = this.apiUrlService.url() + '/api/Auth/';
 
     this.username = localStorage.getItem('username');
     this.accessToken = localStorage.getItem('accessToken');
