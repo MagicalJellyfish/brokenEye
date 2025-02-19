@@ -13,7 +13,9 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { routes } from './app-routing.module';
 import { ApiUrlService } from './services/api/apiUrl/api-url.service';
-import { AuthenticationInterceptor } from './services/response-interceptor/authentication.interceptor';
+import { AuthenticationInterceptor } from './services/interceptors/authentication.interceptor';
+import { LoadingInterceptor } from './services/interceptors/loading.interceptor';
+import { UrlReplacementInterceptor } from './services/interceptors/url-replacement.interceptor';
 import { UserService } from './services/user/user.service';
 
 export const appConfig: ApplicationConfig = {
@@ -30,6 +32,16 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthenticationInterceptor,
       multi: true,
       deps: [MatSnackBar, UserService, ApiUrlService],
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UrlReplacementInterceptor,
+      multi: true,
     },
   ],
 };
