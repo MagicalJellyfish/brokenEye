@@ -8,7 +8,6 @@ import {
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { SettingsService } from 'src/app/services/settings/settings.service';
 
 @Component({
@@ -19,8 +18,6 @@ import { SettingsService } from 'src/app/services/settings/settings.service';
     MatDialogTitle,
     CdkScrollable,
     MatDialogContent,
-    MatGridList,
-    MatGridTile,
     FormsModule,
     MatDialogActions,
     MatButton,
