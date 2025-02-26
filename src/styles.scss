@@ -1,55 +1,172 @@
 @use "@angular/material" as mat;
 @use "sass:map";
+@use "./apptheme.css";
 
-@include mat.elevation-classes();
-@include mat.app-background();
+// ### MATERIAL STYLES ###
 
-$brokenEye-primary: mat.m2-define-palette(mat.$m2-teal-palette);
-$brokenEye-accent: mat.m2-define-palette(
-  mat.$m2-deep-purple-palette,
-  A200,
-  A100,
-  A400
-);
-$brokenEye-warn: mat.m2-define-palette(mat.$m2-red-palette);
+// GLOBAL MATERIAL STYLES
+:root {
+  @include mat.elevation-classes();
+  @include mat.app-background();
 
-$theme: mat.m2-define-dark-theme(
-  (
-    color: (
-      primary: $brokenEye-primary,
-      accent: $brokenEye-accent,
-      warn: $brokenEye-warn,
-    ),
-  )
-);
+  @include mat.checkbox-density(-2);
+  @include mat.form-field-density(-5);
+  @include mat.icon-button-density(-5);
 
-@include mat.all-component-typographies();
-@include mat.all-component-themes($theme);
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: var(--mat-sys-primary),
+    )
+  );
 
-@include mat.checkbox-density(-3);
-@include mat.form-field-density(-5);
-@include mat.icon-button-density(-5);
+  @include mat.table-overrides(
+    (
+      row-item-outline-color: var(--broken-border-color),
+      row-item-outline-width: var(--broken-border-width),
+    )
+  );
+
+  @include mat.divider-overrides(
+    (
+      color: var(--broken-border-color),
+      width: var(--broken-border-width),
+    )
+  );
+
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: var(--mat-sys-on-secondary),
+      track-color: var(--mat-sys-secondary),
+    )
+  );
+
+  @include mat.dialog-overrides(
+    (
+      container-max-width: "90vw",
+    )
+  );
+
+  @include mat.tabs-overrides(
+    (
+      active-indicator-color: var(--mat-sys-on-secondary),
+      active-focus-indicator-color: var(--mat-sys-on-secondary),
+      active-hover-indicator-color: var(--mat-sys-on-secondary),
+    )
+  );
+}
+
+// SPECIFIC MATERIAL STYLES
+
+.error-button {
+  @include mat.button-overrides(
+    (
+      text-label-text-color: var(--mat-sys-error),
+    )
+  );
+}
+
+.secondary-button {
+  @include mat.button-overrides(
+    (
+      text-label-text-color: var(--mat-sys-on-secondary),
+      filled-container-color: var(--mat-sys-secondary),
+    )
+  );
+}
+
+// Topbar button ripple & hover
+.toolbar {
+  @include mat.button-overrides(
+    (
+      text-ripple-color: color-mix(
+          in srgb,
+          var(--mat-sys-on-primary)
+            calc(var(--mat-sys-pressed-state-layer-opacity) * 100%),
+          transparent
+        ),
+      text-state-layer-color: var(--mat-sys-on-primary),
+    )
+  );
+}
+
+mat-divider {
+  margin: 0.5vh 0px !important;
+}
+
+mat-card {
+  @include mat.card-overrides(
+    (
+      elevated-container-color: var(--mat-sys-surface-container-low),
+    )
+  );
+
+  mat-card {
+    @include mat.card-overrides(
+      (
+        elevated-container-color: var(--mat-sys-surface-container),
+      )
+    );
+  }
+}
+
+// CUSTOM MATERIAL OVERRIDES
+
+// For some reason material buttons cause scrolling due to overflow: visible
+button[mat-button] {
+  overflow: hidden !important;
+}
+
+// Fixed-size-textareas taking the full height
+.full-height-textarea {
+  height: 100% !important;
+  .mat-mdc-text-field-wrapper {
+    height: 100%;
+  }
+
+  .mat-mdc-text-field-wrapper,
+  .mat-mdc-form-field-flex,
+  .mat-mdc-form-field-infix,
+  textarea {
+    height: 100% !important;
+  }
+
+  textarea {
+    padding-right: 0.2vw;
+  }
+}
+
+.full-height-tabs {
+  height: 100%;
+  .mat-mdc-tab-body-wrapper {
+    height: 100%;
+  }
+}
+
+.mat-mdc-dialog-content {
+  max-height: 80vh !important;
+}
+
+// Hover-highlighted and cursor-changing table rows for clickable indication
+.clickable-table-row:hover {
+  cursor: pointer;
+  filter: brightness(120%);
+}
+
+.clickable:hover {
+  cursor: pointer;
+  filter: brightness(70%);
+}
+
+// ### CUSTOM STYLES ###
+
+html {
+  color-scheme: dark;
+}
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: small;
-}
-
-.cdk-overlay-pane {
-  max-height: 100vh;
-}
-mat-dialog-content {
-  max-height: 100% !important;
-}
-
-.mat-mdc-dialog-surface {
-  overflow-x: hidden;
-}
-
-.clickableTableRow:hover {
-  cursor: pointer;
-  filter: brightness(120%);
 }
 
 //Remove number input up/down arrows
