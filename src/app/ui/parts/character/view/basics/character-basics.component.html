@@ -1,0 +1,43 @@
+<mat-card>
+  <mat-card-header>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="name.value" />
+      </mat-form-field>
+      <span class="id">ID {{ character().id }}</span>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-divider></mat-divider>
+    <div class="fields">
+      <mat-form-field>
+        <mat-label>Shortcut</mat-label>
+        <input matInput [(ngModel)]="shortcut.value" />
+      </mat-form-field>
+      <mat-checkbox [(ngModel)]="npc.value">NPC</mat-checkbox>
+    </div>
+    <div class="grid">
+      <div class="list">
+        <div class="info">
+          <span>Evasion: </span>
+          <span>{{ character().evasion }}</span>
+        </div>
+        <div class="info">
+          <span>Armor: </span>
+          <span>{{ character().armor }}</span>
+        </div>
+        <div class="info result">
+          <span>Defense: </span>
+          <span>{{ character().defense }}</span>
+        </div>
+      </div>
+      <div class="list">
+        <div class="info">
+          <span>Movement: </span>
+          <span>{{ character().movementSpeed }}m</span>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
