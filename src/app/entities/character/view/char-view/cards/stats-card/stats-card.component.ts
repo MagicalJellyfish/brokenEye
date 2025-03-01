@@ -101,8 +101,8 @@ export class StatsCardComponent implements OnInit {
   }
 
   async rollStat(statId: number) {
-    (await this.requestService.getAll('Auth/discord')).subscribe((x: any) =>
-      this.signalrService.RollStat(this.char.id, statId, x.discordId)
-    );
+    /*(await this.requestService.getAll('Auth/discord')).subscribe((x: any) =>
+      this.signalrService.RollStat(this.char.id, statId)
+    );*/
   }
 }

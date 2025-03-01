@@ -67,7 +67,7 @@ export class SignalrService {
     this.hubConnection.off('charChanged/' + id);
   }
 
-  RollStat(charId: number, statId: number, discordId: string) {
-    this.hubConnection.invoke('RollStat', charId, statId, discordId);
+  RollStat(charId: number, statId: number) {
+    this.hubConnection.invoke('RollStat', charId, statId);
   }
 }
