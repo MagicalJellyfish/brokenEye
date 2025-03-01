@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CharacterPatch } from 'src/app/models/character/CharacterPatch';
+import { ElementParentType } from 'src/app/models/elements/types/ElementParentType';
+import { ElementType } from 'src/app/models/elements/types/ElementType';
 
 @Injectable({
   providedIn: 'root',
@@ -32,5 +34,12 @@ export class CharacterApiService {
 
   deleteCharacter(id: number) {
     return this.http.delete('brokenHeart:/character/' + id);
+  }
+
+  createElement(type: ElementType, parentId: number) {
+    return this.http.post<number>('brokenHeart:/element/' + type, {
+      parentType: ElementParentType.Character,
+      parentId: parentId,
+    });
   }
 }

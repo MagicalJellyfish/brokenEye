@@ -1,0 +1,10 @@
+<div class="buttons">
+  <button mat-button (click)="createElement()">
+    <mat-icon>add</mat-icon>Create
+  </button>
+  <button mat-button (click)="openReorderDialog()">
+    <mat-icon>swap_horiz</mat-icon>Reorder
+  </button>
+</div>
+
+<element-list [elementList]="elementList()" [type]="type()"></element-list>

@@ -1,0 +1,13 @@
+<mat-dialog-content
+  ><div cdkDropList class="list" (cdkDropListDropped)="drop($event)">
+    @for (element of data.elements; track element.id) {
+      <div class="element" cdkDrag>{{ element.name }}</div>
+    }
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-button (click)="saveReorder()" class="secondary-button">
+    Save
+  </button>
+</mat-dialog-actions>
