@@ -19,11 +19,7 @@
         <div class="top">
           <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
-            <input
-              matInput
-              [formControl]="this.name"
-              (ngModelChange)="this.nameDebouncer.InputSubject.next($event)"
-            />
+            <input matInput [formControl]="this.name" />
             <mat-error *ngIf="name.invalid">{{ getNameError() }}</mat-error>
           </mat-form-field>
           <mat-checkbox
@@ -39,14 +35,7 @@
             <td>
               <mat-form-field appearance="outline">
                 <mat-label>Height</mat-label>
-                <input
-                  matInput
-                  [formControl]="this.height"
-                  type="number"
-                  (ngModelChange)="
-                    this.heightDebouncer.InputSubject.next($event)
-                  "
-                />
+                <input matInput [formControl]="this.height" type="number" />
                 <span matTextSuffix>m</span>
                 <mat-error *ngIf="height.invalid">{{
                   getHeightError()
@@ -56,12 +45,7 @@
             <td>
               <mat-form-field appearance="outline">
                 <mat-label>Age</mat-label>
-                <input
-                  matInput
-                  [formControl]="this.age"
-                  type="number"
-                  (ngModelChange)="this.ageDebouncer.InputSubject.next($event)"
-                />
+                <input matInput [formControl]="this.age" type="number" />
                 <mat-error *ngIf="age.invalid">{{ getAgeError() }}</mat-error>
               </mat-form-field>
             </td>
@@ -71,14 +55,7 @@
             <td>
               <mat-form-field appearance="outline">
                 <mat-label>Weight</mat-label>
-                <input
-                  matInput
-                  [formControl]="this.weight"
-                  type="number"
-                  (ngModelChange)="
-                    this.weightDebouncer.InputSubject.next($event)
-                  "
-                />
+                <input matInput [formControl]="this.weight" type="number" />
                 <span matTextSuffix>kg</span>
                 <mat-error *ngIf="weight.invalid">{{
                   getWeightError()
@@ -88,13 +65,7 @@
             <td>
               <mat-form-field appearance="outline">
                 <mat-label>Money</mat-label>
-                <input
-                  matInput
-                  [formControl]="this.money"
-                  (ngModelChange)="
-                    this.moneyDebouncer.InputSubject.next($event)
-                  "
-                />
+                <input matInput [formControl]="this.money" />
                 <span matTextSuffix>€</span>
                 <mat-error *ngIf="money.invalid">{{
                   getMoneyError()
@@ -110,9 +81,6 @@
             <textarea
               matInput
               [(ngModel)]="this.description"
-              (ngModelChange)="
-                this.descriptionDebouncer.InputSubject.next($event)
-              "
               cdkTextareaAutosize
               #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="2"
@@ -124,7 +92,6 @@
             <textarea
               matInput
               [(ngModel)]="this.notes"
-              (ngModelChange)="this.notesDebouncer.InputSubject.next($event)"
               cdkTextareaAutosize
               #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="2"
@@ -136,9 +103,6 @@
             <textarea
               matInput
               [(ngModel)]="this.experience"
-              (ngModelChange)="
-                this.experienceDebouncer.InputSubject.next($event)
-              "
               cdkTextareaAutosize
               #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="2"

@@ -23,21 +23,13 @@
         <div class="moneyContainer">
           <mat-form-field appearance="outline">
             <mat-label>Money</mat-label>
-            <input
-              matInput
-              [(ngModel)]="money"
-              (ngModelChange)="this.moneyDebouncer.InputSubject.next($event)"
-            />
+            <input matInput [(ngModel)]="money" />
             <span matTextSuffix>€</span>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>C</mat-label>
-            <input
-              matInput
-              [(ngModel)]="c"
-              (ngModelChange)="this.cDebouncer.InputSubject.next($event)"
-            />
+            <input matInput [(ngModel)]="c" />
             <span matTextSuffix>C</span>
           </mat-form-field>
         </div>

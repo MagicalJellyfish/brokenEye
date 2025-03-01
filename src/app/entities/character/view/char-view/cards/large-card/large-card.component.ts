@@ -10,7 +10,6 @@ import { MatInput } from '@angular/material/input';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { Subject } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
-import { Debouncer } from 'src/app/logic/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { ElementTabComponent } from '../../../../../elements/element-tab/element-tab.component';
 
@@ -45,25 +44,25 @@ export class LargeCardComponent implements OnInit {
       this.update();
     });
 
-    this.moneyDebouncer.SaveSubject.subscribe(() => this.updateMoney());
-    this.cDebouncer.SaveSubject.subscribe(() => this.updateC());
+    /* this.moneyDebouncer.OutputSubject.subscribe(() => this.updateMoney());
+    this.cDebouncer.OutputSubject.subscribe(() => this.updateC()); */
   }
 
   update() {
-    if (!this.moneyDebouncer.Debouncing) {
+    /* if (!this.moneyDebouncer.Debouncing) {
       this.money = this.char.money;
     }
 
     if (!this.cDebouncer.Debouncing) {
       this.c = this.char.c;
-    }
+    } */
   }
 
   money = 0;
-  moneyDebouncer = new Debouncer<void>();
+  /* moneyDebouncer = new Debouncer<void>(); */
 
   c = 0;
-  cDebouncer = new Debouncer<void>();
+  /* cDebouncer = new Debouncer<void>(); */
 
   async updateMoney() {
     (

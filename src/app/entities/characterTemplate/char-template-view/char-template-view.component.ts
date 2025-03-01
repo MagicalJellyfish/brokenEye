@@ -42,7 +42,6 @@ import { Subject } from 'rxjs';
 import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTemplate';
 import { Stat } from 'src/app/api-classes/Stats/Stat';
 import { StatValue } from 'src/app/api-classes/Stats/StatValue';
-import { Debouncer } from 'src/app/logic/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
 import { TemplateTabComponent } from '../../templates/template-tab/template-tab.component';
@@ -98,16 +97,18 @@ export class CharTemplateViewComponent implements OnInit {
       this.allStats = stats;
     });
 
-    this.nameDebouncer.SaveSubject.subscribe(() => this.saveName());
-    this.heightDebouncer.SaveSubject.subscribe(() => this.saveHeight());
-    this.weightDebouncer.SaveSubject.subscribe(() => this.saveWeight());
-    this.ageDebouncer.SaveSubject.subscribe(() => this.saveAge());
-    this.moneyDebouncer.SaveSubject.subscribe(() => this.saveMoney());
-    this.experienceDebouncer.SaveSubject.subscribe(() => this.saveExperience());
-    this.descriptionDebouncer.SaveSubject.subscribe(() =>
+    /* this.nameDebouncer.OutputSubject.subscribe(() => this.saveName());
+    this.heightDebouncer.OutputSubject.subscribe(() => this.saveHeight());
+    this.weightDebouncer.OutputSubject.subscribe(() => this.saveWeight());
+    this.ageDebouncer.OutputSubject.subscribe(() => this.saveAge());
+    this.moneyDebouncer.OutputSubject.subscribe(() => this.saveMoney());
+    this.experienceDebouncer.OutputSubject.subscribe(() =>
+      this.saveExperience()
+    );
+    this.descriptionDebouncer.OutputSubject.subscribe(() =>
       this.saveDescription()
     );
-    this.notesDebouncer.SaveSubject.subscribe(() => this.saveNotes());
+    this.notesDebouncer.OutputSubject.subscribe(() => this.saveNotes()); */
 
     (
       await this.requestService.get(
@@ -174,7 +175,7 @@ export class CharTemplateViewComponent implements OnInit {
     }
     this.image = btoa(charCodeString);
 
-    if (!this.experienceDebouncer.Debouncing) {
+    /* if (!this.experienceDebouncer.Debouncing) {
       this.experience = this.charTemplate!.experience;
     }
     if (!this.descriptionDebouncer.Debouncing) {
@@ -211,7 +212,7 @@ export class CharTemplateViewComponent implements OnInit {
       if (this.charTemplate!.age != undefined)
         age = this.charTemplate!.age.toString();
       this.age.setValue(age);
-    }
+    } */
 
     this.isNPC = this.charTemplate!.isNPC;
   }
@@ -249,14 +250,14 @@ export class CharTemplateViewComponent implements OnInit {
     new MatTableDataSource<StatValue>();
   statTableCols: string[] = ['name', 'value'];
 
-  nameDebouncer = new Debouncer<void>();
+  /* nameDebouncer = new Debouncer<void>();
   heightDebouncer = new Debouncer<void>();
   weightDebouncer = new Debouncer<void>();
   ageDebouncer = new Debouncer<void>();
   moneyDebouncer = new Debouncer<void>();
   experienceDebouncer = new Debouncer<void>();
   descriptionDebouncer = new Debouncer<void>();
-  notesDebouncer = new Debouncer<void>();
+  notesDebouncer = new Debouncer<void>(); */
 
   async saveName() {
     (

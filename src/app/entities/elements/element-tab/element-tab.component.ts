@@ -148,43 +148,43 @@ export class ElementTabComponent implements OnInit {
     });
 
     if (this.elementRoute == this.requestService.routes.ability) {
-      this.char.abilities.forEach((x) => {
+      /* this.char.abilities.forEach((x) => {
         this.abilityUsesDebouncers.set(x.id, new Debouncer<string>());
 
         this.abilityUsesDebouncers
           .get(x.id)!
-          .SaveSubject.subscribe((y) => this.updateAbilityUses(x.id, +y));
-      });
+          .OutputSubject.subscribe((y) => this.updateAbilityUses(x.id, +y));
+      }); */
     }
 
     if (this.elementRoute == this.requestService.routes.counter) {
-      this.char.counters.forEach((x) => {
+      /* this.char.counters.forEach((x) => {
         this.counterValueDebouncers.set(x.id, new Debouncer<string>());
 
         this.counterValueDebouncers
           .get(x.id)!
-          .SaveSubject.subscribe((y) => this.updateCounter(x.id, +y));
-      });
+          .OutputSubject.subscribe((y) => this.updateCounter(x.id, +y));
+      }); */
     }
 
     if (this.elementRoute == this.requestService.routes.item) {
-      this.char.items.forEach((x) => {
+      /* this.char.items.forEach((x) => {
         this.itemAmountDebouncers.set(x.id, new Debouncer<string>());
 
         this.itemAmountDebouncers
           .get(x.id)!
-          .SaveSubject.subscribe((y) => this.updateItemAmount(x.id, +y));
-      });
+          .OutputSubject.subscribe((y) => this.updateItemAmount(x.id, +y));
+      }); */
     }
 
     if (this.elementRoute == this.requestService.routes.variable) {
-      this.char.variables.forEach((x) => {
+      /* this.char.variables.forEach((x) => {
         this.variableValueDebouncers.set(x.id, new Debouncer<string>());
 
         this.variableValueDebouncers
           .get(x.id)!
-          .SaveSubject.subscribe((y) => this.updateVariable(x.id, +y));
-      });
+          .OutputSubject.subscribe((y) => this.updateVariable(x.id, +y));
+      }); */
     }
 
     this.elementTable = new MatTableDataSource(this.elements);

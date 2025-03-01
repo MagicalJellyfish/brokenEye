@@ -8,7 +8,6 @@ import { MatInput } from '@angular/material/input';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { Subject } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
-import { Debouncer } from 'src/app/logic/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 
 @Component({
@@ -42,10 +41,10 @@ export class MiscCharCardComponent implements OnInit {
       this.update();
     });
 
-    this.descriptionDebouncer.SaveSubject.subscribe(() =>
+    /* this.descriptionDebouncer.OutputSubject.subscribe(() =>
       this.updateDescription()
     );
-    this.notesDebouncer.SaveSubject.subscribe(() => this.updateNotes());
+    this.notesDebouncer.OutputSubject.subscribe(() => this.updateNotes()); */
   }
 
   update() {
@@ -55,21 +54,21 @@ export class MiscCharCardComponent implements OnInit {
     }
     this.image = btoa(charCodeString);
 
-    if (!this.descriptionDebouncer.Debouncing) {
+    /* if (!this.descriptionDebouncer.Debouncing) {
       this.description = this.char.description;
     }
     if (!this.notesDebouncer.Debouncing) {
       this.notes = this.char.notes;
-    }
+    } */
   }
 
   image: string = '';
 
   description = '';
-  descriptionDebouncer = new Debouncer();
+  /* descriptionDebouncer = new Debouncer(); */
 
   notes = '';
-  notesDebouncer = new Debouncer();
+  /* notesDebouncer = new Debouncer(); */
 
   updateImage(inputEvent: any) {
     let file: File = inputEvent.target.files[0];
