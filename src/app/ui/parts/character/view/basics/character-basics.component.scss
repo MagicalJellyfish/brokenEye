@@ -1,0 +1,44 @@
+mat-form-field {
+  margin-bottom: -1.2em;
+}
+
+.id {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.fields {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid {
+  margin-top: 0.5em;
+  border-top: var(--broken-border);
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  .list {
+    display: flex;
+    flex-direction: column;
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .result {
+      border-top: var(--broken-border);
+    }
+  }
+
+  > * {
+    padding: 0.5em 1.5em;
+  }
+  > :first-child {
+    border-right: var(--broken-border);
+  }
+}
