@@ -2,18 +2,6 @@
   <div>
     <button mat-button routerLink=""><h1>BrokenEye</h1></button>
 
-    <button mat-button [matMenuTriggerFor]="legacyCharMenu">
-      (Legacy) Characters
-    </button>
-    <mat-menu #legacyCharMenu="matMenu">
-      <button mat-menu-item routerLink="legacy/char/view">
-        <mat-icon>search</mat-icon>View
-      </button>
-      <button mat-menu-item routerLink="legacy/char/create">
-        <mat-icon>add</mat-icon>Create
-      </button>
-    </mat-menu>
-
     <button mat-button [matMenuTriggerFor]="charMenu">Characters</button>
     <mat-menu #charMenu="matMenu">
       <button mat-menu-item routerLink="/player/list">

@@ -1,0 +1,14 @@
+.main {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 5fr) minmax(0, 2fr);
+  grid-template-rows: 80vh;
+  column-gap: 1vw;
+
+  margin-bottom: 1vw;
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+  }
+}
