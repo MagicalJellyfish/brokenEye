@@ -1,0 +1,16 @@
+mat-card,
+mat-card-content {
+  height: 100%;
+}
+
+mat-card-content {
+  overflow: hidden;
+}
+
+.money {
+  margin-top: 1vh;
+  margin-bottom: -1em;
+  display: flex;
+  justify-content: center;
+  column-gap: 1vw;
+}

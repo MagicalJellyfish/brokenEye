@@ -1,3 +1,5 @@
+import { ElementList } from '../elements/ElementList';
+
 export interface CharacterView {
   id: number;
   name: string;
@@ -16,17 +18,36 @@ export interface CharacterView {
 
   experience: string;
 
+  money: number;
+  c: number;
+
   hp: number;
   maxHp: number;
   tempHp: number;
   maxTempHp: number;
 
-  deathCounter: DeathCounterModel;
-
   stats: StatModel[];
+
+  elementLists: ElementList[];
 }
 
 interface StatModel {
   name: string;
   value: number;
+}
+
+interface DeathCounterModel {
+  id: number;
+  value: number;
+  max: number;
+}
+
+interface HpImpactModel {
+  name: string;
+  value: string;
+}
+
+export interface InjuryModel {
+  bodypart: Bodypart;
+  injuryLevel: InjuryLevel;
 }

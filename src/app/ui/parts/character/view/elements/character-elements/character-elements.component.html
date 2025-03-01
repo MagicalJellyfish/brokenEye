@@ -1,0 +1,41 @@
+<mat-card>
+  <mat-card-content>
+    <mat-tab-group class="full-height-tabs">
+      @for (elementList of character().elementLists; track $index) {
+        <mat-tab [label]="elementList.title">
+          @if (elementList.subTabs) {
+            <mat-tab-group class="full-height-tabs">
+              @for (subElementList of elementList.elements; track $index) {
+                <mat-tab [label]="subElementList.title">
+                  <character-element-tab
+                    [characterId]="character().id"
+                    [elementList]="subElementList"
+                    [type]="subElementList.type"
+                  ></character-element-tab>
+                </mat-tab>
+              }
+            </mat-tab-group>
+          } @else {
+            @if (elementList.type == ElementTypes.Item) {
+              <div class="money">
+                <mat-form-field>
+                  <mat-label>Money</mat-label>
+                  <input matInput [(ngModel)]="money.value" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>C</mat-label>
+                  <input matInput [(ngModel)]="c.value" />
+                </mat-form-field>
+              </div>
+            }
+            <character-element-tab
+              [characterId]="character().id"
+              [elementList]="elementList"
+              [type]="elementList.type"
+            ></character-element-tab>
+          }
+        </mat-tab>
+      }
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
