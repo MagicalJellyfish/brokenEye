@@ -15,23 +15,13 @@
           <tr>
             <td>
               <mat-form-field appearance="outline">
-                <input
-                  matInput
-                  [(ngModel)]="this.hp"
-                  (ngModelChange)="this.hpDebouncer.InputSubject.next($event)"
-                />
+                <input matInput [(ngModel)]="this.hp" />
                 <span matTextSuffix>/{{ this.char.maxHp }}</span>
               </mat-form-field>
             </td>
             <td>
               <mat-form-field appearance="outline">
-                <input
-                  matInput
-                  [(ngModel)]="this.tempHp"
-                  (ngModelChange)="
-                    this.tempHpDebouncer.InputSubject.next($event)
-                  "
-                />
+                <input matInput [(ngModel)]="this.tempHp" />
                 <span matTextSuffix>/{{ this.char.maxTempHp }}</span>
               </mat-form-field>
             </td>

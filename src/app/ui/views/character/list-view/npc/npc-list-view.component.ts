@@ -24,15 +24,11 @@ export class NpcListViewComponent {
     apiService
       .getCharacterListByFilter({ isNPC: true })
       .subscribe((x) => (this.characters = x));
-
-    this.nameDebouncer.SaveSubject.subscribe((x) => {
-      this.searchCharacters(x);
-    });
   }
 
   protected characters: SimpleCharacter[] | undefined;
 
-  nameDebouncer = new Debouncer<string>(1000);
+  nameDebouncer = new Debouncer<string>(this.searchCharacters, 750);
 
   protected searchCharacters(name: string) {
     this.apiService

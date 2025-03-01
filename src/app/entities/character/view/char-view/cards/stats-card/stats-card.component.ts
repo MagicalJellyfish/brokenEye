@@ -21,7 +21,6 @@ import {
 import { Subject } from 'rxjs';
 import { Character } from 'src/app/api-classes/Characters/Character';
 import { StatValue } from 'src/app/api-classes/Stats/StatValue';
-import { Debouncer } from 'src/app/logic/core/debouncer/debouncer';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { SignalrService } from 'src/app/services/signalr/signalr.service';
 
@@ -64,9 +63,9 @@ export class StatsCardComponent implements OnInit {
       this.update();
     });
 
-    this.experienceDebouncer.SaveSubject.subscribe(() =>
+    /* this.experienceDebouncer.OutputSubject.subscribe(() =>
       this.updateExperience()
-    );
+    ); */
   }
 
   update() {
@@ -75,13 +74,13 @@ export class StatsCardComponent implements OnInit {
     });
     this.statTable = new MatTableDataSource(this.char.stats);
 
-    if (!this.experienceDebouncer.Debouncing) {
+    /* if (!this.experienceDebouncer.Debouncing) {
       this.experience = this.char.experience;
-    }
+    } */
   }
 
   experience = '';
-  experienceDebouncer = new Debouncer<void>();
+  /* experienceDebouncer = new Debouncer<void>(); */
 
   mainTableCols: string[] = ['name', 'value'];
 

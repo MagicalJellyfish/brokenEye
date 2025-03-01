@@ -1,22 +1,57 @@
+import { Signal, WritableSignal, effect, signal } from '@angular/core';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 export class Debouncer<T> {
-  constructor(debounceMs: number = 2000) {
-    this.InputSubject.subscribe(() => {
-      this.Debouncing = true;
+  constructor(trigger: (value: T) => void, debounceMs: number = 2000) {
+    this.inputSubject.subscribe(() => {
+      this.debouncing = true;
     });
 
-    this.InputSubject.pipe(
-      debounceTime(debounceMs),
-      distinctUntilChanged()
-    ).subscribe((x) => {
-      this.SaveSubject.next(x);
-    });
-
-    this.SaveSubject.subscribe((_) => (this.Debouncing = false));
+    this.inputSubject
+      .pipe(debounceTime(debounceMs), distinctUntilChanged())
+      .subscribe((x: T) => {
+        trigger(x);
+        this.debouncing = false;
+      });
   }
 
-  public Debouncing: boolean = false;
-  public InputSubject = new Subject<T>();
-  public SaveSubject = new Subject<T>();
+  public debouncing: boolean = false;
+
+  //TODO: Make private once all views are migrated
+  public inputSubject = new Subject<T>();
+
+  input(value: T) {
+    this.inputSubject.next(value);
+  }
+}
+
+export class ValueDebouncer<T> extends Debouncer<T> {
+  constructor(
+    initialValue: T,
+    inputSignal: Signal<T>,
+    trigger: (value: T) => void,
+    debounceMs: number = 2000,
+  ) {
+    super(trigger, debounceMs);
+
+    this.value = signal<T>(initialValue);
+
+    effect(() => {
+      if (!this.debouncing) {
+        this.value.set(inputSignal());
+      }
+    });
+
+    effect(() => {
+      if (this.initialized) {
+        this.inputSubject.next(this.value());
+      }
+      this.value();
+      this.initialized = true;
+    });
+  }
+
+  private initialized = false;
+
+  public value: WritableSignal<T>;
 }

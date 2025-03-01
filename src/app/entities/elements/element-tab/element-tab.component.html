@@ -50,7 +50,7 @@
               (ngModelChange)="
                 this.abilityUsesDebouncers
                   .get(element.id)!
-                  .InputSubject.next($event)
+                  .inputSubject.next($event)
               "
             />
             <span matTextSuffix>/{{ element.maxUses }}</span>
@@ -117,7 +117,7 @@
               (ngModelChange)="
                 this.counterValueDebouncers
                   .get(element.id)!
-                  .InputSubject.next($event)
+                  .inputSubject.next($event)
               "
             />
             <span matTextSuffix>/{{ element.max }}</span>
@@ -169,7 +169,7 @@
               (ngModelChange)="
                 this.itemAmountDebouncers
                   .get(element.id)!
-                  .InputSubject.next($event)
+                  .inputSubject.next($event)
               "
             />
             <span matTextSuffix>{{ element.unit }}</span>
@@ -203,7 +203,7 @@
               (ngModelChange)="
                 this.variableValueDebouncers
                   .get(element.id)!
-                  .InputSubject.next($event)
+                  .inputSubject.next($event)
               "
             />
           </mat-form-field>
