@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Stats</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <table mat-table [dataSource]="character().stats">
+      <mat-text-column name="name"></mat-text-column>
+      <mat-text-column name="value"></mat-text-column>
+
+      <tr
+        mat-row
+        *matRowDef="let element; columns: ['name', 'value']"
+        class="clickable-table-row"
+        (click)="rollStat(element.stat.id)"
+      ></tr>
+    </table>
+
+    <div class="experienceContainer">
+      <mat-form-field class="full-height-textarea">
+        <mat-label>Experience</mat-label>
+        <textarea
+          matInput
+          [(ngModel)]="experience.value"
+          cdkTextareaAutosize
+        ></textarea>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>

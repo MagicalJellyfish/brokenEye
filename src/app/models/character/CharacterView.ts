@@ -13,4 +13,20 @@ export interface CharacterView {
   evasion: number;
   armor: number;
   defense: number;
+
+  experience: string;
+
+  hp: number;
+  maxHp: number;
+  tempHp: number;
+  maxTempHp: number;
+
+  deathCounter: DeathCounterModel;
+
+  stats: StatModel[];
+}
+
+interface StatModel {
+  name: string;
+  value: number;
 }
