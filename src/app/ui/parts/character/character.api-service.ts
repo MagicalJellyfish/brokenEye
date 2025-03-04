@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CharacterPatch } from 'src/app/models/character/CharacterPatch';
+import { InjuryModel } from 'src/app/models/character/CharacterView';
 import { ElementParentType } from 'src/app/models/elements/types/ElementParentType';
 import { ElementType } from 'src/app/models/elements/types/ElementType';
 
@@ -34,6 +35,13 @@ export class CharacterApiService {
 
   deleteCharacter(id: number) {
     return this.http.delete('brokenHeart:/character/' + id);
+  }
+
+  saveInjuries(id: number, injuries: InjuryModel[]) {
+    return this.http.put(
+      'brokenHeart:/character/' + id + '/injuries',
+      injuries,
+    );
   }
 
   createElement(type: ElementType, parentId: number) {

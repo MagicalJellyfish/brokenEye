@@ -1,0 +1,69 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> Health </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="health-card">
+    <div class="hp-fields">
+      <mat-form-field>
+        <mat-label>HP</mat-label>
+        <input matInput [(ngModel)]="hp.value" />
+        <span matTextSuffix>/{{ character().maxHp }}</span>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Temp HP</mat-label>
+        <input matInput [(ngModel)]="tempHp.value" />
+        <span matTextSuffix>/{{ character().maxTempHp }}</span>
+      </mat-form-field>
+    </div>
+
+    <div class="round-based">
+      <mat-card>
+        <mat-card-content class="hp-impacts">
+          <span class="round-based-header">HP Impacts</span>
+
+          <mat-divider></mat-divider>
+
+          <table mat-table [dataSource]="character().hpImpacts">
+            <mat-text-column name="name"></mat-text-column>
+
+            <ng-container matColumnDef="hp">
+              <td mat-cell *matCellDef="let element">
+                {{ element.value > 0 ? "+" + element.value : element.value }}
+              </td>
+            </ng-container>
+
+            <tr mat-row *matRowDef="let row; columns: ['name', 'hp']"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-content class="death-counter">
+          <span
+            class="round-based-header clickable"
+            matRipple
+            (click)="openDeathCounterDialog()"
+          >
+            Dying
+          </span>
+
+          <mat-divider></mat-divider>
+
+          @for (value of deathCountDebouncer.value(); track $index) {
+            <span>
+              <mat-checkbox
+                [disabled]="
+                  !($index == 0 || deathCountDebouncer.value()[$index - 1])
+                "
+                [ngModel]="deathCountDebouncer.value()[$index]"
+                (ngModelChange)="updateDeathCount($index, $event)"
+              ></mat-checkbox>
+            </span>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <character-injuries [character]="character()"></character-injuries>
+  </mat-card-content>
+</mat-card>

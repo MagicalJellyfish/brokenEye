@@ -1,4 +1,6 @@
 import { ElementList } from '../elements/ElementList';
+import { Bodypart } from './Bodypart';
+import { InjuryLevel } from './InjuryLevel';
 
 export interface CharacterView {
   id: number;
@@ -26,7 +28,13 @@ export interface CharacterView {
   tempHp: number;
   maxTempHp: number;
 
+  deathCounter: DeathCounterModel;
+
   stats: StatModel[];
+
+  hpImpacts: HpImpactModel[];
+
+  injuries: InjuryModel[];
 
   elementLists: ElementList[];
 }
@@ -38,6 +46,7 @@ interface StatModel {
 
 interface DeathCounterModel {
   id: number;
+  valueFieldId: number;
   value: number;
   max: number;
 }
