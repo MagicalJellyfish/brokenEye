@@ -1,0 +1,30 @@
+svg {
+  height: 100%;
+
+  g {
+    *:hover {
+      filter: brightness(70%);
+    }
+
+    .healthy {
+      fill: #09d109;
+    }
+
+    .minorInjury {
+      fill: #e0d500;
+    }
+
+    .mediumInjury {
+      fill: #e38100;
+    }
+
+    .majorInjury {
+      fill: #b00d0d;
+    }
+
+    .dismembered {
+      fill: none;
+      pointer-events: visible;
+    }
+  }
+}
