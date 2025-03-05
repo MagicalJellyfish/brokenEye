@@ -1,0 +1,66 @@
+<mat-card>
+  <mat-card-content>
+    <mat-form-field class="full-height-textarea">
+      <mat-label>Notes</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="notes.value"
+        cdkTextareaAutosize
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="full-height-textarea">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="description.value"
+        cdkTextareaAutosize
+      ></textarea>
+    </mat-form-field>
+
+    <div class="glaceable">
+      @if (imageUrl) {
+        <img
+          [ngSrc]="imageUrl"
+          (error)="imageFailed = true"
+          width="100"
+          height="100"
+          priority
+          onerror="this.onerror=null;this.src='assets/placeholder.svg'"
+        />
+      }
+
+      <div class="grid">
+        <div class="info">
+          <mat-form-field>
+            <mat-label>Age</mat-label>
+            <input matInput [(ngModel)]="age.value" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Height</mat-label>
+            <input matInput [(ngModel)]="height.value" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Weight</mat-label>
+            <input matInput [(ngModel)]="weight.value" />
+          </mat-form-field>
+        </div>
+        <div class="image-control">
+          <button mat-button (click)="imageInput.click()">Upload image</button>
+          <input
+            #imageInput
+            hidden="true"
+            type="file"
+            onclick="this.value=null"
+            (change)="uploadImage($event)"
+            accept="image/*"
+          />
+          <button mat-button (click)="deleteImage()">Remove image</button>
+          <button mat-button (click)="deleteCharacter()" class="error-button">
+            Delete character
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

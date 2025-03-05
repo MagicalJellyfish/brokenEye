@@ -5,6 +5,7 @@ import { CharacterView } from 'src/app/models/character/CharacterView';
 import { SignalrService } from 'src/app/services/signalr/signalr.service';
 import { CharacterElementsComponent } from 'src/app/ui/parts/character/view/elements/character-elements/character-elements.component';
 import { CharacterBasicsComponent } from '../../../parts/character/view/basics/character-basics.component';
+import { CharacterFlavorComponent } from '../../../parts/character/view/flavor/character-flavor.component';
 import { CharacterHealthComponent } from '../../../parts/character/view/health/character-health/character-health.component';
 import { CharacterStatsComponent } from '../../../parts/character/view/stats/character-stats.component';
 import { CharacterViewApiService } from '../character-view.api-service';
@@ -18,6 +19,7 @@ import { CharacterViewApiService } from '../character-view.api-service';
     CharacterStatsComponent,
     CharacterElementsComponent,
     CharacterHealthComponent,
+    CharacterFlavorComponent,
   ],
 })
 export class CharacterViewComponent {

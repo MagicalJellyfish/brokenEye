@@ -1,0 +1,44 @@
+mat-card-content {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 3fr) minmax(0, 1fr);
+  column-gap: 1vw;
+  height: 100%;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .glaceable {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1vh;
+
+    img {
+      border-radius: 1vw;
+      width: 100%;
+      height: 100%;
+    }
+
+    .img-placeholder {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, auto);
+
+      .info {
+        mat-form-field {
+          width: 5vw;
+        }
+      }
+
+      .image-control {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1vh;
+      }
+    }
+  }
+}
