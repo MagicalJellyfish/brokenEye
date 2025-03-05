@@ -19,6 +19,8 @@ export interface CharacterView {
   defense: number;
 
   experience: string;
+  description: string;
+  notes: string;
 
   money: number;
   c: number;
