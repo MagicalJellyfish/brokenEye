@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   MatCard,
+  MatCardContent,
   MatCardHeader,
   MatCardTitle,
-  MatCardContent,
 } from '@angular/material/card';
 
 @Component({
@@ -12,8 +12,4 @@ import {
   styleUrls: ['./index.component.scss'],
   imports: [MatCard, MatCardHeader, MatCardTitle, MatCardContent],
 })
-export class IndexComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class IndexComponent {}
