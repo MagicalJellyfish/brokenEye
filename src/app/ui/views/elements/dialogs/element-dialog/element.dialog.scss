@@ -1,0 +1,51 @@
+mat-dialog-content {
+  width: 90vw;
+
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 4fr) minmax(0, 3fr);
+  column-gap: 2vw;
+
+  .texts {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1vh;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  .fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 1vw;
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    .field-title {
+      font-weight: 600;
+    }
+
+    .field-fixed {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field-boolean {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .multi {
+      font-size: var(--mat-sys-body-large-size);
+      display: flex;
+      align-items: start;
+
+      .separator {
+        margin-top: 0.5em;
+      }
+    }
+  }
+}

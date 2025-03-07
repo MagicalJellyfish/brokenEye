@@ -1,0 +1,164 @@
+<mat-dialog-content>
+  @if (element) {
+    <div class="texts">
+      @for (text of element.texts; track text.title) {
+        <div>
+          <mat-form-field>
+            <mat-label>{{ text.title }}</mat-label>
+            <textarea
+              matInput
+              cdkTextareaAutosize
+              [(ngModel)]="text.content"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      }
+    </div>
+    <div class="fields">
+      @for (field of element.fields; track field.title) {
+        @switch (field.type) {
+          @case (fieldTypes.Fixed) {
+            <div class="field-fixed">
+              <span class="field-title">{{ field.title }}</span>
+              <span>{{ field.content }}</span>
+            </div>
+          }
+          @case (fieldTypes.String) {
+            <div>
+              <mat-form-field>
+                <mat-label>{{ field.title }}</mat-label>
+                <input matInput [(ngModel)]="field.content" />
+              </mat-form-field>
+            </div>
+          }
+          @case (fieldTypes.Number) {
+            <div>
+              <mat-form-field>
+                <mat-label>{{ field.title }}</mat-label>
+                <input matInput [(ngModel)]="field.content" />
+              </mat-form-field>
+            </div>
+          }
+          @case (fieldTypes.Boolean) {
+            <div class="field-boolean">
+              <span class="field-title">{{ field.title }}</span>
+              <mat-checkbox [(ngModel)]="field.content"></mat-checkbox>
+            </div>
+          }
+          @case (fieldTypes.Enum) {
+            <div>
+              <mat-form-field>
+                <mat-label>{{ field.title }}</mat-label>
+                <mat-select [(ngModel)]="field.content.value">
+                  @for (
+                    option of enumOptions(field.content.type);
+                    track $index
+                  ) {
+                    <mat-option [value]="option.value">{{
+                      option.name
+                    }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          }
+          @case (fieldTypes.Multi) {
+            <div class="multi">
+              <mat-form-field>
+                <mat-label>{{ field.content.fields[0].title }}</mat-label>
+                <input matInput [(ngModel)]="field.content.fields[0].content" />
+              </mat-form-field>
+              <span class="separator">{{ field.content.separator }}</span>
+              <mat-form-field>
+                <mat-label>{{ field.content.fields[0].title }}</mat-label>
+                <input matInput [(ngModel)]="field.content.fields[1].content" />
+              </mat-form-field>
+            </div>
+          }
+        }
+      }
+    </div>
+    <div class="relations">
+      <mat-tab-group class="full-height-tabs">
+        @for (list of element.relations; track list.title) {
+          <mat-tab [label]="list.title" class="tab">
+            @if (list.relationItems) {
+              <table mat-table [dataSource]="list.relationItems">
+                <mat-text-column name="name"></mat-text-column>
+
+                @if (list.relationType == relationTypes.Roll) {
+                  <mat-text-column name="roll"></mat-text-column>
+                }
+                @if (list.relationType == relationTypes.Stats) {
+                  <mat-text-column name="value"></mat-text-column>
+                }
+
+                <tr
+                  mat-row
+                  *matRowDef="
+                    let row;
+                    columns: relationColumns(list.relationType)
+                  "
+                  [ngClass]="{
+                    'clickable-table-row': listIsElementType(list.relationType),
+                  }"
+                  (click)="
+                    listIsElementType(list.relationType) &&
+                      openNestedDialog(row.id, list.elementType)
+                  "
+                ></tr>
+              </table>
+            }
+            @switch (list.relationType) {
+              @case (relationTypes.Roll) {
+                <button
+                  mat-button
+                  (click)="openRollEditDialog(list.relationItems)"
+                >
+                  Edit
+                </button>
+              }
+              @case (relationTypes.Stats) {
+                <button
+                  mat-button
+                  (click)="openStatEditDialog(list.relationItems)"
+                >
+                  Edit
+                </button>
+              }
+              @case (relationTypes.SingleElement) {
+                @if (list.relationItems.length == 0) {
+                  <button
+                    mat-button
+                    (click)="createNestedElement(list.elementType)"
+                  >
+                    Create Element
+                  </button>
+                }
+              }
+              @case (relationTypes.MultipleElements) {
+                <button
+                  mat-button
+                  (click)="createNestedElement(list.elementType)"
+                >
+                  Add Element
+                </button>
+              }
+            }
+          </mat-tab>
+        }
+      </mat-tab-group>
+    </div>
+  }
+</mat-dialog-content>
+<mat-dialog-actions>
+  @if (data.type != elementTypes.InjuryEffect) {
+    <button mat-button class="error-button" (click)="deleteElement()">
+      Delete
+    </button>
+  }
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-button (click)="saveElement()" class="secondary-button">
+    Save
+  </button>
+</mat-dialog-actions>
