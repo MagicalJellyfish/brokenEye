@@ -111,14 +111,19 @@ export class ElementDialog {
 
   openRollEditDialog(rolls: RollRelationItem[]) {
     this.dialog
-      .open(RollDialog, { data: { rolls: rolls } })
+      .open(RollDialog, { data: { parentId: this.data.id, rolls: rolls } })
       .afterClosed()
       .subscribe((_) => this.getElement());
   }
 
   openStatEditDialog(stats: StatRelationItem[]) {
     this.dialog
-      .open(StatDialog, { data: { stats: stats } })
+      .open(StatDialog, {
+        data: {
+          parentId: this.data.id,
+          stats: stats,
+        },
+      })
       .afterClosed()
       .subscribe((_) => this.getElement());
   }

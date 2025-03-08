@@ -1,0 +1,41 @@
+<mat-dialog-content>
+  <table mat-table [dataSource]="rolls">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-form-field>
+          <input matInput [(ngModel)]="element.name" />
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="roll">
+      <th mat-header-cell *matHeaderCellDef>Roll</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-form-field>
+          <input matInput [(ngModel)]="element.roll" />
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="remove(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'roll', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'roll', 'actions']"></tr>
+  </table>
+
+  <button mat-button (click)="add()">Add roll</button>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-button (click)="saveRolls()" class="secondary-button">
+    Save
+  </button>
+</mat-dialog-actions>

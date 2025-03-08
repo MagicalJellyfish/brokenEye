@@ -1,0 +1,23 @@
+<mat-dialog-content>
+  <table mat-table [dataSource]="statValues">
+    <mat-text-column name="name"></mat-text-column>
+
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef>Value</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-form-field>
+          <input matInput [(ngModel)]="element.value" />
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'value']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'value']"></tr>
+  </table>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-button (click)="saveValues()" class="secondary-button">
+    Save
+  </button>
+</mat-dialog-actions>
