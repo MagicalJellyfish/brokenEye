@@ -20,7 +20,7 @@ import { ParentData, ParentType } from 'src/app/entities/ParentData';
 import { TemplateSelectComponent } from 'src/app/entities/templates/template-select/template-select.component';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
-import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialog } from 'src/app/ui/core/confirmation-dialog/confirmation.dialog';
 import { ElementViewComponent } from '../../element-view/element-view.component';
 
 @Component({
@@ -46,7 +46,7 @@ export class ElementDialogTabSingleComponent {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
   ) {}
 
   @Input() parentData!: ParentData;
@@ -87,7 +87,7 @@ export class ElementDialogTabSingleComponent {
         (
           await this.requestService.get(
             this.parentData.parentRoute,
-            this.parentData.parentId
+            this.parentData.parentId,
           )
         ).subscribe((x: any) => {
           this.element = x[this.elementName];
@@ -116,7 +116,7 @@ export class ElementDialogTabSingleComponent {
       (x: any) => {
         this.element = x;
         this.elementTable = new MatTableDataSource([this.element!]);
-      }
+      },
     );
   }
 
@@ -133,7 +133,7 @@ export class ElementDialogTabSingleComponent {
           await this.requestService.get(
             this.requestService.elementToTemplateRoute(this.elementRoute) +
               '/Instantiate',
-            template.id
+            template.id,
           )
         ).subscribe(async (newElement: any) => {
           switch (this.parentData.parentType) {
@@ -157,7 +157,7 @@ export class ElementDialogTabSingleComponent {
 
   async removeElement() {
     this.matDialog
-      .open(ConfirmationDialogComponent, {
+      .open(ConfirmationDialog, {
         data: { message: 'Are you sure you want to delete this element?' },
       })
       .afterClosed()

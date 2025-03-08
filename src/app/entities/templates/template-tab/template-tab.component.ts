@@ -22,7 +22,7 @@ import { Subject } from 'rxjs';
 import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTemplate';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
-import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialog } from 'src/app/ui/core/confirmation-dialog/confirmation.dialog';
 import { TemplateEditComponent } from '../template-edit/template-edit.component';
 import { TemplateSelectComponent } from '../template-select/template-select.component';
 import { TemplateViewComponent } from '../template-view/template-view.component';
@@ -55,7 +55,7 @@ export class TemplateTabComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
   ) {}
 
   @Input() charTemplate!: CharacterTemplate;
@@ -71,7 +71,7 @@ export class TemplateTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string
+        filter: string,
       ): boolean {
         return data.reminder.toLowerCase().includes(filter);
       };
@@ -100,7 +100,7 @@ export class TemplateTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string
+        filter: string,
       ): boolean {
         return data.name.toLowerCase().includes(filter);
       };
@@ -301,10 +301,10 @@ export class TemplateTabComponent implements OnInit {
               (edited) => {
                 this.elements.push(edited);
                 this.update();
-              }
+              },
             );
           });
-      }
+      },
     );
   }
 
@@ -338,7 +338,7 @@ export class TemplateTabComponent implements OnInit {
       .subscribe(async (deleted) => {
         if (deleted) {
           this.elements = this.elements.filter(
-            (x: { id: number }) => x.id != id
+            (x: { id: number }) => x.id != id,
           );
           this.update();
         } else {
@@ -350,7 +350,7 @@ export class TemplateTabComponent implements OnInit {
                 }
               }
               this.update();
-            }
+            },
           );
         }
       });
@@ -371,7 +371,7 @@ export class TemplateTabComponent implements OnInit {
       });
     } else {
       this.matDialog
-        .open(ConfirmationDialogComponent, {
+        .open(ConfirmationDialog, {
           data: { message: 'Are you sure you want to delete this element?' },
         })
         .afterClosed()
@@ -380,10 +380,10 @@ export class TemplateTabComponent implements OnInit {
             (await this.requestService.delete(this.elementRoute, id)).subscribe(
               (_) => {
                 this.elements = this.elements.filter(
-                  (x: { id: number }) => x.id != id
+                  (x: { id: number }) => x.id != id,
                 );
                 this.update();
-              }
+              },
             );
           }
         });
