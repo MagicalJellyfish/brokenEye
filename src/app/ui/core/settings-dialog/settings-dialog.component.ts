@@ -8,7 +8,6 @@ import {
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { SettingsService } from 'src/app/services/settings/settings.service';
 
 @Component({
   selector: 'app-settings-dialog',
@@ -24,6 +23,4 @@ import { SettingsService } from 'src/app/services/settings/settings.service';
     MatDialogClose,
   ],
 })
-export class SettingsDialogComponent {
-  constructor(private settingsService: SettingsService) {}
-}
+export class SettingsDialogComponent {}
