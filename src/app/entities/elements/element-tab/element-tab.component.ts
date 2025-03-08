@@ -29,7 +29,7 @@ import { Character } from 'src/app/api-classes/Characters/Character';
 import { Debouncer } from 'src/app/logic/core/debouncer/debouncer';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
-import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialog } from 'src/app/ui/core/confirmation-dialog/confirmation.dialog';
 import { TemplateSelectComponent } from '../../templates/template-select/template-select.component';
 import { ElementEditComponent } from '../element-edit/element-edit.component';
 import { ElementOrderComponent } from '../element-order/element-order.component';
@@ -66,7 +66,7 @@ export class ElementTabComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private objectService: ObjectService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
   ) {}
 
   @Input() pcSubject!: Subject<Character>;
@@ -82,7 +82,7 @@ export class ElementTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string
+        filter: string,
       ): boolean {
         return data.reminder.toLowerCase().includes(filter);
       };
@@ -121,7 +121,7 @@ export class ElementTabComponent implements OnInit {
 
       this.elementTable.filterPredicate = function (
         data,
-        filter: string
+        filter: string,
       ): boolean {
         return data.name.toLowerCase().includes(filter);
       };
@@ -142,7 +142,7 @@ export class ElementTabComponent implements OnInit {
 
     this.elements.sort(function (
       a: { viewPosition: number },
-      b: { viewPosition: number }
+      b: { viewPosition: number },
     ) {
       return a.viewPosition - b.viewPosition;
     });
@@ -351,7 +351,7 @@ export class ElementTabComponent implements OnInit {
           maxWidth: '90vw',
           data: { id: x.id, route: this.elementRoute },
         });
-      }
+      },
     );
   }
 
@@ -374,7 +374,7 @@ export class ElementTabComponent implements OnInit {
           await this.requestService.get(
             this.requestService.elementToTemplateRoute(this.elementRoute) +
               '/Instantiate',
-            template.id
+            template.id,
           )
         ).subscribe(async (element: any) => {
           element.characterId = this.char.id;
@@ -394,7 +394,7 @@ export class ElementTabComponent implements OnInit {
 
   async deleteElement(id: number) {
     this.matDialog
-      .open(ConfirmationDialogComponent, {
+      .open(ConfirmationDialog, {
         data: { message: 'Are you sure you want to delete this element?' },
       })
       .afterClosed()
@@ -412,7 +412,7 @@ export class ElementTabComponent implements OnInit {
         id,
         JSON.stringify({
           uses: uses,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -424,7 +424,7 @@ export class ElementTabComponent implements OnInit {
         id,
         JSON.stringify({
           value: value,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -436,7 +436,7 @@ export class ElementTabComponent implements OnInit {
         id,
         JSON.stringify({
           amount: value,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -448,7 +448,7 @@ export class ElementTabComponent implements OnInit {
         id,
         JSON.stringify({
           value: value,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -456,7 +456,7 @@ export class ElementTabComponent implements OnInit {
   async updateCheckbox(
     id: number,
     propertyName: string,
-    event: MatCheckboxChange
+    event: MatCheckboxChange,
   ) {
     (
       await this.requestService.patch(
@@ -464,7 +464,7 @@ export class ElementTabComponent implements OnInit {
         id,
         JSON.stringify({
           [propertyName]: event.checked,
-        })
+        }),
       )
     ).subscribe();
   }

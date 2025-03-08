@@ -25,7 +25,7 @@ import { TargetType } from 'src/app/api-classes/Abilities/Abilities/TargetType';
 import { ObjectService } from 'src/app/services/entities/object/object.service';
 import { RequestService } from 'src/app/services/entities/request/request.service';
 import { PersistencyService } from 'src/app/services/persistency/persistency.service';
-import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialog } from 'src/app/ui/core/confirmation-dialog/confirmation.dialog';
 import { ParentData, ParentType } from '../../ParentData';
 import { RollDialogTabComponent } from '../../roll/roll-dialog-tab/roll-dialog-tab.component';
 import { StatDialogTabComponent } from '../../stat/stat-dialog-tab/stat-dialog-tab.component';
@@ -72,21 +72,21 @@ export class TemplateEditComponent implements OnInit {
     public dialogRef: MatDialogRef<TemplateEditComponent>,
     private matDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { id: number; route: string },
-    protected persistencyService: PersistencyService
+    protected persistencyService: PersistencyService,
   ) {
     if (data.route.includes('Counter')) {
       this.parentData = new ParentData(
         ParentType.Counter,
         data.route,
         data.id,
-        true
+        true,
       );
     } else {
       this.parentData = new ParentData(
         ParentType.Modifier,
         data.route,
         data.id,
-        true
+        true,
       );
     }
   }
@@ -105,7 +105,7 @@ export class TemplateEditComponent implements OnInit {
         }
 
         this.elementSubject.next(x);
-      }
+      },
     );
   }
 
@@ -115,7 +115,7 @@ export class TemplateEditComponent implements OnInit {
   selectedTargetType: string = TargetType[TargetType.None];
 
   replenishTypeOptions = Object.keys(ReplenishType).filter((x) =>
-    isNaN(Number(x))
+    isNaN(Number(x)),
   );
   selectedReplenishType: string = ReplenishType[ReplenishType.None];
 
@@ -147,7 +147,7 @@ export class TemplateEditComponent implements OnInit {
         await this.requestService.patch(
           this.data.route,
           this.element.id,
-          JSON.stringify(requestElement)
+          JSON.stringify(requestElement),
         )
       ).subscribe();
     }
@@ -157,7 +157,7 @@ export class TemplateEditComponent implements OnInit {
 
   async delete() {
     this.matDialog
-      .open(ConfirmationDialogComponent, {
+      .open(ConfirmationDialog, {
         data: { message: 'Are you sure you want to delete this element?' },
       })
       .afterClosed()

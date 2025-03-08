@@ -43,7 +43,7 @@ import { CharacterTemplate } from 'src/app/api-classes/Characters/CharacterTempl
 import { Stat } from 'src/app/api-classes/Stats/Stat';
 import { StatValue } from 'src/app/api-classes/Stats/StatValue';
 import { RequestService } from 'src/app/services/entities/request/request.service';
-import { ConfirmationDialogComponent } from 'src/app/ui/parts/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialog } from 'src/app/ui/core/confirmation-dialog/confirmation.dialog';
 import { TemplateTabComponent } from '../../templates/template-tab/template-tab.component';
 
 @Component({
@@ -85,13 +85,13 @@ export class CharTemplateViewComponent implements OnInit {
     private route: ActivatedRoute,
     protected requestService: RequestService,
     private matDialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
 
   async ngOnInit(): Promise<void> {
     (
       await this.requestService.getAll(
-        this.requestService.routes.constant + '/Stats'
+        this.requestService.routes.constant + '/Stats',
       )
     ).subscribe((stats: any) => {
       this.allStats = stats;
@@ -113,7 +113,7 @@ export class CharTemplateViewComponent implements OnInit {
     (
       await this.requestService.get(
         this.requestService.routes.characterTemplate,
-        +this.route.snapshot.paramMap.get('id')!
+        +this.route.snapshot.paramMap.get('id')!,
       )
     ).subscribe((x: any) => {
       this.charTemplate = x;
@@ -153,7 +153,7 @@ export class CharTemplateViewComponent implements OnInit {
     this.allStats.forEach((stat) => {
       let totalIncrease = 0;
       let relevantStatIncreases = statIncreases.filter(
-        (x) => x.statId == stat.id
+        (x) => x.statId == stat.id,
       );
       relevantStatIncreases.forEach((relevantStatIncrease) => {
         totalIncrease += relevantStatIncrease.value;
@@ -266,7 +266,7 @@ export class CharTemplateViewComponent implements OnInit {
         this.charTemplate!.id,
         JSON.stringify({
           name: this.name.value,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -285,7 +285,7 @@ export class CharTemplateViewComponent implements OnInit {
           experience: this.experience,
           description: this.description,
           notes: this.notes,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -303,7 +303,7 @@ export class CharTemplateViewComponent implements OnInit {
           experience: this.experience,
           description: this.description,
           notes: this.notes,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -315,7 +315,7 @@ export class CharTemplateViewComponent implements OnInit {
         this.charTemplate!.id,
         JSON.stringify({
           age: this.age.value,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -327,7 +327,7 @@ export class CharTemplateViewComponent implements OnInit {
         this.charTemplate!.id,
         JSON.stringify({
           money: this.money.value,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -339,7 +339,7 @@ export class CharTemplateViewComponent implements OnInit {
         this.charTemplate!.id,
         JSON.stringify({
           isNPC: this.isNPC,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -351,7 +351,7 @@ export class CharTemplateViewComponent implements OnInit {
         this.charTemplate!.id,
         JSON.stringify({
           experience: this.experience,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -363,7 +363,7 @@ export class CharTemplateViewComponent implements OnInit {
         this.charTemplate!.id,
         JSON.stringify({
           description: this.description,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -375,7 +375,7 @@ export class CharTemplateViewComponent implements OnInit {
         this.charTemplate!.id,
         JSON.stringify({
           notes: this.notes,
-        })
+        }),
       )
     ).subscribe();
   }
@@ -401,7 +401,7 @@ export class CharTemplateViewComponent implements OnInit {
             this.charTemplate!.id,
             JSON.stringify({
               image: byteArray,
-            })
+            }),
           )
         ).subscribe((_) => (this.image = resultString.substring(22)));
       };
@@ -414,13 +414,13 @@ export class CharTemplateViewComponent implements OnInit {
     (
       await this.requestService.get(
         this.requestService.routes.characterTemplate + '/Instantiate',
-        this.charTemplate!.id
+        this.charTemplate!.id,
       )
     ).subscribe(async (x) => {
       (
         await this.requestService.create(
           this.requestService.routes.character,
-          x
+          x,
         )
       ).subscribe((x: any) => {
         let snackBarRef = this.snackBar.open('Character was created!', 'Open', {
@@ -436,7 +436,7 @@ export class CharTemplateViewComponent implements OnInit {
 
   async delete() {
     this.matDialog
-      .open(ConfirmationDialogComponent, {
+      .open(ConfirmationDialog, {
         data: {
           message: 'Are you sure you want to delete this Character Template?',
         },
@@ -447,7 +447,7 @@ export class CharTemplateViewComponent implements OnInit {
           (
             await this.requestService.delete(
               this.requestService.routes.characterTemplate,
-              this.charTemplate!.id
+              this.charTemplate!.id,
             )
           ).subscribe((_) => {
             this.router.navigate(['legacy/charTemplate/view']);
