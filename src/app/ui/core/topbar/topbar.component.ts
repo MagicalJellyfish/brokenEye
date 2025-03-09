@@ -9,7 +9,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
-import { DiscordUidEditComponent } from '../discord-uid-edit/discord-uid-edit.component';
+import { DiscordUidEditDialog } from '../discord-uid-edit/discord-uid-edit.dialog';
 import { SettingsDialogComponent } from '../settings-dialog/settings-dialog.component';
 
 @Component({
@@ -33,7 +33,7 @@ export class TopbarComponent implements OnInit {
   constructor(
     protected userService: UserService,
     private matDialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {}
@@ -48,6 +48,6 @@ export class TopbarComponent implements OnInit {
   }
 
   changeDiscordUserId() {
-    this.matDialog.open(DiscordUidEditComponent);
+    this.matDialog.open(DiscordUidEditDialog);
   }
 }
