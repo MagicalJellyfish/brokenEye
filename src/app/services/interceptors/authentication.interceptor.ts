@@ -15,15 +15,13 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   constructor(
     private snackBar: MatSnackBar,
     private userService: UserService,
-    private apiUrlService: ApiUrlService
+    private apiUrlService: ApiUrlService,
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler) {
     if (
       this.userService.accessToken != undefined &&
-      (request.url.includes('brokenHeart:') ||
-        request.url.includes(this.apiUrlService.url())) &&
-      !request.url.includes('brokenAuth:')
+      request.url.includes('brokenHeart:')
     ) {
       let firstAttempt: boolean = true;
 
@@ -32,10 +30,10 @@ export class AuthenticationInterceptor implements HttpInterceptor {
           request.clone({
             headers: request.headers.set(
               'Authorization',
-              'Bearer ' + this.userService.accessToken
+              'Bearer ' + this.userService.accessToken,
             ),
-          })
-        )
+          }),
+        ),
       ).pipe(
         concatMap((authenticatedRequest) => {
           return next.handle(authenticatedRequest);
@@ -61,7 +59,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             this.errorMessaging(error);
             return throwError(() => error);
           },
-        })
+        }),
       );
     }
 
@@ -69,7 +67,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       catchError((error) => {
         this.errorMessaging(error);
         return throwError(() => error);
-      })
+      }),
     );
   }
 
