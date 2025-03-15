@@ -1,4 +1,6 @@
 export enum ElementType {
+  Character,
+
   Ability,
   Trait,
   Item,
@@ -17,5 +19,4 @@ export enum ElementType {
   InjuryEffectTemplate,
   CounterTemplate,
   ReminderTemplate,
-  VariableTemplate,
 }
