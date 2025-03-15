@@ -5,18 +5,12 @@
   <mat-card-content>
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input
-        matInput
-        ngModel
-        (ngModelChange)="this.nameDebouncer.input($event)"
-      />
+      <input matInput ngModel [(ngModel)]="name" />
     </mat-form-field>
 
-    @if (characters) {
-      <character-list
-        [characters]="characters"
-        [showCreateButton]="true"
-      ></character-list>
-    }
+    <character-list
+      [characters]="filteredCharacters()"
+      [showCreateButton]="true"
+    ></character-list>
   </mat-card-content>
 </mat-card>

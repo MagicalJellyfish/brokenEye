@@ -6,6 +6,7 @@ import {
   input,
   linkedSignal,
   output,
+  signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -87,7 +88,24 @@ export class ElementListComponent {
     return columnNames;
   });
 
-  elements = computed(() => this.elementList().elements);
+  elements = computed(() =>
+    this.elementList().elements.filter((x) => {
+      return this.columns()
+        .filter((y) => y.searchable)
+        .some((column) => {
+          if (
+            x[column.property]
+              .toLowerCase()
+              .includes(this.search().toLowerCase())
+          ) {
+            return true;
+          }
+          return false;
+        });
+    }),
+  );
+
+  search = signal('');
 
   readonly ColumnTypes = ElementColumnType;
 
