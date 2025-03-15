@@ -10,7 +10,7 @@ export interface ElementList {
 
 interface ElementColumn {
   title: string;
-  fieldId: number;
+  fieldId: string;
   property: string;
   propertyOf: string | null;
   columnType: ElementColumnType;

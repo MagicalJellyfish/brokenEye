@@ -48,7 +48,7 @@ interface StatModel {
 
 interface DeathCounterModel {
   id: number;
-  valueFieldId: number;
+  valueFieldId: string;
   value: number;
   max: number;
 }
