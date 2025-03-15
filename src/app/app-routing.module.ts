@@ -3,6 +3,7 @@ import { AccountComponent } from './ui/core/account/account/account.component';
 import { NpcListViewComponent } from './ui/views/character/list-view/npc/npc-list-view.component';
 import { PlayerListViewComponent } from './ui/views/character/list-view/player/player-list-view.component';
 import { CharacterViewComponent } from './ui/views/character/view/character-view.component';
+import { TemplateViewComponent } from './ui/views/elements/templates/template-view/template-view.component';
 import { IndexComponent } from './ui/views/index/index.component';
 
 export const routes: Routes = [
@@ -13,4 +14,6 @@ export const routes: Routes = [
   { path: 'npc/list', component: NpcListViewComponent },
 
   { path: 'character/:id', component: CharacterViewComponent },
+
+  { path: 'template/list', component: TemplateViewComponent },
 ];

@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { RollRelationItem } from 'src/app/models/elements/ElementView';
+import { ElementType } from 'src/app/models/elements/types/ElementType';
 import { ElementApiService } from '../../element.api-service';
 
 @Component({
@@ -31,8 +32,11 @@ import { ElementApiService } from '../../element.api-service';
 export class RollDialog {
   constructor(private apiService: ElementApiService) {}
 
-  data: { parentId: number; rolls: RollRelationItem[] } =
-    inject(MAT_DIALOG_DATA);
+  data: {
+    parentType: ElementType;
+    parentId: number;
+    rolls: RollRelationItem[];
+  } = inject(MAT_DIALOG_DATA);
   readonly dialogRef = inject(MatDialogRef<RollDialog>);
 
   rolls = [...this.data.rolls];
@@ -46,16 +50,11 @@ export class RollDialog {
   }
 
   saveRolls() {
-    this.apiService
-      .saveRolls(
-        this.data.parentId,
-        this.rolls.map((x) => {
-          return { id: x.id, name: x.name, value: x.roll };
-        }),
-      )
-      .subscribe((_) => {
-        this.dialogRef.close();
-      });
+    this.dialogRef.close(
+      this.rolls.map((x) => {
+        return { id: x.id, name: x.name, value: x.roll };
+      }),
+    );
   }
 
   closeDialog() {

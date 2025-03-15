@@ -50,7 +50,6 @@ export class StatDialog {
   }
 
   data: {
-    parentId: number;
     stats: StatRelationItem[];
   } = inject(MAT_DIALOG_DATA);
   readonly dialogRef = inject(MatDialogRef<StatDialog>);
@@ -58,16 +57,11 @@ export class StatDialog {
   statValues = [...this.data.stats];
 
   saveValues() {
-    this.apiService
-      .saveStats(
-        this.data.parentId,
-        this.statValues.map((x) => {
-          return { id: x.statId, value: +x.value };
-        }),
-      )
-      .subscribe((_) => {
-        this.dialogRef.close();
-      });
+    this.dialogRef.close(
+      this.statValues.map((x) => {
+        return { id: x.statId, value: +x.value };
+      }),
+    );
   }
 
   closeDialog() {
