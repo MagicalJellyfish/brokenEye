@@ -8,8 +8,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ElementList } from 'src/app/models/elements/ElementList';
 import { ElementType } from 'src/app/models/elements/types/ElementType';
+import { ElementTypeService } from 'src/app/services/element-type.service';
 import { ElementDialog } from 'src/app/ui/views/elements/dialogs/element-dialog/element.dialog';
 import { ReorderDialog } from 'src/app/ui/views/elements/dialogs/reorder-dialog/reorder.dialog';
+import { TemplateSelectDialog } from 'src/app/ui/views/elements/templates/template-select-dialog/template-select.dialog';
+import { TemplateApiService } from 'src/app/ui/views/elements/templates/template.api-service';
 import { ElementListComponent } from '../../../../element/element-list/element-list.component';
 import { CharacterApiService } from '../../../character.api-service';
 
@@ -31,6 +34,8 @@ export class CharacterElementTabComponent {
   constructor(
     private dialog: MatDialog,
     private apiService: CharacterApiService,
+    private templateApiService: TemplateApiService,
+    private elementTypeService: ElementTypeService,
   ) {}
 
   characterId = input.required<number>();
@@ -63,5 +68,30 @@ export class CharacterElementTabComponent {
       .subscribe((x) =>
         this.dialog.open(ElementDialog, { data: { type: this.type(), id: x } }),
       );
+  }
+
+  openTemplateSelectionDialog() {
+    let templateType = this.elementTypeService.getTemplateTypeFromElement(
+      this.type(),
+    );
+    this.dialog
+      .open(TemplateSelectDialog, {
+        data: {
+          type: templateType,
+        },
+      })
+      .afterClosed()
+      .subscribe((id) => {
+        if (id) {
+          this.templateApiService
+            .instantiateTemplate(
+              id,
+              templateType,
+              ElementType.Character,
+              this.characterId(),
+            )
+            .subscribe();
+        }
+      });
   }
 }

@@ -42,4 +42,16 @@ export class TemplateApiService {
       null,
     );
   }
+
+  instantiateTemplate(
+    id: number,
+    type: ElementType,
+    parentType: ElementType,
+    parentId: number,
+  ) {
+    return this.http.post<number>(
+      `brokenHeart:/template/${type}/${id}/instantiate/${parentType}/${parentId}`,
+      null,
+    );
+  }
 }
