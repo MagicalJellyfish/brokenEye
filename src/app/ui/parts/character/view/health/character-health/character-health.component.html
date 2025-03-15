@@ -32,7 +32,11 @@
               </td>
             </ng-container>
 
-            <tr mat-row *matRowDef="let row; columns: ['name', 'hp']"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: ['name', 'hp']"
+              class="hp-impact-row"
+            ></tr>
           </table>
         </mat-card-content>
       </mat-card>
