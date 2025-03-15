@@ -55,20 +55,36 @@ export class CharacterHealthComponent {
 
   deathCountDebouncer = new ValueDebouncer<boolean[]>(
     [],
-    computed(() => {
-      let resultList: boolean[] = [];
-      let counter = this.character().deathCounter;
+    computed(
+      () => {
+        let resultList: boolean[] = [];
+        let counter = this.character().deathCounter;
 
-      for (let i = 0; i < counter.value; i++) {
-        resultList.push(true);
-      }
+        for (let i = 0; i < counter.value; i++) {
+          resultList.push(true);
+        }
 
-      for (let i = counter.value; i < counter.max; i++) {
-        resultList.push(false);
-      }
+        for (let i = counter.value; i < counter.max; i++) {
+          resultList.push(false);
+        }
 
-      return resultList;
-    }),
+        return resultList;
+      },
+      {
+        equal: (x, y) => {
+          if (x.length != y.length) {
+            return false;
+          }
+
+          for (let i = 0; i < x.length; i++) {
+            if (x[i] != y[i]) {
+              return false;
+            }
+          }
+          return true;
+        },
+      },
+    ),
     (x) => this.saveDeathCount(x),
   );
 

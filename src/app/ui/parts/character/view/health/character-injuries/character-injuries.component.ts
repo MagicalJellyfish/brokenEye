@@ -24,7 +24,23 @@ export class CharacterInjuriesComponent {
 
   injuries = new ValueDebouncer<InjuryModel[]>(
     [],
-    computed(() => this.character().injuries),
+    computed(() => this.character().injuries, {
+      equal: (x, y) => {
+        if (x.length != y.length) {
+          return false;
+        }
+
+        for (let i = 0; i < x.length; i++) {
+          if (
+            x[i].bodypart != y[i].bodypart ||
+            x[i].injuryLevel != y[i].injuryLevel
+          ) {
+            return false;
+          }
+        }
+        return true;
+      },
+    }),
     (x) => this.saveInjuries(x),
   );
 
