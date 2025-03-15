@@ -1,5 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRippleModule } from '@angular/material/core';
@@ -11,6 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ValueDebouncer } from 'src/app/logic/core/debouncer/debouncer';
 import { Property } from 'src/app/models/character/CharacterPatch';
 import { CharacterView } from 'src/app/models/character/CharacterView';
+import { RestType } from 'src/app/models/character/RestType';
 import { ElementType } from 'src/app/models/elements/types/ElementType';
 import { ElementDialog } from 'src/app/ui/views/elements/dialogs/element-dialog/element.dialog';
 import { ElementApiService } from 'src/app/ui/views/elements/element.api-service';
@@ -31,6 +33,7 @@ import { CharacterInjuriesComponent } from '../character-injuries/character-inju
     MatTableModule,
     CharacterInjuriesComponent,
     MatRippleModule,
+    MatButtonModule,
   ],
 })
 export class CharacterHealthComponent {
@@ -131,6 +134,18 @@ export class CharacterHealthComponent {
         this.deathCountDebouncer.value()[i] = false;
       }
     }
+  }
+
+  shortRest() {
+    this.rest(RestType.Short);
+  }
+
+  longRest() {
+    this.rest(RestType.Long);
+  }
+
+  rest(restType: RestType) {
+    this.apiService.rest(this.character().id, restType).subscribe();
   }
 
   openDeathCounterDialog() {

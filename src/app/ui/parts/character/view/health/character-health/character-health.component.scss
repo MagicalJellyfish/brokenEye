@@ -43,6 +43,11 @@ mat-card-content {
     }
   }
 
+  .rest {
+    display: flex;
+    column-gap: 1vw;
+  }
+
   character-injuries {
     height: 100%;
   }

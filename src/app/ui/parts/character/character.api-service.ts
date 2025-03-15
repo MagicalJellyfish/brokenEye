@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CharacterPatch } from 'src/app/models/character/CharacterPatch';
 import { InjuryModel } from 'src/app/models/character/CharacterView';
+import { RestType } from 'src/app/models/character/RestType';
 import { ElementParentType } from 'src/app/models/elements/types/ElementParentType';
 import { ElementType } from 'src/app/models/elements/types/ElementType';
 
@@ -24,6 +25,13 @@ export class CharacterApiService {
 
   createCharacter() {
     return this.http.post<number>('brokenHeart:/character', null);
+  }
+
+  rest(id: number, restType: RestType) {
+    return this.http.post(
+      'brokenHeart:/character/' + id + '/rest/' + restType,
+      null,
+    );
   }
 
   patchCharacter(id: number, patches: CharacterPatch[]) {
