@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import {
   ApplicationConfig,
+  ErrorHandler,
   inject,
   provideAppInitializer,
 } from '@angular/core';
@@ -14,6 +15,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { routes } from './app-routing.module';
 import { ApiUrlService } from './services/api/apiUrl/api-url.service';
+import { BrokenErrorHandler } from './services/error-handler';
 import { AuthenticationInterceptor } from './services/interceptors/authentication.interceptor';
 import { LoadingInterceptor } from './services/interceptors/loading.interceptor';
 import { UrlReplacementInterceptor } from './services/interceptors/url-replacement.interceptor';
@@ -22,7 +24,7 @@ import { UserService } from './services/user/user.service';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAppInitializer(() =>
-      initializeConfiguration(inject(ApiUrlService), inject(UserService))
+      initializeConfiguration(inject(ApiUrlService), inject(UserService)),
     ),
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
@@ -32,6 +34,8 @@ export const appConfig: ApplicationConfig = {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'outline' },
     },
+
+    { provide: ErrorHandler, useClass: BrokenErrorHandler },
 
     {
       provide: HTTP_INTERCEPTORS,
@@ -54,7 +58,7 @@ export const appConfig: ApplicationConfig = {
 
 async function initializeConfiguration(
   apiUrlService: ApiUrlService,
-  userService: UserService
+  userService: UserService,
 ): Promise<void> {
   await apiUrlService.loadUrl();
   await userService.initUser();
