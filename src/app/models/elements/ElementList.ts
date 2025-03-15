@@ -14,6 +14,7 @@ interface ElementColumn {
   property: string;
   propertyOf: string | null;
   columnType: ElementColumnType;
+  searchable: boolean;
 }
 
 export enum ElementColumnType {

@@ -1,3 +1,8 @@
+<mat-form-field class="search">
+  <mat-label>Search</mat-label>
+  <input matInput ngModel [(ngModel)]="search" />
+</mat-form-field>
+
 <table mat-table [dataSource]="elements()">
   @for (column of columns(); track $index) {
     <ng-container [matColumnDef]="column.property">
