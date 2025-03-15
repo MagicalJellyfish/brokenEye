@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-content>
+    <mat-tab-group class="full-height-tabs">
+      @for (elementList of elementLists; track $index) {
+        <mat-tab [label]="elementList.title">
+          <template-tab
+            [elementList]="elementList"
+            [type]="elementList.type"
+            (reload)="getTemplateView()"
+          ></template-tab>
+        </mat-tab>
+      }
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

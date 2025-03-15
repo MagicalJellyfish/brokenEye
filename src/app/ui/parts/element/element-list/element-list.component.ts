@@ -5,6 +5,7 @@ import {
   effect,
   input,
   linkedSignal,
+  output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -70,8 +71,21 @@ export class ElementListComponent {
   elementList = input.required<ElementList>();
   type = input.required<ElementType>();
 
+  selectionColumn = input<boolean>(false);
+  selection = output<number>();
+
+  // TODO: Temporary until SignalR notification is implemented
+  closedDialog = output<void>();
+
   columns = computed(() => this.elementList().elementColumns);
-  columnNames = computed(() => this.columns().map((x) => x.property));
+  columnNames = computed(() => {
+    let columnNames = this.columns().map((x) => x.property);
+    if (this.selectionColumn()) {
+      columnNames.push('selection');
+    }
+
+    return columnNames;
+  });
 
   elements = computed(() => this.elementList().elements);
 
@@ -96,13 +110,20 @@ export class ElementListComponent {
   }
 
   openElementDialog(id: number) {
-    this.dialog.open(ElementDialog, { data: { type: this.type(), id: id } });
+    this.dialog
+      .open(ElementDialog, { data: { type: this.type(), id: id } })
+      .afterClosed()
+      .subscribe((_) => this.closedDialog.emit());
   }
 
   saveInput(itemId: number, fieldId: string, value: string) {
     this.apiService
       .updateElement(this.type(), itemId, [{ fieldId: fieldId, value: value }])
       .subscribe();
+  }
+
+  select(id: number) {
+    this.selection.emit(id);
   }
 }
 

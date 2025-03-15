@@ -1,0 +1,11 @@
+<div class="buttons">
+  <button mat-button (click)="createElement()">
+    <mat-icon>add</mat-icon>Create
+  </button>
+</div>
+
+<element-list
+  [elementList]="elementList()"
+  [type]="type()"
+  (closedDialog)="triggerReload()"
+></element-list>

@@ -93,6 +93,23 @@
                   <mat-text-column name="value"></mat-text-column>
                 }
 
+                @if (listIsTemplateType(list.relationType)) {
+                  <ng-container matColumnDef="unrelate">
+                    <td
+                      mat-cell
+                      *matCellDef="let element"
+                      (click)="$event.stopPropagation()"
+                    >
+                      <button
+                        mat-icon-button
+                        (click)="unrelateTemplate(element.id, list.elementType)"
+                      >
+                        <mat-icon>highlight_off</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+                }
+
                 <tr
                   mat-row
                   *matRowDef="
@@ -141,7 +158,31 @@
                   mat-button
                   (click)="createNestedElement(list.elementType)"
                 >
-                  Add Element
+                  Create Element
+                </button>
+              }
+              @case (relationTypes.SingleTemplate) {
+                @if (list.relationItems.length == 0) {
+                  <button
+                    mat-button
+                    (click)="createNestedElement(list.elementType)"
+                  >
+                    Create Template
+                  </button>
+                  <button mat-button (click)="relateTemplate(list.elementType)">
+                    Add Template
+                  </button>
+                }
+              }
+              @case (relationTypes.MultipleTemplates) {
+                <button
+                  mat-button
+                  (click)="createNestedElement(list.elementType)"
+                >
+                  Create Template
+                </button>
+                <button mat-button (click)="relateTemplate(list.elementType)">
+                  Add Template
                 </button>
               }
             }

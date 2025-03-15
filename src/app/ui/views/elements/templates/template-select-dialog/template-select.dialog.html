@@ -1,0 +1,13 @@
+<mat-dialog-content>
+  @if (elementList) {
+    <element-list
+      [elementList]="elementList"
+      [type]="data.type"
+      [selectionColumn]="true"
+      (selection)="select($event)"
+    ></element-list>
+  }
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</mat-dialog-actions>

@@ -12,21 +12,7 @@
       </button>
     </mat-menu>
 
-    <button mat-button routerLink="legacy/templates">Element-Templates</button>
-
-    <button mat-button routerLink="legacy/char/npc/view">NPCs</button>
-
-    <button mat-button [matMenuTriggerFor]="charTemplateMenu">
-      Character-Templates
-    </button>
-    <mat-menu #charTemplateMenu="matMenu">
-      <button mat-menu-item routerLink="legacy/charTemplate/view">
-        <mat-icon>search</mat-icon>View
-      </button>
-      <button mat-menu-item routerLink="legacy/charTemplate/create">
-        <mat-icon>add</mat-icon>Create
-      </button>
-    </mat-menu>
+    <button mat-button routerLink="template/list">Templates</button>
   </div>
 
   <div class="rightSet">

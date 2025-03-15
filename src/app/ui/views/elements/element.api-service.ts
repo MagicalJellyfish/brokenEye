@@ -4,7 +4,6 @@ import { RollModel } from 'src/app/models/elements/models/RollModel';
 import { StatValueModel } from 'src/app/models/elements/models/StatValueModel';
 import { ElementReorder } from 'src/app/models/elements/saves/ElementReorder';
 import { ElementUpdate } from 'src/app/models/elements/saves/ElementUpdate';
-import { ElementParentType } from 'src/app/models/elements/types/ElementParentType';
 import { ElementType } from 'src/app/models/elements/types/ElementType';
 
 @Injectable({
@@ -34,8 +33,8 @@ export class ElementApiService {
 
   createElement(
     type: ElementType,
-    parentType: ElementParentType,
-    parentId: number,
+    parentType: ElementType | null,
+    parentId: number | null,
   ) {
     return this.http.post<number>('brokenHeart:/element/' + type, {
       parentType: parentType,
@@ -47,11 +46,17 @@ export class ElementApiService {
     return this.http.put('brokenHeart:/element/reorder/' + type, reorders);
   }
 
-  saveStats(id: number, stats: StatValueModel[]) {
-    return this.http.put('brokenHeart:/modifier/stats/' + id, stats);
+  saveStats(type: ElementType, id: number, stats: StatValueModel[]) {
+    return this.http.put(
+      'brokenHeart:/element/stats/' + type + '/' + id,
+      stats,
+    );
   }
 
-  saveRolls(id: number, stats: RollModel[]) {
-    return this.http.put('brokenHeart:/ability/rolls/' + id, stats);
+  saveRolls(type: ElementType, id: number, rolls: RollModel[]) {
+    return this.http.put(
+      'brokenHeart:/element/rolls/' + type + '/' + id,
+      rolls,
+    );
   }
 }

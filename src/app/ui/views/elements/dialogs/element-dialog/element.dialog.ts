@@ -11,6 +11,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
@@ -27,10 +28,11 @@ import {
 import { ReplenishType } from 'src/app/models/elements/models/ReplenishType';
 import { TargetType } from 'src/app/models/elements/models/TargetType';
 import { ElementUpdate } from 'src/app/models/elements/saves/ElementUpdate';
-import { ElementParentType } from 'src/app/models/elements/types/ElementParentType';
 import { ElementType } from 'src/app/models/elements/types/ElementType';
 import { ConfirmationDialog } from 'src/app/ui/core/confirmation-dialog/confirmation.dialog';
 import { ElementApiService } from '../../element.api-service';
+import { TemplateSelectDialog } from '../../templates/template-select-dialog/template-select.dialog';
+import { TemplateApiService } from '../../templates/template.api-service';
 import { RollDialog } from '../roll-dialog/roll.dialog';
 import { StatDialog } from '../stat-dialog/stat.dialog';
 
@@ -49,11 +51,13 @@ import { StatDialog } from '../stat-dialog/stat.dialog';
     MatTabsModule,
     MatTableModule,
     NgClass,
+    MatIconModule,
   ],
 })
 export class ElementDialog {
   constructor(
     private apiService: ElementApiService,
+    private templateApiService: TemplateApiService,
     private dialog: MatDialog,
   ) {
     this.getElement();
@@ -97,6 +101,11 @@ export class ElementDialog {
         break;
       case RelationType.Stats:
         columns.push('value');
+        break;
+      case RelationType.SingleTemplate:
+      case RelationType.MultipleTemplates:
+        columns.push('unrelate');
+        break;
     }
 
     return columns;
@@ -111,47 +120,87 @@ export class ElementDialog {
 
   openRollEditDialog(rolls: RollRelationItem[]) {
     this.dialog
-      .open(RollDialog, { data: { parentId: this.data.id, rolls: rolls } })
+      .open(RollDialog, {
+        data: {
+          parentType: this.data.type,
+          parentId: this.data.id,
+          rolls: rolls,
+        },
+      })
       .afterClosed()
-      .subscribe((_) => this.getElement());
+      .subscribe((rolls) => {
+        if (rolls) {
+          this.apiService
+            .saveRolls(this.data.type, this.data.id, rolls)
+            .subscribe((_) => this.getElement());
+        }
+      });
   }
 
   openStatEditDialog(stats: StatRelationItem[]) {
     this.dialog
       .open(StatDialog, {
         data: {
+          parentType: this.data.type,
           parentId: this.data.id,
           stats: stats,
         },
       })
       .afterClosed()
+      .subscribe((statValues) => {
+        if (statValues) {
+          this.apiService
+            .saveStats(this.data.type, this.data.id, statValues)
+            .subscribe((_) => this.getElement());
+        }
+      });
+  }
+
+  relateTemplate(type: ElementType) {
+    this.openTemplateSelectDialog(type).subscribe((id) => {
+      if (id) {
+        this.templateApiService
+          .relateTemplate(id, type, this.data.type, this.data.id)
+          .subscribe((_) => this.getElement());
+      }
+    });
+  }
+
+  unrelateTemplate(id: number, type: ElementType) {
+    this.templateApiService
+      .unrelateTemplate(id, type, this.data.type, this.data.id)
       .subscribe((_) => this.getElement());
+  }
+
+  openTemplateSelectDialog(type: ElementType) {
+    return this.dialog
+      .open(TemplateSelectDialog, {
+        data: {
+          type: type,
+        },
+      })
+      .afterClosed();
   }
 
   listIsElementType(type: RelationType) {
     return (
       type == RelationType.SingleElement ||
-      type == RelationType.MultipleElements
+      type == RelationType.MultipleElements ||
+      type == RelationType.SingleTemplate ||
+      type == RelationType.MultipleTemplates
+    );
+  }
+
+  listIsTemplateType(type: RelationType) {
+    return (
+      type == RelationType.SingleTemplate ||
+      type == RelationType.MultipleTemplates
     );
   }
 
   createNestedElement(type: ElementType) {
-    let parentType: ElementParentType;
-    switch (this.data.type) {
-      case ElementType.Trait:
-      case ElementType.Item:
-      case ElementType.Effect:
-        parentType = ElementParentType.Modifier;
-        break;
-      case ElementType.Counter:
-        parentType = ElementParentType.Counter;
-        break;
-      default:
-        throw new Error('Parent type of element could not be determined.');
-    }
-
     this.apiService
-      .createElement(type, parentType, this.data.id)
+      .createElement(type, this.data.type, this.data.id)
       .subscribe((x) => {
         this.openNestedDialog(x, type);
       });
