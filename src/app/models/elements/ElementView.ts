@@ -7,13 +7,13 @@ export interface ElementView {
 }
 
 export interface Text {
-  fieldId: number;
+  fieldId: string;
   title: string;
   content: string;
 }
 
 export interface Field {
-  fieldId: number;
+  fieldId: string;
   title: string;
   type: FieldType;
   content: any;
@@ -56,6 +56,8 @@ export interface StatRelationItem {
 export enum RelationType {
   SingleElement,
   MultipleElements,
+  SingleTemplate,
+  MultipleTemplates,
   Stats,
   Roll,
 }

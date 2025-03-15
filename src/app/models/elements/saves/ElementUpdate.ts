@@ -1,4 +1,4 @@
 export interface ElementUpdate {
-  fieldId: number;
+  fieldId: string;
   value: string;
 }

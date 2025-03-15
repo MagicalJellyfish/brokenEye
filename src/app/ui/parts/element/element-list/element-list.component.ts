@@ -79,14 +79,14 @@ export class ElementListComponent {
 
   debouncers: InputDebouncer[] = [];
 
-  getDebouncer(elementId: number, columnFieldId: number) {
+  getDebouncer(elementId: number, columnFieldId: string) {
     return this.debouncers
       .find((x) => x.itemId == elementId)!
       .fields.find((x) => x.fieldId == columnFieldId)!
       .signal();
   }
 
-  setDebouncer(elementId: number, columnFieldId: number, value: string) {
+  setDebouncer(elementId: number, columnFieldId: string, value: string) {
     let fieldDebouncer = this.debouncers
       .find((x) => x.itemId == elementId)!
       .fields.find((x) => x.fieldId == columnFieldId)!;
@@ -99,8 +99,7 @@ export class ElementListComponent {
     this.dialog.open(ElementDialog, { data: { type: this.type(), id: id } });
   }
 
-  saveInput(itemId: number, fieldId: number, value: string) {
-    console.log(itemId + ' ' + fieldId + ' ' + value);
+  saveInput(itemId: number, fieldId: string, value: string) {
     this.apiService
       .updateElement(this.type(), itemId, [{ fieldId: fieldId, value: value }])
       .subscribe();
@@ -113,7 +112,7 @@ interface InputDebouncer {
 }
 
 interface FieldDebouncer {
-  fieldId: number;
+  fieldId: string;
   signal: WritableSignal<string>;
   debouncer: Debouncer<string>;
 }
