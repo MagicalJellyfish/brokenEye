@@ -64,6 +64,11 @@
       </mat-card>
     </div>
 
+    <div class="rest">
+      <button mat-button (click)="shortRest()">Short Rest</button>
+      <button mat-button (click)="longRest()">Long Rest</button>
+    </div>
+
     <character-injuries [character]="character()"></character-injuries>
   </mat-card-content>
 </mat-card>
