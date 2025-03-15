@@ -8,16 +8,36 @@ export class BrokenErrorHandler implements ErrorHandler {
 
   handleError(error: Error) {
     console.error(error);
-    let errorMessage;
-    if (error instanceof HttpErrorResponse) {
-      if (error.error.errors) {
-        errorMessage = error.error.errors.type;
-      }
-      errorMessage = errorMessage ?? error.error ?? error.message;
-    } else {
-      errorMessage = error.message;
-    }
+    this.snackBar.open(this.getErrorMessage(error), 'Close');
+  }
 
-    this.snackBar.open(errorMessage, 'Close');
+  getErrorMessage(error: Error) {
+    if (error instanceof HttpErrorResponse) {
+      try {
+        if (error.error) {
+          if (error.error.errors) {
+            return error.error.errors.type;
+          }
+
+          if (typeof error.error != 'object') {
+            return error.error;
+          }
+        }
+
+        if (error.status == 0) {
+          return 'Server not reachable';
+        }
+
+        if (error.message) {
+          return error.message;
+        }
+
+        return 'Unknown request error occurred. Please check and pass on the error in the console.';
+      } catch (_) {
+        return 'An unexpected error has occurred trying to show a request error message. Please check and pass on the error in the console.';
+      }
+    } else {
+      return error.message;
+    }
   }
 }
