@@ -17,8 +17,7 @@ export class Debouncer<T> {
 
   public debouncing: boolean = false;
 
-  //TODO: Make private once all views are migrated
-  public inputSubject = new Subject<T>();
+  protected inputSubject = new Subject<T>();
 
   input(value: T) {
     this.inputSubject.next(value);
@@ -46,6 +45,8 @@ export class ValueDebouncer<T> extends Debouncer<T> {
       if (this.initialized) {
         this.inputSubject.next(this.value());
       }
+
+      // Don't trigger on view initialization signal detection run
       this.value();
       this.initialized = true;
     });
