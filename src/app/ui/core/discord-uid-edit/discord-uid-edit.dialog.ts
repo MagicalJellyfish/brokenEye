@@ -35,7 +35,9 @@ export class DiscordUidEditDialog implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.apiService.getDiscordUid().subscribe((x) => (this.discordId = x));
+    this.apiService.getDiscordUid().subscribe((x) => {
+      this.discordId = x.discordId;
+    });
   }
 
   discordId: string | undefined;
