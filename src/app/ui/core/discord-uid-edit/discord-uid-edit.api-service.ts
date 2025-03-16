@@ -8,7 +8,7 @@ export class DiscordUidEditApiService {
   constructor(private http: HttpClient) {}
 
   getDiscordUid() {
-    return this.http.get<string>('brokenHeart:/Auth/discord');
+    return this.http.get<any>('brokenHeart:/Auth/discord');
   }
 
   updateDiscordUid(discordId: string) {
