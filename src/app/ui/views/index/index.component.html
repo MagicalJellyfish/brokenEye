@@ -1,5 +1,38 @@
 <mat-card>
   <mat-card-header>
+    <mat-card-title> broken v2.1.1</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ul>
+      <li>Multiple small backend fixes notably including:</li>
+      <ul>
+        <li>Error descriptions are now shown in production</li>
+        <li>
+          Next-turn command no longer fails if one of the next character's
+          effects would be removed
+        </li>
+        <li>
+          Removing an effect template from an ability no longer throws an error
+        </li>
+        <li>
+          Setting a default character no longer sets the character already set
+          as default for this account
+        </li>
+        <li>
+          Adding and removing combatants and events should now correctly adjust
+          turn tracking to prevent duplicate or skipped turns
+        </li>
+        <li>Temporary HP are now considered when taking damage</li>
+        <li>
+          Abilities with replenish-type "None" no longer replenish on long rest
+        </li>
+      </ul>
+    </ul>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
     <mat-card-title> broken v2.1.0</mat-card-title>
   </mat-card-header>
   <mat-card-content>
