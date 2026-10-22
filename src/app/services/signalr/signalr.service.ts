@@ -17,54 +17,85 @@ export class SignalrService {
   constructor(
     private apiUrlService: ApiUrlService,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(this.apiUrlService.url() + '/signalr', {
-        accessTokenFactory: () => this.userService.accessToken!,
+        accessTokenFactory: () => this.getAccessToken(),
       })
+      .withAutomaticReconnect()
       .build();
-  }
 
-  registrations: string[] = [];
-
-  async StartConnection() {
-    await this.hubConnection!.start();
     this.hubConnection.on('error', (message: string) =>
       this.snackBar.open('Websocket Error - ' + message, 'Close', {
         duration: 60000,
-      })
+      }),
     );
+
+    // A reconnect gets a new connection id, which is in none of the old groups
+    this.hubConnection.onreconnected(() => {
+      for (const id of this.registrations) {
+        this.hubConnection.invoke('RegisterForCharChange', id);
+      }
+    });
   }
 
-  async RegisterForCharChange(id: number, func: () => void) {
-    if (this.hubConnection.state != HubConnectionState.Connected) {
-      await this.StartConnection();
+  registrations: number[] = [];
+  private startPromise: Promise<void> | null = null;
+  private stopPromise: Promise<void> | null = null;
+
+  // Tokens may have been rotated by another tab or be expired; never connect with a stale one
+  private async getAccessToken(): Promise<string> {
+    const expiration = this.userService.accessTokenExpiration;
+    if (expiration != null && expiration < new Date()) {
+      await this.userService.refreshTokens(this.userService.accessToken);
     }
-
-    this.hubConnection.invoke('RegisterForCharChange', id);
-    this.hubConnection.on('charChanged/' + id, func);
-
-    this.registrations.push('charChanged/' + id);
+    return this.userService.accessToken!;
   }
 
-  UnregisterFromCharChange(id: number) {
-    if (this.hubConnection.state != HubConnectionState.Connected) {
-      this.registrations = [];
+  async StartConnection() {
+    // Leaving one character for another may stop the connection right before restarting it
+    await this.stopPromise;
+
+    if (this.hubConnection.state == HubConnectionState.Connected) {
       return;
     }
 
-    this.registrations = this.registrations.filter(
-      (x) => x != 'charChanged/' + id
-    );
+    // Several components may register at once; only start the connection once
+    if (this.startPromise == null) {
+      this.startPromise = this.hubConnection
+        .start()
+        .finally(() => (this.startPromise = null));
+    }
+    await this.startPromise;
+  }
+
+  async RegisterForCharChange(id: number, func: () => void) {
+    await this.StartConnection();
+
+    this.hubConnection.invoke('RegisterForCharChange', id);
+    this.hubConnection.off('charChanged/' + id);
+    this.hubConnection.on('charChanged/' + id, func);
+
+    this.registrations.push(id);
+  }
+
+  UnregisterFromCharChange(id: number) {
+    this.registrations = this.registrations.filter((x) => x != id);
+    this.hubConnection.off('charChanged/' + id);
+
+    if (this.hubConnection.state != HubConnectionState.Connected) {
+      return;
+    }
 
     if (this.registrations.length == 0) {
-      this.hubConnection.stop();
+      this.stopPromise = this.hubConnection
+        .stop()
+        .finally(() => (this.stopPromise = null));
       return;
     }
 
     this.hubConnection.invoke('UnregisterFromCharChange', id);
-    this.hubConnection.off('charChanged/' + id);
   }
 
   RollStat(charId: number, statId: number) {

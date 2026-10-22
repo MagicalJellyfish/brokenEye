@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CharacterView } from 'src/app/models/character/CharacterView';
@@ -22,7 +22,7 @@ import { CharacterViewApiService } from '../character-view.api-service';
     CharacterFlavorComponent,
   ],
 })
-export class CharacterViewComponent {
+export class CharacterViewComponent implements OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private apiService: CharacterViewApiService,
@@ -33,6 +33,10 @@ export class CharacterViewComponent {
     signalRService.RegisterForCharChange(this.routeId, () => {
       this.getCharacter();
     });
+  }
+
+  ngOnDestroy() {
+    this.signalRService.UnregisterFromCharChange(this.routeId);
   }
 
   routeId = +this.route.snapshot.paramMap.get('id')!;
