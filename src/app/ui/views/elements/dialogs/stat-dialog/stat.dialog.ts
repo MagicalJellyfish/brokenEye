@@ -49,12 +49,10 @@ export class StatDialog {
     });
   }
 
-  data: {
-    stats: StatRelationItem[];
-  } = inject(MAT_DIALOG_DATA);
+  data: { stats: StatRelationItem[] } = inject(MAT_DIALOG_DATA);
   readonly dialogRef = inject(MatDialogRef<StatDialog>);
 
-  statValues = [...this.data.stats];
+  statValues = this.data.stats.map((x) => ({ ...x }));
 
   saveValues() {
     this.dialogRef.close(
