@@ -77,6 +77,13 @@ export class ElementDialog {
     });
   }
 
+  // Sub-dialogs can only change relations, so keep unsaved edits to texts and fields
+  refreshRelations() {
+    this.apiService.getElement(this.data.type, this.data.id).subscribe((x) => {
+      this.element.relations = (x as ElementView).relations;
+    });
+  }
+
   enumOptions(type: EnumType) {
     let targetEnum = EnumTypeDefinitions.find((x) => x.type == type)!.enum;
 
@@ -115,7 +122,7 @@ export class ElementDialog {
     this.dialog
       .open(ElementDialog, { data: { type: type, id: id } })
       .afterClosed()
-      .subscribe((_) => this.getElement());
+      .subscribe((_) => this.refreshRelations());
   }
 
   openRollEditDialog(rolls: RollRelationItem[]) {
@@ -132,7 +139,7 @@ export class ElementDialog {
         if (rolls) {
           this.apiService
             .saveRolls(this.data.type, this.data.id, rolls)
-            .subscribe((_) => this.getElement());
+            .subscribe((_) => this.refreshRelations());
         }
       });
   }
@@ -151,7 +158,7 @@ export class ElementDialog {
         if (statValues) {
           this.apiService
             .saveStats(this.data.type, this.data.id, statValues)
-            .subscribe((_) => this.getElement());
+            .subscribe((_) => this.refreshRelations());
         }
       });
   }
@@ -161,7 +168,7 @@ export class ElementDialog {
       if (id) {
         this.templateApiService
           .relateTemplate(id, type, this.data.type, this.data.id)
-          .subscribe((_) => this.getElement());
+          .subscribe((_) => this.refreshRelations());
       }
     });
   }
@@ -169,7 +176,7 @@ export class ElementDialog {
   unrelateTemplate(id: number, type: ElementType) {
     this.templateApiService
       .unrelateTemplate(id, type, this.data.type, this.data.id)
-      .subscribe((_) => this.getElement());
+      .subscribe((_) => this.refreshRelations());
   }
 
   openTemplateSelectDialog(type: ElementType) {
