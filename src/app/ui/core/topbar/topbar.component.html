@@ -21,7 +21,7 @@
     </button>
 
     <button
-      *ngIf="this.userService.username == null"
+      *ngIf="this.userService.username() == null"
       mat-icon-button
       matTooltip="Account"
       [matMenuTriggerFor]="accountMenu"
@@ -30,30 +30,30 @@
     </button>
     <button
       mat-button
-      *ngIf="this.userService.username != null"
+      *ngIf="this.userService.username() != null"
       matTooltip="Account"
       [matMenuTriggerFor]="accountMenu"
     >
-      <mat-icon>person</mat-icon>{{ this.userService.username }}
+      <mat-icon>person</mat-icon>{{ this.userService.username() }}
     </button>
 
     <mat-menu #accountMenu="matMenu">
       <button
-        *ngIf="this.userService.username == null"
+        *ngIf="this.userService.username() == null"
         mat-menu-item
         routerLink="/account"
       >
         <mat-icon>login</mat-icon>Login/Register
       </button>
       <button
-        *ngIf="this.userService.username != null"
+        *ngIf="this.userService.username() != null"
         mat-menu-item
         (click)="logout()"
       >
         <mat-icon>logout</mat-icon>Log out
       </button>
       <button
-        *ngIf="this.userService.username != null"
+        *ngIf="this.userService.username() != null"
         mat-menu-item
         (click)="changeDiscordUserId()"
       >

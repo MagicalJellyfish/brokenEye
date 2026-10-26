@@ -193,13 +193,23 @@
   }
 </mat-dialog-content>
 <mat-dialog-actions>
-  @if (data.type != elementTypes.InjuryEffect) {
-    <button mat-button class="error-button" (click)="deleteElement()">
-      Delete
+  <div>
+    @if (data.type == elementTypes.Item) {
+      <button mat-button (click)="openTransferDialog()">
+        Give to another character
+      </button>
+    }
+  </div>
+
+  <div>
+    @if (data.type != elementTypes.InjuryEffect) {
+      <button mat-button class="error-button" (click)="deleteElement()">
+        Delete
+      </button>
+    }
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-button (click)="saveElement()" class="secondary-button">
+      Save
     </button>
-  }
-  <button mat-button (click)="closeDialog()">Cancel</button>
-  <button mat-button (click)="saveElement()" class="secondary-button">
-    Save
-  </button>
+  </div>
 </mat-dialog-actions>

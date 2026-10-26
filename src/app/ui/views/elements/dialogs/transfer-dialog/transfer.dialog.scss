@@ -1,0 +1,19 @@
+mat-dialog-content {
+  width: 30vw;
+
+  display: flex;
+  flex-direction: column;
+
+  .amount {
+    display: flex;
+    column-gap: 1vw;
+
+    mat-slider {
+      flex: 1;
+    }
+
+    mat-form-field {
+      width: 96px;
+    }
+  }
+}

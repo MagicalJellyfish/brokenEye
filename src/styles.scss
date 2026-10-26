@@ -40,6 +40,12 @@
     )
   );
 
+  @include mat.slider-overrides(
+    (
+      inactive-track-color: var(--mat-sys-on-surface-variant),
+    )
+  );
+
   @include mat.dialog-overrides(
     (
       container-max-width: "90vw",

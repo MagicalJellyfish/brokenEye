@@ -53,6 +53,13 @@ export class ElementApiService {
     );
   }
 
+  transferItem(id: number, characterId: number, amount: number) {
+    return this.http.post<number>(
+      'brokenHeart:/element/item/' + id + '/transfer',
+      { characterId: characterId, amount: amount },
+    );
+  }
+
   saveRolls(type: ElementType, id: number, rolls: RollModel[]) {
     return this.http.put(
       'brokenHeart:/element/rolls/' + type + '/' + id,

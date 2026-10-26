@@ -18,14 +18,14 @@ export class PlayerListViewComponent {
     apiService
       .getCharacterListByFilter({
         isNPC: false,
-        ownedBy: userService.username!,
+        ownedBy: userService.username()!,
       })
       .subscribe((x) => (this.ownedCharacters = x));
 
     apiService
       .getCharacterListByFilter({
         isNPC: false,
-        notOwnedBy: userService.username!,
+        notOwnedBy: userService.username()!,
       })
       .subscribe((x) => (this.allCharacters = x));
   }

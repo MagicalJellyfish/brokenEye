@@ -39,7 +39,7 @@ export class RollDialog {
   } = inject(MAT_DIALOG_DATA);
   readonly dialogRef = inject(MatDialogRef<RollDialog>);
 
-  rolls = [...this.data.rolls];
+  rolls = this.data.rolls.map((x) => ({ ...x }));
 
   add() {
     this.rolls = this.rolls.concat([{ id: 0, name: '', roll: '' }]);

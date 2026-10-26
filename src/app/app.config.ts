@@ -10,7 +10,6 @@ import {
   provideAppInitializer,
 } from '@angular/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { routes } from './app-routing.module';
@@ -41,7 +40,7 @@ export const appConfig: ApplicationConfig = {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
       multi: true,
-      deps: [MatSnackBar, UserService, ApiUrlService],
+      deps: [UserService],
     },
     {
       provide: HTTP_INTERCEPTORS,
