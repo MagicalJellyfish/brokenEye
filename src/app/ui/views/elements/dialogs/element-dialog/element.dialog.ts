@@ -35,6 +35,7 @@ import { TemplateSelectDialog } from '../../templates/template-select-dialog/tem
 import { TemplateApiService } from '../../templates/template.api-service';
 import { RollDialog } from '../roll-dialog/roll.dialog';
 import { StatDialog } from '../stat-dialog/stat.dialog';
+import { TransferDialog } from '../transfer-dialog/transfer.dialog';
 
 @Component({
   templateUrl: './element.dialog.html',
@@ -228,7 +229,44 @@ export class ElementDialog {
       });
   }
 
+  openTransferDialog() {
+    let updates = this.collectUpdates();
+    let value = (fieldId: string) =>
+      updates.find((x) => x.fieldId == fieldId)?.value;
+
+    this.dialog
+      .open(TransferDialog, {
+        data: {
+          name: value('Name'),
+          amount: Number(value('Amount')),
+        },
+      })
+      .afterClosed()
+      .subscribe((transfer) => {
+        if (transfer) {
+          // Save edits before transfer
+          this.apiService
+            .updateElement(this.data.type, this.data.id, updates)
+            .subscribe((_) =>
+              this.apiService
+                .transferItem(
+                  this.data.id,
+                  transfer.characterId,
+                  transfer.amount,
+                )
+                .subscribe((_) => this.dialogRef.close()),
+            );
+        }
+      });
+  }
+
   saveElement() {
+    this.apiService
+      .updateElement(this.data.type, this.data.id, this.collectUpdates())
+      .subscribe((_) => this.dialogRef.close());
+  }
+
+  private collectUpdates() {
     let updates: ElementUpdate[] = [];
 
     this.element.texts.forEach((x) => {
@@ -250,9 +288,7 @@ export class ElementDialog {
       }
     });
 
-    this.apiService
-      .updateElement(this.data.type, this.data.id, updates)
-      .subscribe((_) => this.dialogRef.close());
+    return updates;
   }
 
   closeDialog() {

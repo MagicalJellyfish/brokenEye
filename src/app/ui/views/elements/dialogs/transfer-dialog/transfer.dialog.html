@@ -1,0 +1,63 @@
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Character</mat-label>
+    <input
+      matInput
+      [(ngModel)]="search"
+      (ngModelChange)="characterId = null"
+      [matAutocomplete]="characterAutocomplete"
+    />
+
+    <mat-autocomplete
+      #characterAutocomplete
+      (optionSelected)="selectCharacter($event.option.value)"
+    >
+      @if (filter(players).length > 0) {
+        <mat-optgroup label="Players">
+          @for (character of filter(players); track character.id) {
+            <mat-option [value]="character">{{ character.name }}</mat-option>
+          }
+        </mat-optgroup>
+      }
+
+      @if (filter(npcs).length > 0) {
+        <mat-optgroup label="NPCs">
+          @for (character of filter(npcs); track character.id) {
+            <mat-option [value]="character">{{ character.name }}</mat-option>
+          }
+        </mat-optgroup>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+
+  @if (data.amount > 1) {
+    <div class="amount">
+      <mat-slider min="1" [max]="data.amount" step="1">
+        <input matSliderThumb [(ngModel)]="amount" />
+      </mat-slider>
+
+      <mat-form-field>
+        <mat-label>Amount</mat-label>
+        <input
+          matInput
+          type="number"
+          min="1"
+          [max]="data.amount"
+          [(ngModel)]="amount"
+        />
+      </mat-form-field>
+    </div>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button
+    mat-button
+    class="secondary-button"
+    [disabled]="characterId == null || !amountValid"
+    (click)="give()"
+  >
+    Give
+  </button>
+</mat-dialog-actions>
